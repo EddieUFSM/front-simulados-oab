@@ -1,0 +1,27 @@
+.owl-nav button.owl-prev, .owl-nav button.owl-next {
+  position: absolute;
+  top: 50%;
+  margin: 0;
+  transition: all 0.3s ease-in-out;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.38) !important;
+}
+.owl-nav button.owl-prev {
+  left: 0;
+}
+.owl-nav button.owl-next {
+  right: 0;
+}
+
+.owl-nav button.owl-prev span:hover, .owl-nav button.owl-next span:hover {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.owl-nav button.owl-next span, .owl-nav button.owl-prev span {
+  font-size: 50px;
+  position: relative;
+  top: -20px;
+}
+.owl-nav button:focus {
+  outline: none;
+}
