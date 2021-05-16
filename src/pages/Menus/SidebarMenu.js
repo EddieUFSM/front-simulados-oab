@@ -53,6 +53,7 @@ export default function SideBarMenu() {
     const history = useHistory();
     const [openUsersOptions, setOpenUsersOption] = useState(false);
     const { user, token } = isAuthenticated()
+
     const handleClickBlog = () => {
         setOpenBlogOptions(!openBlogOptions);
     }
@@ -68,6 +69,7 @@ export default function SideBarMenu() {
     const handleClickUsers = () => {
         setOpenUsersOption(!openUsersOptions)
     }
+
     return (
         <Fragment>
             {/** Menu Lateral parte 01*/}
@@ -95,7 +97,13 @@ export default function SideBarMenu() {
                             <ListItemIcon> <Ballot /> </ListItemIcon>
                             <ListItemText classes={{
                                 primary: classes.ListItemText
-                            }} primary={'Primeira Fase'} />
+                            }} primary={'Primeira Fase Customizada'} />
+                        </ListItem>
+                        <ListItem button classes={{ root: classes.nested }} component={RouterLink} to="/FirstFase/SimulatedByExam">
+                            <ListItemIcon> <Ballot /> </ListItemIcon>
+                            <ListItemText classes={{
+                                primary: classes.ListItemText
+                            }} primary={'Primeira Fase Por Prova'} />
                         </ListItem>
                         {isAdmin() &&
                             <Fragment>

@@ -79,3 +79,27 @@ export const isAdmin = () => {
         return false
     }
 }
+
+export const isPro = () => {
+    if (typeof window == 'undefined') {
+        return false
+    } if (JSON.parse(localStorage.getItem('jwt')) === null) {
+        return false
+    } if (JSON.parse(localStorage.getItem('jwt')).user.roleSubscription === 1) {
+        return JSON.parse(localStorage.getItem('jwt'))
+    } else {
+        return false
+    }
+}
+
+export const isFull = () => {
+    if (typeof window == 'undefined') {
+        return false
+    } if (JSON.parse(localStorage.getItem('jwt')) === null) {
+        return false
+    } if (JSON.parse(localStorage.getItem('jwt')).user.roleSubscription === 2) {
+        return JSON.parse(localStorage.getItem('jwt'))
+    } else {
+        return false
+    }
+}

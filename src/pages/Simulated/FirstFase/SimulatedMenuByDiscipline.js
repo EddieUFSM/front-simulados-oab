@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight } from '@material-ui/icons'
 import { MdMenu } from 'react-icons/md'
 import TopMenu from 'pages/Menus/TopMenu'
 import SideBarMenu from 'pages/Menus/SidebarMenu'
-import GameMenu from 'components/FirstFase/FormFirstFaseSimulated';
+import FormFirstFaseCustomSimulated from 'components/FirstFase/FormFirstFaseCustomSimulated';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -185,7 +185,7 @@ const useStyles = makeStyles((theme) => ({
 
 }))
 
-export default function Simulado() {
+export default function CustomSimulatedMenu() {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -239,7 +239,7 @@ export default function Simulado() {
                 {/** Main content */}
 
                 <Paper className={classes.pageContent}>
-                    <GameMenu />
+                    <FormFirstFaseCustomSimulated />
                 </Paper>
             </main>
         </div>

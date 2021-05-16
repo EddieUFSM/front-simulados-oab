@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Grid, makeStyles, Card, CardContent, Typography, TextField, Select, Button, CardActions, FormControl, InputLabel } from '@material-ui/core'
-import { createSimulated } from 'admin/apiAdmin'
+import { createCustomSimulatedByDiscipline } from 'admin/apiAdmin'
 import { useHistory } from "react-router-dom"
 import Snackbar from '@material-ui/core/Snackbar'
 import { isAuthenticated } from 'auth'
@@ -51,7 +51,8 @@ export default function MenuGame() {
         { discipline: "ESTATUTO DA ADVOCACIA" },
         { discipline: "REGULAMENTO GERAL" },
         { discipline: "CÓDIGO DE ÉTICA" },
-        { discipline: "DISCIPLINA DA OAB" }
+        { discipline: "DISCIPLINA DA OAB" },
+        { discipline: "CÓDIGO DE TRÂNSITO BRASILEIRO" }
     ]
     const history = useHistory();
     const [questionsAvailable, setQuestionsAvailable] = useState(80)
@@ -133,7 +134,7 @@ export default function MenuGame() {
         })
 
 
-        createSimulated(user._id, token, values).then(data => {
+        createCustomSimulatedByDiscipline(user._id, token, values).then(data => {
 
             if (data.error) {
                 setMessage(data.message)

@@ -27,7 +27,6 @@ import CreatePost from './pages/Blog/Post/Create'
 import CreateProduct from './pages/Shopping/Product/Create'
 import CreateQuestion from "./pages/Simulated/Questions/Create/Create"
 import CreateTheme from "./pages/Simulated/Theme/Create"
-import CustomSimulatedMenu from "./pages/Simulated/FirstFase/CustomSimulatedMenu"
 import EditEssayQuestion from './pages/Simulated/EssayQuestions/Edit'
 import EditPiece from './pages/Simulated/Piece/Edit'
 import EditProduct from './pages/Shopping/Product/Edit'
@@ -53,6 +52,8 @@ import SingleMessage from "./pages/Messages/Message"
 import SinglePost from "./pages/Blog/Post/Single"
 import SingleProduct from './pages/Shopping/Product/SingleProduct'
 import UsersList from "./pages/Users/List/UsersList"
+import SimulatedMenuByExam from "./pages/Simulated/FirstFase/SimulatedMenuByExam"
+import SimulatedCustomMenuByDiscipline from "./pages/Simulated/FirstFase/SimulatedMenuByDiscipline"
 
 export default function Routes() {
     return (
@@ -83,7 +84,8 @@ export default function Routes() {
                 <PrivateRoute path="/Card/" exact component={Card} />
                 <PrivateRoute path="/Checkout" exact component={Checkout} />
                 <PrivateRoute path="/Address/create" exact component={CreateAddress} />
-                <PrivateRoute path="/FirstFase/menu" exact component={CustomSimulatedMenu} />
+                <PrivateRoute path="/FirstFase/menu" exact component={SimulatedCustomMenuByDiscipline} />
+                <PrivateRoute path="/FirstFase/simulatedByExam" exact component={SimulatedMenuByExam} />
                 <PrivateRoute path="/FirstFase/:SimuladoId/start" exact component={FirstFase} />
                 <PrivateRoute path="/SecondFase/start" exact component={SecondFase} />
                 <PrivateRoute path="/Simulated/Report" exact component={SimuladosReport} />

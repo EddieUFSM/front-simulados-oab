@@ -153,8 +153,8 @@ export const createPost = (userId, token, post) => {
             console.log(err);
         });
 }
-export const createSimulated = (userId, token, simulated) => {
-    return fetch(`${API}/simulated/create/${userId}`, {
+export const createCustomSimulatedByDiscipline = (userId, token, simulated) => {
+    return fetch(`${API}/simulated/create-simulated-by-discipline/${userId}`, {
         method: "POST",
         headers: {
             Accept: "application/json",
@@ -169,8 +169,24 @@ export const createSimulated = (userId, token, simulated) => {
         .catch(err => {
             console.log(err)
         })
+}
 
-
+export const createSimulatedByExam = (userId, token, simulated) => {
+    return fetch(`${API}/simulated/create-simulated-by-exam/${userId}`, {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(simulated)
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => {
+            console.log(err)
+        })
 }
 export const createTheme = (userId, token, theme) => {
     return fetch(`${API}/theme/create/${userId}`, {
