@@ -108,6 +108,7 @@ export default function Questionnaires() {
         questionB,
         commentB,
         year,
+        exam,
         theme,
     } = values
     const [success, setSuccess] = useState(false)
@@ -274,10 +275,10 @@ export default function Questionnaires() {
                     <FormControl variant="outlined" className={classes.formControl}>
 
                         <Autocomplete
+                            value={values.exam}
                             variant="outlined"
                             options={allExams}
                             getOptionLabel={option => option.name}
-                            value={values.exam}
                             onChange={handleExamChange}
                             renderInput={params => (
                                 <TextField

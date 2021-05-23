@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
         marginRight: theme.spacing(1)
     },
     logo: {
-        height: 30
+        height: 10
     },
     menuButton: {
         marginRight: theme.spacing(2),

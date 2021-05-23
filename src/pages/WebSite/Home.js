@@ -1,8 +1,8 @@
 
 import clsx from 'clsx';
 import React from 'react'
-import { AppBar, Toolbar, IconButton, Drawer, makeStyles, useTheme, } from '@material-ui/core'
-import { ChevronLeft, ChevronRight } from '@material-ui/icons'
+import { AppBar, Toolbar, IconButton, Drawer, makeStyles, useTheme, Typography } from '@material-ui/core'
+import { CenterFocusStrong, ChevronLeft, ChevronRight, Image } from '@material-ui/icons'
 import { MdMenu } from 'react-icons/md'
 
 import PriceSection from 'components/Pricing/Pricing'
@@ -12,28 +12,32 @@ import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import classNames from "classnames";
 import { isAuthenticated, signout, isAdmin } from "auth"
+import img from 'assets/img/simuladosOAB.png'
+import logo from 'assets/img/logo.png'
 
 import TopMenu from '../Menus/TopMenu'
 import SideBarMenu from '../Menus/SidebarMenu'
+import { CardMedia } from '@material-ui/core';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
     container: {
-        marginLeft: "3rem",
+        margin: "3rem",
+        height: '100vh',
+        textAlign: 'center'
     },
     title: {
-        fontSize: "2.9rem",
-        fontWeight: "800",
-        display: "inline-block",
+        fontSize: "2rem",
+        fontWeight: "600",
         position: "relative",
         marginBottom: '10px',
-        maxWidth: "500px",
+        marginTop: '30px'
     },
     subtitle: {
-        fontSize: "1.513rem",
+        fontSize: "1rem",
         margin: '0px 0px 0px',
+        position: "relative",
         fontWeight: "200",
-        maxWidth: "500px",
     },
     main: {
         background: "#FFFFFF",
@@ -238,28 +242,48 @@ export default function Home(props, ref) {
             >
 
                 <div className={classes.drawerHeader} />
-                {/** Main content */}
-                <Parallax filter >
-                    <div className={classes.container}>
-                        <GridContainer>
+                {/** Main content */}        <div className={classes.container}>
 
+                    <GridContainer>
+                        <GridItem
+                            className={classes.textBanner}
+                            xs={6}
+                            sm={6}
+                            md={6}
 
-                            <GridItem xs={12} sm={12} md={12}>
-                                <h1 className={classes.title}>
+                        >
+                            <div
+                                style={{
+                                    margin: 'auto',
+                                    maxWidth: 400
+                                }}>
+                                <img
+                                    className={classes.title}
+                                    height=''
+                                    src={logo}
+                                    title=""
+                                />
+                                <Typography className={classes.title}>
                                     Sua jornada para ser um advogado começa aqui
-                                </h1>
-                                <h3 className={classes.subtitle}>
+                                </Typography>
+                                <Typography className={classes.subtitle}>
                                     Faça simulados, adquira material para estudo e ainda fica atualizado através do nosso blog.
                                     Tudo isso de graça.
                                     Seja assinante para conteúdos exclusivos do Simulados OAB
-                                </h3>
+                                </Typography>
+                            </div>
 
-                            </GridItem>
+                        </GridItem>
+                        <GridItem xs={6} sm={6} md={6}>
+                            <img
+                                style={{ maxHeight: 500 }}
+                                src={img}
+                                title=""
+                            />
 
-
-                        </GridContainer>
-                    </div>
-                </Parallax>
+                        </GridItem>
+                    </GridContainer>
+                </div>
 
                 <div className={classNames(classes.main, classes.mainRaised)}>
                     <PriceSection />

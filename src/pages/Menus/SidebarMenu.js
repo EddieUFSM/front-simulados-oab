@@ -137,11 +137,7 @@ export default function SideBarMenu() {
                     </Collapse>
                 </List>
 
-                {/**
-* Segunda Fase
-*
-*/}
-                {/* 
+
                 <List component="nav" aria-labelledby="nested-list-subheader" className={classes.listItem} >
                     <ListItem button onClick={handleClickSimulados}>
                         <ListItemIcon>
@@ -155,7 +151,7 @@ export default function SideBarMenu() {
                             <ListItemIcon> <Ballot /> </ListItemIcon>
                             <ListItemText classes={{
                                 primary: classes.ListItemText
-                            }} primary={'Primeira Fase'} />
+                            }} primary={'Segunda Fase'} />
                         </ListItem>
                         {isAdmin() &&
                             <Fragment>
@@ -190,7 +186,7 @@ export default function SideBarMenu() {
 
                     </Collapse>
                 </List>
- */}
+
 
 
                 {/**

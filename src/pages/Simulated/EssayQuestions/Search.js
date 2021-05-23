@@ -4,13 +4,14 @@ import React, { useState, useEffect } from 'react'
 import { makeStyles, useTheme } from '@material-ui/core'
 import { Card, CardMedia, CardContent, CardActions, Grid, AppBar, Toolbar, IconButton, Drawer, Typography, Button } from '@material-ui/core'
 import { ChevronLeft, ChevronRight } from '@material-ui/icons'
-
+import { DataGrid, GridColDef, GridValueGetterParams } from '@material-ui/data-grid';
 import Chip from '@material-ui/core/Chip'
 import { MdMenu } from 'react-icons/md'
-import SearchSection from 'components/EssayQuestion/Search'
 import FooterSection from 'components/Footer/Footer'
 import { getAllEssayQuestions, deleteEssayQuestion } from 'admin/apiAdmin'
 
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 import TopMenu from 'pages/Menus/TopMenu'
 import SideBarMenu from 'pages/Menus/SidebarMenu'
 import { isAuthenticated } from 'auth'
@@ -170,22 +171,98 @@ export default function Home() {
     const [allQuestions, setAllQuestions] = useState([])
     const [error, setError] = useState(false)
     const [message, setMessage] = useState('')
+    const [rows, setRows] = useState([])
+    const [loading, setLoading] = useState(false)
+
+
+    let columns = [
+        { field: 'id', headerName: 'ID', width: 150 },
+        { field: 'banca', headerName: 'Banca', width: 80 },
+        { field: 'theme', headerName: 'Tema', width: 80 },
+        {
+            field: 'exam',
+            headerName: 'Exame',
+            width: 100,
+            renderCell: (params) => (
+                <Chip variant="outlined" size="small" label={params.row.exam?.name} />
+            ),
+
+        },
+        { field: 'year', headerName: 'Ano', width: 80 },
+
+        {
+            field: 'enunciated', headerName: 'Enunciado', width: 200,
+            renderCell: (params) => {
+                console.log(params)
+                return (
+                    <Typography>{params.row.enunciated}</Typography>
+                )
+            },
+        },
+        {
+            field: 'questionA', headerName: 'Questão A', width: 200,
+            renderCell: (params) => (
+                <Typography>{params.row.questionA?.enunciated}</Typography>
+            ),
+        },
+        {
+            field: 'questionB', headerName: 'Questão B', width: 200,
+            renderCell: (params) => (
+                <Typography>{params.row.questionB?.enunciated}</Typography>
+            ),
+        },
+        {
+            field: 'editar',
+            headerName: '',
+            width: 70,
+            renderCell: (params) => (
+                <IconButton
+                    size="small"
+                    href={"/EssayQuestion/" + params.id + "/Edit"}
+                    style={{ marginLeft: 16 }}
+                    color="warning"
+
+                >
+                    <EditIcon />
+                </IconButton>
+
+            ),
+        },
+        {
+            field: 'deletar',
+            headerName: '',
+            width: 70,
+            renderCell: (params) => (
+
+                <IconButton
+                    size="small"
+                    color="error"
+                    className={classes.danger} onClick={() => { handleDelete(params.id) }}
+                >
+                    <DeleteIcon />
+                </IconButton>
+
+
+            ),
+        },
+
+    ]
 
     const init = () => {
-        getAllEssayQuestions().then(data => {
-            console.log(data)
-            if (data == undefined) {
-                setError(false)
-                setMessage("não há questões dissertativas adicionadas")
-
-            } else if (data.error) {
+        getAllEssayQuestions().then(async data => {
+            if (data.error) {
                 setError(data.error);
                 setMessage(data.message)
                 console.log("err:" + data.message)
             } else {
+                data.questions.forEach(function (obj) {
+                    obj.id = obj._id;
+                    delete obj._id;
+                    delete obj.optionAnswers
+                });
 
-                console.log("questions:" + data)
-                setAllQuestions(data)
+                setRows(data.questions)
+                setLoading(false)
             }
         })
     }
@@ -258,48 +335,13 @@ export default function Home() {
             >
 
                 <div className={classes.drawerHeader} />
-                {/** Main content */}
-                <SearchSection style={{ display: "none" }} />
-                {/* End hero unit */}
                 <Grid container spacing={4}>
-                    {allQuestions != undefined ? allQuestions.map((question) => (
-                        <Grid item key={question._id} xs={12} sm={6} md={4}>
-                            <Card className={classes.card}>
+                    <Grid item xs={12}>
+                        <div style={{ height: 500, width: '100%' }}>
+                            <DataGrid loading={loading} rows={rows} columns={columns} pageSize={10} checkboxSelection />
+                        </div>
+                    </Grid>
 
-                                <CardContent className={classes.cardContent}>
-                                    <Typography gutterBottom variant="h5">
-                                        {question.exam.substring(0, 15)}..
-                                    </Typography>
-                                    <Typography gutterBottom variant="h6">
-                                        {question.banca} {question.year}
-                                    </Typography>
-
-                                    <Typography>
-                                        {question.enunciated.substring(0, 80)}..
-                                    </Typography>
-                                    <Chip
-                                        label={question.theme}
-                                        clickable
-                                        color="primary"
-                                        deleteIcon={<DoneIcon />}
-                                        variant="outlined"
-                                    />
-
-                                </CardContent>
-                                <CardActions>
-                                    <Button size="small" color="primary" variant="contained" href={"/essayquestion/" + question._id + "/Single"}>
-                                        Ver Questão
-                                    </Button>
-                                    <Button size="small" color="primary" variant="contained" href={"/essayquestion/" + question._id + "/edit"}>
-                                        Editar
-                                    </Button>
-                                    <Button size="small" variant="outlined" className={classes.danger} onClick={() => { handleDelete(question._id) }} >
-                                        Excluir
-                                    </Button>
-                                </CardActions>
-                            </Card>
-                        </Grid>
-                    )) : <></>}
                 </Grid>
                 <FooterSection />
             </main>

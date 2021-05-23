@@ -54,6 +54,8 @@ import SingleProduct from './pages/Shopping/Product/SingleProduct'
 import UsersList from "./pages/Users/List/UsersList"
 import SimulatedMenuByExam from "./pages/Simulated/FirstFase/SimulatedMenuByExam"
 import SimulatedCustomMenuByDiscipline from "./pages/Simulated/FirstFase/SimulatedMenuByDiscipline"
+import EmailValidation from "./pages/Auth/EmailValidation"
+import CellValidation from './pages/Auth/CellValidation'
 
 export default function Routes() {
     return (
@@ -71,6 +73,8 @@ export default function Routes() {
                 <Route path="/Product/:idProduct/Single" render={(props) => <SingleProduct {...props} />} />
                 <Route path="/Products/Search" render={(props) => <SearchProducts {...props} />} />
                 <Route path="/Post/Single" render={(props) => <SinglePost {...props} />} />
+                <Route path="/User/EmailValidation/:id" render={(props) => <EmailValidation {...props} />} />
+                <Route path="/User/CellValidation/:id" render={(props) => <CellValidation {...props} />} />
 
                 <AdminRoute path="/Product/Create" exact component={CreateProduct} />
                 <AdminRoute path="/Product/:idProduto/Edit" exact component={EditProduct} />

@@ -106,6 +106,7 @@ export default function MenuGame() {
                                     options={allExams}
                                     getOptionLabel={option => option.name}
                                     value={values.exam}
+                                    name='exam'
                                     onChange={handleExamChange}
                                     renderInput={params => (
                                         <TextField
