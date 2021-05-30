@@ -147,12 +147,12 @@ export default function SideBarMenu() {
                         {openSimuladosOptions ? <ExpandLess /> : <ExpandMore />}
                     </ListItem>
                     <Collapse in={openSimuladosOptions} timeout="auto" unmountOnExit>
-                        <ListItem button classes={{ root: classes.nested }} component={RouterLink} to="/FirstFase/Menu">
+                        {/*   <ListItem button classes={{ root: classes.nested }} component={RouterLink} to="/FirstFase/Menu">
                             <ListItemIcon> <Ballot /> </ListItemIcon>
                             <ListItemText classes={{
                                 primary: classes.ListItemText
                             }} primary={'Segunda Fase'} />
-                        </ListItem>
+                        </ListItem> */}
                         {isAdmin() &&
                             <Fragment>
 

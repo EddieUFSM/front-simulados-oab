@@ -43,6 +43,7 @@ import SearchPiece from './pages/Simulated/Piece/Search'
 import SearchEssayQuestions from './pages/Simulated/EssayQuestions/Search'
 import SearchQuestions from "./pages/Simulated/Questions/Search/Search"
 import SearchProducts from './pages/Shopping/Product/Search'
+import SecondFaseMenu from './pages/Simulated/SecondFase/SecondFaseMenu'
 import SecondFase from './pages/Simulated/SecondFase/SecondFase'
 import Shopping from "./pages/Shopping/Shopping"
 import SignIn from "./pages/Sign/SignIn"
@@ -91,8 +92,9 @@ export default function Routes() {
                 <PrivateRoute path="/FirstFase/menu" exact component={SimulatedCustomMenuByDiscipline} />
                 <PrivateRoute path="/FirstFase/simulatedByExam" exact component={SimulatedMenuByExam} />
                 <PrivateRoute path="/FirstFase/:SimuladoId/start" exact component={FirstFase} />
-                <PrivateRoute path="/SecondFase/start" exact component={SecondFase} />
-                <PrivateRoute path="/Simulated/Report" exact component={SimuladosReport} />
+                <PrivateRoute path="/SecondFase/simulatedByExam" exact component={SecondFaseMenu} />
+                <PrivateRoute path="/SecondFase/:simulatedId/start" exact component={SecondFase} />
+                <PrivateRoute path="/Simulated/:simulatedId/overview" exact component={SimuladosReport} />
                 <PrivateRoute path="/MailBox/" exact component={MailBox} />
                 <PrivateRoute path="/Question/:idQuestion/Single" exact component={Question} />
                 <PrivateRoute path="/SingleMessage/:idMessage" exact component={SingleMessage} />

@@ -1,28 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import clsx from 'clsx';
-import {
-    Grid, makeStyles, useTheme, Container, Tab, AppBar, Card,
-    CardActions,
-    CardContent,
-    Button,
-    Toolbar, IconButton, Drawer, Paper, Typography
-} from '@material-ui/core'
+import { makeStyles, useTheme } from '@material-ui/core'
+import { AppBar, Toolbar, IconButton, Drawer, Paper } from '@material-ui/core'
 import { ChevronLeft, ChevronRight } from '@material-ui/icons'
 import { MdMenu } from 'react-icons/md'
 import TopMenu from 'pages/Menus/TopMenu'
 import SideBarMenu from 'pages/Menus/SidebarMenu'
-import BarChart from './components/BarChart'
-import RadarChart from './components/RadarChart'
-import LineChart from './components/LineChart'
-import { getReport } from 'admin/apiAdmin'
-import { isAuthenticated } from 'auth'
-import { TabContext, TabList, TabPanel } from '@material-ui/lab';
-const drawerWidth = 240
+import FormFirstFaseCustomSimulated from 'components/FirstFase/FormFirstFaseSimulatedByExam';
 
+const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
-    buttonCardRoot: {
-        justifyContent: 'center'
-    },
     container: {
         marginLeft: "3rem"
     },
@@ -198,45 +185,18 @@ const useStyles = makeStyles((theme) => ({
 
 }))
 
-export default function Simulado(props) {
-    const { user, token } = isAuthenticated()
-    const classes = useStyles()
-    const theme = useTheme()
-    const [open, setOpen] = useState(false)
-    const [error, setError] = useState(false)
-    const [success, setSuccess] = useState(false)
-    const [message, setMessage] = useState('')
-    const [report, setReport] = useState({})
-    const [value, setValue] = React.useState('1');
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
+export default function Simulado() {
+    const classes = useStyles();
+    const theme = useTheme();
+    const [open, setOpen] = React.useState(false);
 
     const handleDrawerOpen = () => {
         setOpen(true);
-    }
+    };
+
     const handleDrawerClose = () => {
         setOpen(false);
-    }
-    const init = async () => {
-        await getReport(token, user.report).then(data => {
-            if (data === undefined) {
-                setError(true)
-                setMessage("usuário não tem Report")
-            } else if (data.error) {
-                setError(data.error)
-                setMessage(data.message)
-            } else {
-                console.log(data.report)
-                setReport(data.report)
-            }
-        })
-    }
-
-    useEffect(() => {
-        init()
-    }, [])
+    };
 
     return (
         <div className={classes.root}>
@@ -277,60 +237,12 @@ export default function Simulado(props) {
 
                 <div className={classes.drawerHeader} />
                 {/** Main content */}
-                <Container>
-                    <Grid container>
-                        <TabContext value={value}>
-                            <AppBar position="static">
-                                <TabList onChange={handleChange} aria-label="simple tabs example">
-                                    <Tab label="Por Disciplina - Radar" value="1" />
-                                    <Tab label="Por Disciplina - Barra" value="2" />
-                                    <Tab label="Geral - Linha" value="3" />
-                                    <Tab label="Simulados" value="4" />
-                                </TabList>
-                            </AppBar>
-                            <TabPanel value="1" style={{ width: '100%' }}>
-                                <Grid container style={{ width: '100%' }} >
-                                    {report.totalQuestions ? <RadarChart report={report} /> : <></>}
-                                </Grid>
-                            </TabPanel>
-                            <TabPanel value="2" style={{ width: '100%' }}>
-                                <Grid container style={{ width: '100%' }}>
-                                    {report.totalQuestions ? <BarChart report={report} /> : <></>}
-                                </Grid>
-                            </TabPanel>
-                            <TabPanel value="3" style={{ width: '100%' }}>
-                                <Grid container style={{ width: '100%' }}>
-                                    {report.totalQuestions ? <LineChart report={report} /> : <></>}
-                                </Grid>
-                            </TabPanel>
-                            <TabPanel value="4" style={{ width: '100%' }}>
-                                <Grid container style={{ width: '100%' }} spacing={2}>
-                                    {
-                                        report.simulateds ? report.simulateds.map((item) => (
-                                            <Grid item xd={3} >
-                                                <Card>
-                                                    <CardContent>
-                                                        <Typography variant="h5">
-                                                            {item.simulated.createdAt.substring(0, 10)} {item.simulated.createdAt.substring(11, 16)}
-                                                        </Typography>
-                                                        <Typography className={classes.pos} color="secondary">
-                                                            Total de Pontos: {item.simulated.pointsTotal}/{item.simulated.questions.length}
-                                                        </Typography>
-                                                    </CardContent>
-                                                    <CardActions className={classes.buttonCardRoot}>
-                                                        <Button size="small" variant="contained" color="secondary" href={"/simulated/" + item.simulated._id + "/overview"} >Detalhes</Button>
-                                                    </CardActions>
-                                                </Card>
-                                            </Grid>
-                                        )) : <></>
-                                    }
-                                </Grid>
-                            </TabPanel>
-                        </TabContext>
 
-                    </Grid>
-                </Container>
+                <Paper className={classes.pageContent}>
+                    <FormFirstFaseCustomSimulated />
+                </Paper>
             </main>
         </div>
     )
+
 }

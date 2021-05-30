@@ -235,7 +235,8 @@ export default function Simulated(props) {
           1: false,
           2: false,
           3: false
-        }
+        },
+        answerGiven: {},
       }])
     }
   }
@@ -284,23 +285,23 @@ export default function Simulated(props) {
       }
     }
   }
+
+  const clickContinue = () => {
+    setPause(false)
+  }
   const selectOptionQuestion = (event, index) => {
     let newArr = [...selectedOptionQuestion]; // copying the old datas array
-
     for (let i = 0; i <= 4; i++) {
+      newArr[currentQuestion].answerGiven = questions[currentQuestion].question.optionAnswers[index]
       if (event.target.value == index) {
-        newArr[currentQuestion].options[event.target.value] = true; // replace e.target.value with whatever you want to change it to
+        newArr[currentQuestion].options[event.target.value] = true;
       }
       if (i < 4) {
         newArr[currentQuestion].options[i] = false;
       } else if (i == 4) {
         setSelectedOptionQuestion(newArr)
-        console.log(selectedOptionQuestion[currentQuestion])
       }
     }
-  }
-  const clickContinue = () => {
-    setPause(false)
   }
   function QuestionCard(props) {
     const classes = useStyles()
@@ -393,7 +394,7 @@ export default function Simulated(props) {
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
               Você acertou {pointsTotal} de {questions.length} questões.
-          </DialogContentText>
+            </DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button color="primary" variant='contained' onClick={(e) => { redirectToReport(e) }}>
@@ -413,7 +414,7 @@ export default function Simulated(props) {
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
               Retome o Simulados
-          </DialogContentText>
+            </DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button color="primary" onClick={() => clickContinue()} variant='contained'>
@@ -441,6 +442,7 @@ export default function Simulated(props) {
     event.preventDefault()
     setEnd(true)
     setSeconds(0)
+    console.log(selectedOptionQuestion)
     endSimulated(user._id, token, simulated._id, user.report, { 'questionsAnswers': selectedOptionQuestion, 'timeToAnswer': seconds }).then(data => {
       setSimulated(data.simulated)
       setPointsTotal(data.simulated.pointsTotal)
@@ -517,11 +519,11 @@ export default function Simulated(props) {
                       <Row style={{ justifyContent: "center", marginTop: "30px" }}>
                         <Button size="medium" color="primary" onClick={() => { handleChangeQuestion(currentQuestion) }}>
                           <MdKeyboardArrowLeft />
-                        Anterior
-                      </Button>
+                          Anterior
+                        </Button>
                         <Button size="medium" color="primary" onClick={() => { handleChangeQuestion(currentQuestion + 2) }}>
                           Próxima
-                        <MdKeyboardArrowRight />
+                          <MdKeyboardArrowRight />
                         </Button>
                       </Row>
                     </Grid>
