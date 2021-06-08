@@ -1,10 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import { Typography, IconButton, Divider, Grid, Avatar, Box, Container, Button, TextField } from '@material-ui/core';
-import { MdFlag } from 'react-icons/md';
+import { IconButton, Grid, Box, Container, Button, TextField } from '@material-ui/core';
 import { DeleteForever, Send } from '@material-ui/icons';
-import { GrDrag, GrTrash } from 'react-icons/gr';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -40,11 +38,11 @@ const useStyles = makeStyles((theme) => ({
 
 
 const message = {
-    subject: "O Título da Mensagem",
-    message: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    subject: 'O Título da Mensagem',
+    message: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
     flag: false,
-    from: "email@email.com"
-}
+    from: 'email@email.com'
+};
 
 export default function EnhancedTable() {
     const classes = useStyles();

@@ -1,10 +1,10 @@
-import { Card, makeStyles, Paper, Typography } from '@material-ui/core'
-import React from 'react'
+import { Card, makeStyles, Paper, Typography } from '@material-ui/core';
+import React from 'react';
 
 
 const useStyles = makeStyles(theme => ({
     root: {
-        backgroundColor: "#fdfdff"
+        backgroundColor: '#fdfdff'
     },
     PageHeader:{
         padding: theme.spacing(4),
@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
             opacity: '0.6'
         }
     }
-}))
+}));
 
 export default function PageHeader(props) {
     const classes = useStyles();
@@ -41,5 +41,5 @@ export default function PageHeader(props) {
             </div>
 
         </Paper>
-    )
+    );
 }

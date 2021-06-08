@@ -1,20 +1,20 @@
 
 import clsx from 'clsx';
-import React, { useState, useEffect } from 'react'
-import { makeStyles, useTheme } from '@material-ui/core'
-import { Card, CardMedia, CardContent, CardActions, Grid, AppBar, Toolbar, IconButton, Drawer, Paper, Typography } from '@material-ui/core'
-import { ChevronLeft, ChevronRight } from '@material-ui/icons'
-import { DataGrid, GridColDef, GridValueGetterParams } from '@material-ui/data-grid';
+import React, { useState, useEffect } from 'react';
+import { makeStyles, useTheme } from '@material-ui/core';
+import { Grid, AppBar, Toolbar, IconButton, Drawer, Typography } from '@material-ui/core';
+import { ChevronLeft, ChevronRight } from '@material-ui/icons';
+import { DataGrid } from '@material-ui/data-grid';
 
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { Chip, Button } from '@material-ui/core'
-import { MdMenu } from 'react-icons/md'
-import { getAllQuestions, deleteQuestion } from 'admin/apiAdmin'
+import { Chip, Button } from '@material-ui/core';
+import { MdMenu } from 'react-icons/md';
+import { getAllQuestions, deleteQuestion } from 'admin/apiAdmin';
 
-import TopMenu from 'pages/Menus/TopMenu'
-import SideBarMenu from 'pages/Menus/SidebarMenu'
-import { isAuthenticated } from 'auth'
+import TopMenu from 'pages/Menus/TopMenu';
+import SideBarMenu from 'pages/Menus/SidebarMenu';
+import { isAuthenticated } from 'auth';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -126,12 +126,12 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        border: "none",
+        border: 'none',
     },
     paper: {
         width: 800,
         backgroundColor: theme.palette.background.paper,
-        border: "none",
+        border: 'none',
         padding: theme.spacing(2, 4, 3),
     },
     chip: {
@@ -139,45 +139,45 @@ const useStyles = makeStyles((theme) => ({
     },
     danger: {
 
-        backgroundColor: "#F01300",
-        borderColor: "#F01300",
-        color: "#ffffff",
-        "&:hover": {
-            backgroundColor: "#932822",
-            borderColor: "#932822",
-            boxShadow: "none"
+        backgroundColor: '#F01300',
+        borderColor: '#F01300',
+        color: '#ffffff',
+        '&:hover': {
+            backgroundColor: '#932822',
+            borderColor: '#932822',
+            boxShadow: 'none'
         },
-        "&:active": {
-            boxShadow: "none",
-            backgroundColor: "#932822",
-            borderColor: "#932822"
+        '&:active': {
+            boxShadow: 'none',
+            backgroundColor: '#932822',
+            borderColor: '#932822'
         },
-        "&:focus": {
-            boxShadow: "0 0 0 0.2rem #93282200"
+        '&:focus': {
+            boxShadow: '0 0 0 0.2rem #93282200'
         }
     }
 
-}))
+}));
 
 export default function Home() {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = useState(false);
-    const [rows, setRows] = useState([])
-    const [error, setError] = useState(false)
-    const [message, setMessage] = useState('')
-    const [loading, setLoading] = useState(true)
+    const [rows, setRows] = useState([]);
+    const [error, setError] = useState(false);
+    const [message, setMessage] = useState('');
+    const [loading, setLoading] = useState(true);
 
     const handleDelete = (questionId) => {
         deleteQuestion(isAuthenticated().token, questionId).then(data => {
             if (data.error) {
                 setError(data.error);
-                setMessage(data.message)
+                setMessage(data.message);
             } else {
-                setRows(rows.filter(r => r.id !== data.deletedQuestion._id))
+                setRows(rows.filter(r => r.id !== data.deletedQuestion._id));
             }
-        })
-    }
+        });
+    };
 
 
     let columns = [
@@ -197,7 +197,7 @@ export default function Home() {
         {
             field: 'themes', headerName: 'Temas', width: 250,
             renderCell: (params) => (
-                params.row.themes.map(theme => <Chip variant="outlined" size="small" label={theme.theme} />)
+                params.row.themes.map(theme => <Chip key={theme._id} variant="outlined" size="small" label={theme.theme} />)
             ),
         },
 
@@ -214,7 +214,7 @@ export default function Home() {
             renderCell: (params) => (
                 <IconButton
                     size="small"
-                    href={"/question/" + params.id + "/Edit"}
+                    href={'/question/' + params.id + '/Edit'}
                     style={{ marginLeft: 16 }}
                     color="warning"
 
@@ -233,7 +233,7 @@ export default function Home() {
                 <IconButton
                     size="small"
                     color="error"
-                    className={classes.danger} onClick={() => { handleDelete(params.id) }}
+                    className={classes.danger} onClick={() => { handleDelete(params.id); }}
                 >
                     <DeleteIcon />
                 </IconButton>
@@ -242,32 +242,32 @@ export default function Home() {
             ),
         },
 
-    ]
+    ];
 
     const init = () => {
         getAllQuestions().then(async data => {
             if (data.error) {
                 setError(data.error);
-                setMessage(data.message)
-                console.log("err:" + data.message)
+                setMessage(data.message);
+                console.log('err:' + data.message);
             } else {
                 data.questions.forEach(function (obj) {
                     obj.id = obj._id;
                     delete obj._id;
-                    delete obj.optionAnswers
+                    delete obj.optionAnswers;
                 });
 
 
-                console.log("questions:" + data)
-                setRows(data.questions)
-                setLoading(false)
+                console.log('questions:' + data);
+                setRows(data.questions);
+                setLoading(false);
             }
-        })
-    }
+        });
+    };
 
     useEffect(() => {
         init();
-    }, [])
+    }, []);
 
 
     const handleDrawerOpen = () => {
@@ -341,5 +341,5 @@ export default function Home() {
                 {/* End hero unit */}
             </main>
         </div>
-    )
+    );
 }

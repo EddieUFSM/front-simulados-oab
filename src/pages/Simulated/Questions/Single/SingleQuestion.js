@@ -1,18 +1,16 @@
 
 import clsx from 'clsx';
-import React, { useState, useEffect } from 'react'
-import { makeStyles, useTheme } from '@material-ui/core'
-import { Card, CardMedia, CardContent, CardActions, Grid, AppBar, Toolbar, IconButton, Drawer, Typography, Button } from '@material-ui/core'
-import { ChevronLeft, ChevronRight } from '@material-ui/icons'
-import Chip from '@material-ui/core/Chip'
-import { MdMenu } from 'react-icons/md'
-import { getAllQuestions, deleteQuestion } from 'admin/apiAdmin'
-import TopMenu from 'pages/Menus/TopMenu'
-import SideBarMenu from 'pages/Menus/SidebarMenu'
-import { isAuthenticated } from 'auth'
-import Single from './Single'
+import React, { useState } from 'react';
+import { makeStyles, useTheme } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, Drawer } from '@material-ui/core';
+import { ChevronLeft, ChevronRight } from '@material-ui/icons';
+import { MdMenu } from 'react-icons/md';
+import { getAllQuestions, deleteQuestion } from 'admin/apiAdmin';
+import TopMenu from 'pages/Menus/TopMenu';
+import SideBarMenu from 'pages/Menus/SidebarMenu';
+import { isAuthenticated } from 'auth';
+import Single from './Single';
 
-import DoneIcon from '@material-ui/icons/Done';
 
 const drawerWidth = 240;
 
@@ -128,12 +126,12 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        border: "none",
+        border: 'none',
     },
     paper: {
         width: 800,
         backgroundColor: theme.palette.background.paper,
-        border: "none",
+        border: 'none',
         padding: theme.spacing(2, 4, 3),
     },
     chip: {
@@ -141,52 +139,52 @@ const useStyles = makeStyles((theme) => ({
     },
     danger: {
 
-        backgroundColor: "#F01300",
-        borderColor: "#F01300",
-        color: "#ffffff",
-        "&:hover": {
-            backgroundColor: "#932822",
-            borderColor: "#932822",
-            boxShadow: "none"
+        backgroundColor: '#F01300',
+        borderColor: '#F01300',
+        color: '#ffffff',
+        '&:hover': {
+            backgroundColor: '#932822',
+            borderColor: '#932822',
+            boxShadow: 'none'
         },
-        "&:active": {
-            boxShadow: "none",
-            backgroundColor: "#932822",
-            borderColor: "#932822"
+        '&:active': {
+            boxShadow: 'none',
+            backgroundColor: '#932822',
+            borderColor: '#932822'
         },
-        "&:focus": {
-            boxShadow: "0 0 0 0.2rem #93282200"
+        '&:focus': {
+            boxShadow: '0 0 0 0.2rem #93282200'
         }
     }
 
-}))
+}));
 
 export default function SingleQuestion() {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = useState(false);
-    const [allQuestions, setAllQuestions] = useState([])
-    const [error, setError] = useState(false)
-    const [message, setMessage] = useState('')
+    const [allQuestions, setAllQuestions] = useState([]);
+    const [error, setError] = useState(false);
+    const [message, setMessage] = useState('');
 
     const handleDelete = (questionId) => {
         deleteQuestion(isAuthenticated().token, questionId).then(data => {
             if (data.error) {
                 setError(data.error);
-                setMessage(data.message)
+                setMessage(data.message);
             } else {
                 getAllQuestions().then(data => {
                     if (data.error) {
                         setError(data.error);
-                        setMessage(data.message)
+                        setMessage(data.message);
                     } else {
-                        setAllQuestions(data)
-                        console.log(data)
+                        setAllQuestions(data);
+                        console.log(data);
                     }
-                })
+                });
             }
-        })
-    }
+        });
+    };
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -240,5 +238,5 @@ export default function SingleQuestion() {
 
             </main>
         </div>
-    )
+    );
 }

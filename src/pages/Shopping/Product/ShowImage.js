@@ -1,5 +1,5 @@
-import React from 'react'
-import { API } from 'config'
+import React from 'react';
+import { API } from 'config';
 
 
 const ShowImage = ({ item, url }) => (
@@ -11,6 +11,6 @@ const ShowImage = ({ item, url }) => (
             style={{ maxWidth: 100, height: 'auto' }}
         />
     </div>
-)
+);
 
-export default ShowImage 
+export default ShowImage; 

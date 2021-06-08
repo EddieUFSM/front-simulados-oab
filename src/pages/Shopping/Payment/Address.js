@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { FormControl, RadioGroup, FormControlLabel, Radio, Typography, Paper, Button, Grid, Divider, Box } from '@material-ui/core'
+import { FormControl, RadioGroup, FormControlLabel, Radio, Typography, Paper, Button, Grid, Divider, Box } from '@material-ui/core';
 import { AddCircleOutline } from '@material-ui/icons';
-import { isAuthenticated } from 'auth'
+import { isAuthenticated } from 'auth';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,11 +22,11 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(3),
         margin: theme.spacing(3)
     }
-}))
+}));
 
 export default function AdressSelection() {
-    const classes = useStyles()
-    const { user, token } = isAuthenticated()
+    const classes = useStyles();
+    const { user, token } = isAuthenticated();
     let addresses = [
         {
             nick: 'Casa',
@@ -48,12 +48,12 @@ export default function AdressSelection() {
             city: 'São Paulo'
 
         }
-    ]
+    ];
     const [value, setValue] = React.useState(addresses[0].nick);
     const handleChange = (event) => {
         setValue(event.target.value);
-    }
-    console.log(user)
+    };
+    console.log(user);
 
 
     return (
@@ -66,7 +66,7 @@ export default function AdressSelection() {
                             <RadioGroup aria-label="address" name="nick" value={value} onChange={handleChange}>
                                 {addresses.map((address) => (
                                     <>
-                                        <Box alignItems="flex-start" display="flex" flexWrap="nowrap"
+                                        <Box display="flex" flexWrap="nowrap"
                                             alignItems="center" >
                                             <FormControlLabel value={address.nick} control={<Radio />} />
                                             <Box>
@@ -102,5 +102,5 @@ export default function AdressSelection() {
                 </Button>
             </Box>
         </Paper>
-    )
+    );
 }

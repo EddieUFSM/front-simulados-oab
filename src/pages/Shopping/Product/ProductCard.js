@@ -1,4 +1,4 @@
-import React, { makeStyles } from 'react';
+import React from 'react';
 
 import {
     Typography, Card, CardActionArea, CardActions,
@@ -8,7 +8,7 @@ import {
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import Rating from '@material-ui/lab/Rating';
 
-import livro from "assets/img/livro.png";
+import livro from 'assets/img/livro.png';
 
 
 export default function ProductCard() {
@@ -24,18 +24,18 @@ export default function ProductCard() {
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
                         Vade Mecum 2019
-            </Typography>
+                    </Typography>
                     <Rating name="half-rating-read" defaultValue={4.5} precision={0.5} readOnly />
                     <Typography gutterBottom variant="h6" component="h3">
                         R$ 89,90
-            </Typography>
+                    </Typography>
                 </CardContent>
             </CardActionArea>
             <CardActions>
                 <Button variant="outlined" color="primary">
                     Conferir
-          </Button>
-                <IconButton color="primary" aria-label="add to shopping cart" style={{ marginLeft: "40%" }}>
+                </Button>
+                <IconButton color="primary" aria-label="add to shopping cart" style={{ marginLeft: '40%' }}>
                     <AddShoppingCartIcon />
                 </IconButton>
             </CardActions>

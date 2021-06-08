@@ -1,54 +1,54 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardHeader, CardContent, Radio, Button, Typography, Chip, CardActions } from '@material-ui/core';
-import styled, { ThemeConsumer, ThemeContext } from "styled-components"
-import { getPiece, deletePiece } from 'admin/apiAdmin'
+import { Card, CardHeader, CardContent, Button, Typography, Chip, CardActions } from '@material-ui/core';
+import styled from 'styled-components';
+import { getPiece, deletePiece } from 'admin/apiAdmin';
 
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
 
-import { isAuthenticated, signout, isAdmin } from "auth"
+import { isAuthenticated } from 'auth';
 
 const Row = styled.div`
   display: flex;
   align-items: center;
-`
+`;
 const Text = styled.div`
   font-family: Roboto, sans-serif;
   font-size: 14px;
-`
+`;
 const AnswerContainer = styled(Button)`
   && {
     padding: 0;
     padding-right: 20px;
     text-transform: none;
   }
-`
+`;
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
     container: {
-        marginLeft: "3rem"
+        marginLeft: '3rem'
     },
     title: {
-        fontSize: "3.2rem",
-        fontWeight: "600",
-        display: "inline-block",
-        position: "relative"
+        fontSize: '3.2rem',
+        fontWeight: '600',
+        display: 'inline-block',
+        position: 'relative'
     },
     subtitle: {
-        fontSize: "1.313rem",
-        maxWidth: "500px",
-        margin: "10px 0 0"
+        fontSize: '1.313rem',
+        maxWidth: '500px',
+        margin: '10px 0 0'
     },
     main: {
-        background: "#FFFFFF",
-        position: "relative",
-        zIndex: "3"
+        background: '#FFFFFF',
+        position: 'relative',
+        zIndex: '3'
     },
     mainRaised: {
-        margin: "-60px 30px 0px",
-        borderRadius: "6px",
+        margin: '-60px 30px 0px',
+        borderRadius: '6px',
         boxShadow:
-            "0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)"
+            '0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)'
     },
     root: {
         flexGrow: 1,
@@ -193,14 +193,14 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(3)
     }
 
-}))
+}));
 
 
 export default function PieceCard() {
     const classes = useStyles();
-    const [piece, setPiece] = useState({})
-    const [error, setError] = useState(false)
-    const [message, setMessage] = useState('')
+    const [piece, setPiece] = useState({});
+    const [error, setError] = useState(false);
+    const [message, setMessage] = useState('');
     let { idPiece } = useParams();
 
 
@@ -208,41 +208,41 @@ export default function PieceCard() {
         deletePiece(isAuthenticated().token, pieceId).then(data => {
             if (data.error) {
                 setError(data.error);
-                setMessage(data.message)
+                setMessage(data.message);
             } else {
 
 
                 if (data.error) {
                     setError(data.error);
-                    setMessage(data.message)
+                    setMessage(data.message);
                 } else {
-                    console.log(data)
+                    console.log(data);
                 }
 
             }
-        })
-    }
+        });
+    };
 
     const init = () => {
         getPiece(isAuthenticated().token, idPiece).then(data => {
             if (data.error) {
-                setPiece(data)
+                setPiece(data);
             } else {
-                setPiece(data)
-                console.log(data)
+                setPiece(data);
+                console.log(data);
 
             }
-        })
-    }
+        });
+    };
 
     useEffect(() => {
-        init()
-    }, [])
+        init();
+    }, []);
 
 
     return (
         <Card id={piece._id} className={classes.pieceCardContainer}>
-            <Card content style={{ overflowX: "hidden" }}>
+            <Card content style={{ overflowX: 'hidden' }}>
                 <CardHeader
                     style={{ paddingRight: 40, paddingLeft: 0 }}
                     title={
@@ -254,7 +254,7 @@ export default function PieceCard() {
                         </>
                     }
                 />
-                <CardContent style={{ overflowX: "hidden" }}>
+                <CardContent style={{ overflowX: 'hidden' }}>
                     <Typography variant="body1">
                         {piece.enunciated}
                     </Typography>
@@ -268,18 +268,18 @@ export default function PieceCard() {
                 </CardContent>
 
                 <CardActions>
-                    <Button size="small" color="primary" variant="contained" href={"/piece/" + piece._id + "/Edit"}>
+                    <Button size="small" color="primary" variant="contained" href={'/piece/' + piece._id + '/Edit'}>
                         Edit
-                                    </Button>
+                    </Button>
 
-                    <Button size="small" variant="outlined" className={classes.danger} onClick={() => { handleDelete(piece._id) }} >
+                    <Button size="small" variant="outlined" className={classes.danger} onClick={() => { handleDelete(piece._id); }} >
                         Excluir
-                                    </Button>
+                    </Button>
                 </CardActions>
 
 
             </Card>
 
         </Card>
-    )
+    );
 }

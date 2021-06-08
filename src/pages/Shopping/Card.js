@@ -1,44 +1,44 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from "react-router-dom";
-import { isAuthenticated } from "../../auth"
+import { useHistory } from 'react-router-dom';
+import { isAuthenticated } from '../../auth';
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core'
-import { AppBar, Toolbar, IconButton, Drawer, Paper } from '@material-ui/core'
-import { ChevronLeft, ChevronRight } from '@material-ui/icons'
-import { MdMenu } from 'react-icons/md'
-import TopMenu from 'pages/Menus/TopMenu'
-import SideBarMenu from 'pages/Menus/SidebarMenu'
+import { makeStyles, useTheme } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, Drawer } from '@material-ui/core';
+import { ChevronLeft, ChevronRight } from '@material-ui/icons';
+import { MdMenu } from 'react-icons/md';
+import TopMenu from 'pages/Menus/TopMenu';
+import SideBarMenu from 'pages/Menus/SidebarMenu';
 
-import { getCard } from 'admin/apiAdmin'
-import ListProduct from 'pages/Shopping/Payment/ListProducts'
-import SelectAddress from 'pages/Shopping/Payment/Address'
+import { getCard } from 'admin/apiAdmin';
+import ListProduct from 'pages/Shopping/Payment/ListProducts';
+import SelectAddress from 'pages/Shopping/Payment/Address';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
     container: {
-        marginLeft: "3rem"
+        marginLeft: '3rem'
     },
     title: {
-        fontSize: "3.2rem",
-        fontWeight: "600",
-        display: "inline-block",
-        position: "relative"
+        fontSize: '3.2rem',
+        fontWeight: '600',
+        display: 'inline-block',
+        position: 'relative'
     },
     subtitle: {
-        fontSize: "1.313rem",
-        maxWidth: "500px",
-        margin: "10px 0 0"
+        fontSize: '1.313rem',
+        maxWidth: '500px',
+        margin: '10px 0 0'
     },
     main: {
-        background: "#FFFFFF",
-        position: "relative",
-        zIndex: "3"
+        background: '#FFFFFF',
+        position: 'relative',
+        zIndex: '3'
     },
     mainRaised: {
-        margin: "-60px 30px 0px",
-        borderRadius: "6px",
+        margin: '-60px 30px 0px',
+        borderRadius: '6px',
         boxShadow:
-            "0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)"
+            '0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)'
     },
     root: {
         flexGrow: 1,
@@ -182,7 +182,7 @@ const useStyles = makeStyles((theme) => ({
 
     }
 
-}))
+}));
 
 export default function Card() {
     const history = useHistory();
@@ -190,32 +190,32 @@ export default function Card() {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
-    const [Card, setCard] = useState({})
-    const [success, setSuccess] = useState(false)
-    const [error, setError] = useState(false)
-    const [message, setMessage] = useState('')
+    const [Card, setCard] = useState({});
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState(false);
+    const [message, setMessage] = useState('');
 
     const init = () => {
         isAuthenticated() ?
             getCard(isAuthenticated().user.token, isAuthenticated().user.currentShoppingCard).then(data => {
                 if (data.error) {
-                    setSuccess(data.success)
-                    setError(data.error)
-                    setMessage(data.message)
+                    setSuccess(data.success);
+                    setError(data.error);
+                    setMessage(data.message);
                 } else {
-                    console.log(data.card)
-                    setCard(data.card)
-                    setSuccess(data.success)
-                    setError(data.error)
-                    setMessage(data.message)
+                    console.log(data.card);
+                    setCard(data.card);
+                    setSuccess(data.success);
+                    setError(data.error);
+                    setMessage(data.message);
                 }
             })
-            : console.log('não autenticado')
-    }
+            : console.log('não autenticado');
+    };
 
     useEffect(() => {
-        init()
-    }, [])
+        init();
+    }, []);
 
 
 
@@ -271,5 +271,5 @@ export default function Card() {
                 <ListProduct card={Card} />
             </main>
         </div>
-    )
+    );
 }

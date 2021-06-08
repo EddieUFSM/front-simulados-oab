@@ -1,27 +1,22 @@
 
 import clsx from 'clsx';
-import React, { useState, useEffect } from 'react'
-import { makeStyles, useTheme } from '@material-ui/core'
-import { Card, CardMedia, CardContent, CardActions, Grid, AppBar, Toolbar, IconButton, Drawer, Typography, Button } from '@material-ui/core'
-import { ChevronLeft, ChevronRight } from '@material-ui/icons'
-import { DataGrid, GridColDef, GridValueGetterParams } from '@material-ui/data-grid';
-import Chip from '@material-ui/core/Chip'
-import { MdMenu } from 'react-icons/md'
-import FooterSection from 'components/Footer/Footer'
-import { getAllEssayQuestions, deleteEssayQuestion } from 'admin/apiAdmin'
+import React, { useState, useEffect } from 'react';
+import { makeStyles, useTheme } from '@material-ui/core';
+import { Grid, AppBar, Toolbar, IconButton, Drawer, Typography } from '@material-ui/core';
+import { ChevronLeft, ChevronRight } from '@material-ui/icons';
+import { DataGrid } from '@material-ui/data-grid';
+import Chip from '@material-ui/core/Chip';
+import { MdMenu } from 'react-icons/md';
+import FooterSection from 'components/Footer/Footer';
+import { getAllEssayQuestions, deleteEssayQuestion } from 'admin/apiAdmin';
 
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import TopMenu from 'pages/Menus/TopMenu'
-import SideBarMenu from 'pages/Menus/SidebarMenu'
-import { isAuthenticated } from 'auth'
+import TopMenu from 'pages/Menus/TopMenu';
+import SideBarMenu from 'pages/Menus/SidebarMenu';
+import { isAuthenticated } from 'auth';
 
-import DoneIcon from '@material-ui/icons/Done';
 const drawerWidth = 240;
-
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -127,16 +122,15 @@ const useStyles = makeStyles((theme) => ({
         width: 400,
     },
     modal: {
-
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        border: "none",
+        border: 'none',
     },
     paper: {
         width: 800,
         backgroundColor: theme.palette.background.paper,
-        border: "none",
+        border: 'none',
         padding: theme.spacing(2, 4, 3),
     },
     chip: {
@@ -144,35 +138,35 @@ const useStyles = makeStyles((theme) => ({
     },
     danger: {
 
-        backgroundColor: "#F01300",
-        borderColor: "#F01300",
-        color: "#ffffff",
-        "&:hover": {
-            backgroundColor: "#932822",
-            borderColor: "#932822",
-            boxShadow: "none"
+        backgroundColor: '#F01300',
+        borderColor: '#F01300',
+        color: '#ffffff',
+        '&:hover': {
+            backgroundColor: '#932822',
+            borderColor: '#932822',
+            boxShadow: 'none'
         },
-        "&:active": {
-            boxShadow: "none",
-            backgroundColor: "#932822",
-            borderColor: "#932822"
+        '&:active': {
+            boxShadow: 'none',
+            backgroundColor: '#932822',
+            borderColor: '#932822'
         },
-        "&:focus": {
-            boxShadow: "0 0 0 0.2rem #93282200"
+        '&:focus': {
+            boxShadow: '0 0 0 0.2rem #93282200'
         }
     }
 
-}))
+}));
 
 export default function Home() {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = useState(false);
-    const [allQuestions, setAllQuestions] = useState([])
-    const [error, setError] = useState(false)
-    const [message, setMessage] = useState('')
-    const [rows, setRows] = useState([])
-    const [loading, setLoading] = useState(false)
+    const [allQuestions, setAllQuestions] = useState([]);
+    const [error, setError] = useState(false);
+    const [message, setMessage] = useState('');
+    const [rows, setRows] = useState([]);
+    const [loading, setLoading] = useState(false);
 
 
     let columns = [
@@ -186,17 +180,14 @@ export default function Home() {
             renderCell: (params) => (
                 <Chip variant="outlined" size="small" label={params.row.exam?.name} />
             ),
-
         },
         { field: 'year', headerName: 'Ano', width: 80 },
-
-        {
-            field: 'enunciated', headerName: 'Enunciado', width: 200,
+        { field: 'enunciated', headerName: 'Enunciado', width: 200,
             renderCell: (params) => {
-                console.log(params)
+                console.log(params);
                 return (
                     <Typography>{params.row.enunciated}</Typography>
-                )
+                );
             },
         },
         {
@@ -218,7 +209,7 @@ export default function Home() {
             renderCell: (params) => (
                 <IconButton
                     size="small"
-                    href={"/EssayQuestion/" + params.id + "/Edit"}
+                    href={'/EssayQuestion/' + params.id + '/Edit'}
                     style={{ marginLeft: 16 }}
                     color="warning"
 
@@ -237,7 +228,7 @@ export default function Home() {
                 <IconButton
                     size="small"
                     color="error"
-                    className={classes.danger} onClick={() => { handleDelete(params.id) }}
+                    className={classes.danger} onClick={() => { handleDelete(params.id); }}
                 >
                     <DeleteIcon />
                 </IconButton>
@@ -246,48 +237,48 @@ export default function Home() {
             ),
         },
 
-    ]
+    ];
 
     const init = () => {
         getAllEssayQuestions().then(async data => {
             if (data.error) {
                 setError(data.error);
-                setMessage(data.message)
-                console.log("err:" + data.message)
+                setMessage(data.message);
+                console.log('err:' + data.message);
             } else {
                 data.questions.forEach(function (obj) {
                     obj.id = obj._id;
                     delete obj._id;
-                    delete obj.optionAnswers
+                    delete obj.optionAnswers;
                 });
 
-                setRows(data.questions)
-                setLoading(false)
+                setRows(data.questions);
+                setLoading(false);
             }
-        })
-    }
+        });
+    };
 
     useEffect(() => {
         init();
-    }, [])
+    }, []);
 
     const handleDelete = (questionId) => {
         deleteEssayQuestion(isAuthenticated().token, questionId).then(data => {
             if (data.error) {
                 setError(data.error);
-                setMessage(data.message)
+                setMessage(data.message);
             } else {
                 getAllEssayQuestions().then(data => {
                     if (data.error) {
-                        setError(data.error)
-                        setMessage(data.message)
+                        setError(data.error);
+                        setMessage(data.message);
                     } else {
-                        setAllQuestions(data)
+                        setAllQuestions(data);
                     }
-                })
+                });
             }
-        })
-    }
+        });
+    };
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -346,5 +337,5 @@ export default function Home() {
                 <FooterSection />
             </main>
         </div>
-    )
+    );
 }

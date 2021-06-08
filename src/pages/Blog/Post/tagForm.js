@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
-import Chip from '@material-ui/core/Chip';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 
 export default function MyTags() {
-    const [tags, setTags] = useState([])
+    const [tags, setTags] = useState([]);
 
     const onTagsChange = async (event, values) => {
-        const SelectedTags = values
-        setTags(SelectedTags)
+        const SelectedTags = values;
+        setTags(SelectedTags);
         console.log(tags);
-    }
+    };
 
     return (
         <div style={{ width: 500 }}>

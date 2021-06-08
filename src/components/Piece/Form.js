@@ -1,17 +1,17 @@
 
-import { Grid, InputLabel, Select, FormControl, Button, TextField, Radio, withStyles } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import { isAuthenticated } from 'auth'
-import { createPiece, getExams } from 'admin/apiAdmin'
-import { useForm, Form } from 'components/Form/useForm'
-import Autocomplete from '@material-ui/lab/Autocomplete'
-import Snackbar from '@material-ui/core/Snackbar'
-import MuiAlert from '@material-ui/lab/Alert'
+import { Grid, InputLabel, Select, FormControl, Button, TextField, Radio, withStyles } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { isAuthenticated } from 'auth';
+import { createPiece, getExams } from 'admin/apiAdmin';
+import { useForm, Form } from 'components/Form/useForm';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles((theme) => ({
     toolbar: {
-        alignItems: "center",
+        alignItems: 'center',
         paddingRight: 24, // keep right padding when drawer closed
     },
     toolbarIcon: {
@@ -43,126 +43,126 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: theme.spacing(4),
     },
     inputSelection: {
-        minWidth: "45vh",
-        maxWidth: "45vh"
+        minWidth: '45vh',
+        maxWidth: '45vh'
     },
     inputSelection6: {
-        minWidth: "68vh",
-        maxWidth: "68vh"
+        minWidth: '68vh',
+        maxWidth: '68vh'
     },
     imputExam: {
-        minWidth: "45vh",
-        maxWidth: "45vh"
+        minWidth: '45vh',
+        maxWidth: '45vh'
     },
     btn: {
         margin: theme.spacing(3),
         justifyContent: 'center'
     }
-}))
+}));
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 const CustomRadio = withStyles({
     root: {
-        color: "#3D61AD",
+        color: '#3D61AD',
         '&$checked': {
-            color: "#3D61AD",
+            color: '#3D61AD',
         },
     },
     checked: {},
 })((props) => <Radio color="default" {...props} />);
 const initialFValues = {
-    enunciated: "",
-    comment: "",
-    banca: "",
-    exam: "",
-    year: "",
-    theme: "",
-    formData: "",
+    enunciated: '',
+    comment: '',
+    banca: '',
+    exam: '',
+    year: '',
+    theme: '',
+    formData: '',
     loading: false
-}
+};
 export default function Questionnaires() {
     const classes = useStyles();
     const [selectedValue, setSelectedValue] = React.useState('a');
-    const { user, token } = isAuthenticated()
-    const [allExams, setAllExams] = useState([])
+    const { user, token } = isAuthenticated();
+    const [allExams, setAllExams] = useState([]);
     const {
         values,
         setValues,
         handleInputChange
-    } = useForm(initialFValues)
-    const [allThemes, setAllThemes] = useState(["Direito Administrativo", "Direito Civil", "Direito Constitucional", "Direito do Trabalho", "Direito Empresarial", "Direito Penal", "Direito Tributário"])
-    const [message, setMessage] = useState('')
+    } = useForm(initialFValues);
+    const [allThemes, setAllThemes] = useState(['Direito Administrativo', 'Direito Civil', 'Direito Constitucional', 'Direito do Trabalho', 'Direito Empresarial', 'Direito Penal', 'Direito Tributário']);
+    const [message, setMessage] = useState('');
     const {
         enunciated,
         theme,
         comment,
         banca,
         year,
-    } = values
-    const [success, setSuccess] = useState(false)
-    const [error, setError] = useState(false)
+    } = values;
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState(false);
 
     const loadExam = () => {
         getExams(token).then((data) => {
             if (data.error) {
-                console.log(error)
+                console.log(error);
             } else {
-                console.log(data)
-                setAllExams(data)
+                console.log(data);
+                setAllExams(data);
             }
-        })
-    }
+        });
+    };
 
     const handleExamChange = (e, seletectedExam) => [
         setValues({ ...values, exam: seletectedExam })
-    ]
+    ];
 
     useEffect(() => {
-        loadExam()
-    }, [])
+        loadExam();
+    }, []);
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
         }
         setSuccess(false);
-        setError(false)
+        setError(false);
     };
 
 
     const handleChange = name => event => {
-        const value = event.target.value
-        setValues({ ...values, [name]: value })
-    }
+        const value = event.target.value;
+        setValues({ ...values, [name]: value });
+    };
 
     const clickSumit = event => {
-        event.preventDefault()
-        setMessage('')
-        console.log(values)
+        event.preventDefault();
+        setMessage('');
+        console.log(values);
         createPiece(user._id, token, values).then(data => {
             if (data.error) {
-                setError(data.error)
-                setSuccess(data.success)
-                setMessage(data.message)
+                setError(data.error);
+                setSuccess(data.success);
+                setMessage(data.message);
             } else {
-                setError(data.error)
-                setSuccess(data.success)
-                setMessage(data.message)
+                setError(data.error);
+                setSuccess(data.success);
+                setMessage(data.message);
                 setValues({
                     ...values,
-                    enunciated: "",
+                    enunciated: '',
 
-                    comment: "",
-                    banca: "",
-                    exam: "",
-                    year: "",
-                    theme: "",
+                    comment: '',
+                    banca: '',
+                    exam: '',
+                    year: '',
+                    theme: '',
                     loading: false,
-                })
+                });
             }
-        })
-    }
+        });
+    };
 
     return (
         <Form>
@@ -226,15 +226,15 @@ export default function Questionnaires() {
                             native
                             value={theme}
                             onChange={(handleChange('theme'))}
-                            style={{ width: "100%" }}
+                            style={{ width: '100%' }}
                         >
                             <option aria-label="None" value="" />
-                            <option value={"Direito Administrativo"}>Direito Administrativo</option>
-                            <option value={"Direito Civil"}> Direito Civil</option>
-                            <option value={"Direito Constitucional"}>Direito Constitucional</option>
-                            <option value={"Direito Empresarial"}>Direito Empresarial</option>
-                            <option value={"Direito Penal"}>Direito Penal</option>
-                            <option value={"Direito Tributário"}>Direito Tributário</option>
+                            <option value={'Direito Administrativo'}>Direito Administrativo</option>
+                            <option value={'Direito Civil'}> Direito Civil</option>
+                            <option value={'Direito Constitucional'}>Direito Constitucional</option>
+                            <option value={'Direito Empresarial'}>Direito Empresarial</option>
+                            <option value={'Direito Penal'}>Direito Penal</option>
+                            <option value={'Direito Tributário'}>Direito Tributário</option>
                         </Select>
                     </FormControl>
                 </Grid>
@@ -270,7 +270,7 @@ export default function Questionnaires() {
                             rowsMax="8"
                             multiline
                             rows="6"
-                            style={{ width: "95%" }}
+                            style={{ width: '95%' }}
                         />
                     </FormControl>
                 </Grid>
@@ -289,7 +289,7 @@ export default function Questionnaires() {
                             rows="4"
                             fullWidth
                             autoComplete="given-name"
-                            style={{ width: "95%" }}
+                            style={{ width: '95%' }}
                         />
                     </FormControl>
 
@@ -297,7 +297,7 @@ export default function Questionnaires() {
                 <Grid item xs={6}>
                     <Button variant="contained" color="primary" className={classes.btn} type="submit" onClick={clickSumit}>
                         Adicionar
-        </Button>
+                    </Button>
                 </Grid>
             </Grid>
 
@@ -312,5 +312,5 @@ export default function Questionnaires() {
                 </Alert>
             </Snackbar>
         </Form>
-    )
+    );
 }

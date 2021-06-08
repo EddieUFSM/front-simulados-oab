@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from "react"
-import clsx from 'clsx'
-import { AppBar, Toolbar, IconButton, Container, Grid, Button, FormControl, MenuItem, Paper, Divider, CardMedia, Select, Card, CardActionArea, CardContent, Typography, CardActions, FormLabel, FormGroup, FormControlLabel, Checkbox, FormHelperText, Slider, Chip } from '@material-ui/core'
-import { MdDelete as DeleteIcon } from 'react-icons/md'
-import { makeStyles } from '@material-ui/core/styles'
-import { getAllProducts } from 'admin/apiAdmin'
-import { API } from 'config'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
-import Banner from "assets/img/Banner/banner01.png"
-import Rating from '@material-ui/lab/Rating'
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
-const drawerWidth = 240
+import React, { useState, useEffect } from 'react';
+import { AppBar, Toolbar, IconButton, Container, Grid, Button, FormControl, MenuItem, Paper, Divider, CardMedia, Select, Card, CardActionArea, CardContent, Typography, CardActions, FormLabel, FormGroup, FormControlLabel, Checkbox, FormHelperText, Slider, Chip } from '@material-ui/core';
+import { MdDelete as DeleteIcon } from 'react-icons/md';
+import { makeStyles } from '@material-ui/core/styles';
+import { getAllProducts } from 'admin/apiAdmin';
+import { API } from 'config';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import Banner from 'assets/img/Banner/banner01.png';
+import Rating from '@material-ui/lab/Rating';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
         display: 'flex',
     },
+  
     appBar: {
         boxShadow: 'none',
         zIndex: theme.zIndex.drawer + 1,
@@ -59,6 +59,8 @@ const useStyles = makeStyles((theme) => ({
             duration: theme.transitions.duration.leavingScreen,
         }),
         marginLeft: -drawerWidth,
+        height: '100vh',
+        overflow: 'auto',
     },
     contentShift: {
 
@@ -98,14 +100,8 @@ const useStyles = makeStyles((theme) => ({
     cardRoot: {
         maxWidth: 345,
     },
-    root: {
-        display: 'flex',
-    },
-    content: {
-        flexGrow: 1,
-        height: '100vh',
-        overflow: 'auto',
-    },
+  
+  
     container: {
         paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(4),
@@ -143,10 +139,10 @@ const useStyles = makeStyles((theme) => ({
         },
         filterAccordion: {
             boxShadow: 'none',
-            margin: "0px !important",
+            margin: '0px !important',
         },
         filterAccordionSummary: {
-            margin: "0px !important",
+            margin: '0px !important',
         },
     },
     checkBoxFilterStyle: {
@@ -159,46 +155,46 @@ const useStyles = makeStyles((theme) => ({
     filters: {
         margin: 20
     }
-}))
+}));
 
 function valuetext(value) {
     return `${value}`;
 }
 
 export default function Filters() {
-    const classes = useStyles()
-    const [visible, setVisible] = useState(false)
-    const [open, setOpen] = useState(false)
-    const matches = useMediaQuery('(min-width:600px)')
-    const [message, setMessage] = useState('')
-    const [error, setError] = useState(false)
-    const [success, setSuccess] = useState(false)
-    const [products, setProducts] = useState([])
+    const classes = useStyles();
+    const [visible, setVisible] = useState(false);
+    const [open, setOpen] = useState(false);
+    const matches = useMediaQuery('(min-width:600px)');
+    const [message, setMessage] = useState('');
+    const [error, setError] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [products, setProducts] = useState([]);
 
     const init = () => {
         getAllProducts().then(data => {
             if (data.error) {
-                setMessage(data.message)
-                setError(data.error)
+                setMessage(data.message);
+                setError(data.error);
             } else {
                 setProducts(data.products);
-                setSuccess(data.success)
-                setMessage(data.message)
+                setSuccess(data.success);
+                setMessage(data.message);
             }
-        })
-    }
+        });
+    };
 
     useEffect(() => {
-        init()
-    }, [])
+        init();
+    }, []);
 
     const handleClick = () => {
         if (open) {
-            setOpen(false)
+            setOpen(false);
         } else {
-            setOpen(true)
+            setOpen(true);
         }
-    }
+    };
 
     const ClouthsFilter = () => {
         const [state, setState] = useState({
@@ -252,8 +248,8 @@ export default function Filters() {
                 </FormControl>
 
             </div>
-        )
-    }
+        );
+    };
 
     const GenderFilter = () => {
         const [state, setState] = useState({
@@ -297,15 +293,15 @@ export default function Filters() {
                 </FormControl>
 
             </div>
-        )
-    }
+        );
+    };
 
 
     const PriceFilter = () => {
-        const [value, setValue] = useState([50, 207])
+        const [value, setValue] = useState([50, 207]);
         const handleChange = (event, newValue) => {
             setValue(newValue);
-        }
+        };
 
         return (
             <div className={classes.root}>
@@ -321,20 +317,20 @@ export default function Filters() {
                 />
             </div>
         );
-    }
+    };
 
     const ChipsSelected = () => {
 
-        const [categories, setCategories] = useState([{ category: "categoria" }])
-        const [filters, setFilters] = useState([{ filter: 'PP' }, { filter: 'masculine' }])
-        const [authors, setAuthors] = useState([{ name: 'Philip K. Dick' }])
-        const [brands, setBrands] = useState([{ brand: 'Nike' }])
+        const [categories, setCategories] = useState([{ category: 'categoria' }]);
+        const [filters, setFilters] = useState([{ filter: 'PP' }, { filter: 'masculine' }]);
+        const [authors, setAuthors] = useState([{ name: 'Philip K. Dick' }]);
+        const [brands, setBrands] = useState([{ brand: 'Nike' }]);
 
         const handleDelete = (obj, name) => {
-            name === 'filter' ? setFilters(filters => filters.filter(filter => filter.filter !== obj.filter)) && console.log(filters) : console.log(filters)
-            name === 'category' ? setCategories(categories => categories.filter(category => category.category !== obj.category)) && console.log(categories) : console.log(categories)
-            name === 'brand' ? setBrands(brands => brands.filter(brand => brand.category !== obj.category)) && console.log(brands) : console.log(brands)
-            name === 'author' ? setAuthors(authors => authors.filter(author => author.category !== obj.category)) && console.log(authors) : console.log(authors)
+            name === 'filter' ? setFilters(filters => filters.filter(filter => filter.filter !== obj.filter)) && console.log(filters) : console.log(filters);
+            name === 'category' ? setCategories(categories => categories.filter(category => category.category !== obj.category)) && console.log(categories) : console.log(categories);
+            name === 'brand' ? setBrands(brands => brands.filter(brand => brand.category !== obj.category)) && console.log(brands) : console.log(brands);
+            name === 'author' ? setAuthors(authors => authors.filter(author => author.category !== obj.category)) && console.log(authors) : console.log(authors);
         };
 
         const handleClick = () => {
@@ -347,7 +343,7 @@ export default function Filters() {
                 <Typography id="range-slider" gutterBottom>Filtros</Typography>
                 {
                     categories ? categories.map((c) => (
-                        <Chip
+                        <Chip key={c.category}
                             variant="outlined"
                             size="small"
                             label={c.category}
@@ -360,6 +356,7 @@ export default function Filters() {
                 {
                     filters ? filters.map((f) => (
                         <Chip
+                            key={f.filter}
                             variant="outlined"
                             color='primary'
                             size="small"
@@ -373,6 +370,7 @@ export default function Filters() {
                 {
                     brands ? brands.map((b) => (
                         <Chip
+                            key={b.brand}
                             variant="outlined"
                             color='secondary'
                             size="small"
@@ -386,6 +384,7 @@ export default function Filters() {
                 {
                     authors ? authors.map((a) => (
                         <Chip
+                            key={a.name}
                             variant="outlined"
                             color='secondary'
                             size="small"
@@ -400,7 +399,7 @@ export default function Filters() {
 
             </div>
         );
-    }
+    };
 
     const CategoriesFiltes = () => {
 
@@ -430,8 +429,8 @@ export default function Filters() {
                 </FormControl>
 
             </div>
-        )
-    }
+        );
+    };
 
     return (
         <Container>
@@ -442,7 +441,7 @@ export default function Filters() {
                         <Toolbar>
                             {!matches ? <Button color='inherit' edge='start' aria-label="menu" onClick={() => handleClick()}>
                                 Filtrar
-                        </Button> : <></>}
+                            </Button> : <></>}
                             <div style={{ width: '100%' }}>
                                 <FormControl style={{ float: 'right', width: 200 }}>
                                     <Select variant='outlined' defaultValue={'popularity'}>
@@ -486,7 +485,7 @@ export default function Filters() {
                             <Grid container spacing={2}>
                                 {
                                     products.map((product) => (
-                                        <Grid item sm={4}>
+                                        <Grid item sm={4} key= {product._id}>
                                             <Card>
                                                 <CardActionArea>
                                                     <CardMedia
@@ -506,10 +505,10 @@ export default function Filters() {
                                                     </CardContent>
                                                 </CardActionArea>
                                                 <CardActions>
-                                                    <Button variant="outlined" color="primary" href={"/product/" + product._id + "/Single"}>
+                                                    <Button variant="outlined" color="primary" href={'/product/' + product._id + '/Single'}>
                                                         Conferir
-                                            </Button>
-                                                    <IconButton color="primary" aria-label="add to shopping cart" style={{ marginLeft: "40%" }}>
+                                                    </Button>
+                                                    <IconButton color="primary" aria-label="add to shopping cart" style={{ marginLeft: '40%' }}>
                                                         <AddShoppingCartIcon />
                                                     </IconButton>
                                                 </CardActions>

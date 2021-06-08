@@ -1,7 +1,7 @@
-import React from 'react'
-import { makeStyles } from '@material-ui/core'
-import { Grid, Paper, InputBase, IconButton, Button, Divider, InputLabel, FormControl, Select } from '@material-ui/core'
-import { SearchOutlined } from '@material-ui/icons'
+import React from 'react';
+import { makeStyles } from '@material-ui/core';
+import { Grid, Paper, InputBase, IconButton, Button, Divider, InputLabel, FormControl, Select } from '@material-ui/core';
+import { SearchOutlined } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     selectEmpty: {
         marginTop: theme.spacing(2)
     }
-}))
+}));
 
 export default function SearchSection() {
 
@@ -61,7 +61,7 @@ export default function SearchSection() {
 
                             className={classes.input}
                             placeholder="Buscar"
-                            inputProps={{ "aria-label": "Buscar" }}
+                            inputProps={{ 'aria-label': 'Buscar' }}
                         />
                         <IconButton
                             type="submit"
@@ -90,8 +90,8 @@ export default function SearchSection() {
                             onChange={handleChange}
                             label="Banca"
                             inputProps={{
-                                name: "Banca",
-                                id: "outlined-age-native-simple"
+                                name: 'Banca',
+                                id: 'outlined-age-native-simple'
                             }}
                         >
                             <option aria-label="None" value="" />
@@ -107,8 +107,8 @@ export default function SearchSection() {
                             onChange={handleChange}
                             label="Exame"
                             inputProps={{
-                                name: "Exame",
-                                id: "outlined-age-native-simple"
+                                name: 'Exame',
+                                id: 'outlined-age-native-simple'
                             }}
                         >
                             <option aria-label="None" value="" />
@@ -124,8 +124,8 @@ export default function SearchSection() {
                             onChange={handleChange}
                             label="Ano"
                             inputProps={{
-                                name: "Ano",
-                                id: "outlined-age-native-simple"
+                                name: 'Ano',
+                                id: 'outlined-age-native-simple'
                             }}
                         >
                             <option aria-label="None" value="" />
@@ -161,8 +161,8 @@ export default function SearchSection() {
                             onChange={handleChange}
                             label="Categoria"
                             inputProps={{
-                                name: "Fase",
-                                id: "outlined-age-native-simple"
+                                name: 'Fase',
+                                id: 'outlined-age-native-simple'
                             }}
                         >
                             <option aria-label="None" value="" />
@@ -178,8 +178,8 @@ export default function SearchSection() {
                             onChange={handleChange}
                             label="Disciplina"
                             inputProps={{
-                                name: "Disciplina",
-                                id: "outlined-age-native-simple"
+                                name: 'Disciplina',
+                                id: 'outlined-age-native-simple'
                             }}
                         >
                             <option aria-label="None" value="" />
@@ -216,8 +216,8 @@ export default function SearchSection() {
                             onChange={handleChange}
                             label="Tema"
                             inputProps={{
-                                name: "Tema",
-                                id: "outlined-age-native-simple"
+                                name: 'Tema',
+                                id: 'outlined-age-native-simple'
                             }}
                         >
                             <option aria-label="None" value="" />
@@ -230,5 +230,5 @@ export default function SearchSection() {
             </Grid>
 
         </Grid>
-    )
+    );
 }

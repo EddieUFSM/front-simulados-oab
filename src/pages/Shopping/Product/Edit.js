@@ -1,39 +1,39 @@
-import React from 'react'
-import ProductFormEdit from './ProductFormEdit'
-import clsx from 'clsx'
-import { makeStyles, useTheme } from '@material-ui/core'
-import { AppBar, Toolbar, IconButton, Drawer, Paper } from '@material-ui/core'
-import { ChevronLeft, ChevronRight } from '@material-ui/icons'
-import { MdMenu } from 'react-icons/md'
-import TopMenu from 'pages/Menus/TopMenu'
-import SideBarMenu from 'pages/Menus/SidebarMenu'
+import React from 'react';
+import ProductFormEdit from './ProductFormEdit';
+import clsx from 'clsx';
+import { makeStyles, useTheme } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, Drawer, Paper } from '@material-ui/core';
+import { ChevronLeft, ChevronRight } from '@material-ui/icons';
+import { MdMenu } from 'react-icons/md';
+import TopMenu from 'pages/Menus/TopMenu';
+import SideBarMenu from 'pages/Menus/SidebarMenu';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
     container: {
-        marginLeft: "3rem"
+        marginLeft: '3rem'
     },
     title: {
-        fontSize: "3.2rem",
-        fontWeight: "600",
-        display: "inline-block",
-        position: "relative"
+        fontSize: '3.2rem',
+        fontWeight: '600',
+        display: 'inline-block',
+        position: 'relative'
     },
     subtitle: {
-        fontSize: "1.313rem",
-        maxWidth: "500px",
-        margin: "10px 0 0"
+        fontSize: '1.313rem',
+        maxWidth: '500px',
+        margin: '10px 0 0'
     },
     main: {
-        background: "#FFFFFF",
-        position: "relative",
-        zIndex: "3"
+        background: '#FFFFFF',
+        position: 'relative',
+        zIndex: '3'
     },
     mainRaised: {
-        margin: "-60px 30px 0px",
-        borderRadius: "6px",
+        margin: '-60px 30px 0px',
+        borderRadius: '6px',
         boxShadow:
-            "0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)"
+            '0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)'
     },
     root: {
         flexGrow: 1,
@@ -177,19 +177,19 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(5),
         padding: theme.spacing(3)
     }
-}))
+}));
 
 export default function Users() {
-    const classes = useStyles()
-    const theme = useTheme()
-    const [open, setOpen] = React.useState(false)
+    const classes = useStyles();
+    const theme = useTheme();
+    const [open, setOpen] = React.useState(false);
 
     const handleDrawerOpen = () => {
-        setOpen(true)
-    }
+        setOpen(true);
+    };
     const handleDrawerClose = () => {
-        setOpen(false)
-    }
+        setOpen(false);
+    };
 
     return (
         <div className={classes.root}>
@@ -236,6 +236,6 @@ export default function Users() {
                 </Paper>
             </main>
         </div>
-    )
+    );
 
 }

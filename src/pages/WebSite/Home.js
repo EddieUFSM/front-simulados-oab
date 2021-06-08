@@ -1,54 +1,51 @@
 
 import clsx from 'clsx';
-import React from 'react'
-import { AppBar, Toolbar, IconButton, Drawer, makeStyles, useTheme, Typography } from '@material-ui/core'
-import { CenterFocusStrong, ChevronLeft, ChevronRight, Image } from '@material-ui/icons'
-import { MdMenu } from 'react-icons/md'
+import React from 'react';
+import { AppBar, Toolbar, IconButton, Drawer, makeStyles, useTheme, Typography } from '@material-ui/core';
+import { ChevronLeft, ChevronRight } from '@material-ui/icons';
+import { MdMenu } from 'react-icons/md';
 
-import PriceSection from 'components/Pricing/Pricing'
-import FooterSection from 'components/Footer/Footer'
-import Parallax from 'components/Parallax/Parallax'
-import GridContainer from "components/Grid/GridContainer.js";
-import GridItem from "components/Grid/GridItem.js";
-import classNames from "classnames";
-import { isAuthenticated, signout, isAdmin } from "auth"
-import img from 'assets/img/simuladosOAB.png'
-import logo from 'assets/img/logo.png'
+import PriceSection from 'components/Pricing/Pricing';
+import FooterSection from 'components/Footer/Footer';
+import GridContainer from 'components/Grid/GridContainer.js';
+import GridItem from 'components/Grid/GridItem.js';
+import classNames from 'classnames';
+import img from 'assets/img/1.svg';
+import logo from 'assets/img/logo.png';
 
-import TopMenu from '../Menus/TopMenu'
-import SideBarMenu from '../Menus/SidebarMenu'
-import { CardMedia } from '@material-ui/core';
+import TopMenu from '../Menus/TopMenu';
+import SideBarMenu from '../Menus/SidebarMenu';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
     container: {
-        margin: "3rem",
+        margin: '3rem',
         height: '100vh',
         textAlign: 'center'
     },
     title: {
-        fontSize: "2rem",
-        fontWeight: "600",
-        position: "relative",
+        fontSize: '2rem',
+        fontWeight: '600',
+        position: 'relative',
         marginBottom: '10px',
         marginTop: '30px'
     },
     subtitle: {
-        fontSize: "1rem",
+        fontSize: '1rem',
         margin: '0px 0px 0px',
-        position: "relative",
-        fontWeight: "200",
+        position: 'relative',
+        fontWeight: '200',
     },
     main: {
-        background: "#FFFFFF",
-        position: "relative",
-        zIndex: "3"
+        background: '#FFFFFF',
+        position: 'relative',
+        zIndex: '3'
     },
     mainRaised: {
-        margin: "-60px 30px 0px",
-        borderRadius: "6px",
+        margin: '-60px 30px 0px',
+        borderRadius: '6px',
         boxShadow:
-            "0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)"
+            '0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)'
     },
     root: {
         flexGrow: 1,
@@ -188,13 +185,13 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(6),
     },
 
-}))
+}));
 
 export default function Home(props, ref) {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
-    const [onscroll, setOnscroll] = React.useState(false)
+    const [onscroll, setOnscroll] = React.useState(false);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -291,5 +288,5 @@ export default function Home(props, ref) {
                 <FooterSection />
             </main>
         </div>
-    )
+    );
 }

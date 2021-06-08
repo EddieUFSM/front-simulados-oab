@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Card, Grid, List, ListItem } from '@material-ui/core/';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link'
+import Link from '@material-ui/core/Link';
 
 import { Container } from '@material-ui/core';
 
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     formNewsletterPaper: {
         margin: theme.spacing(4)
     }
-}))
+}));
 
 export default function ImgMediaCard() {
     const classes = useStyles();

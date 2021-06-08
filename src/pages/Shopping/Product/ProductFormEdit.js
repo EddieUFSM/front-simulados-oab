@@ -1,26 +1,26 @@
 
-import React, { useState, useEffect } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import { Grid, TextField, Button, InputAdornment, FormControl } from '@material-ui/core'
-import { ImageOutlined } from '@material-ui/icons'
-import { Form } from 'components/Form/useForm'
-import { isAuthenticated } from 'auth'
-import { createProduct, getCategories } from "admin/apiAdmin"
-import Snackbar from '@material-ui/core/Snackbar'
-import Autocomplete from '@material-ui/lab/Autocomplete'
-import MuiAlert from '@material-ui/lab/Alert'
+import React, { useState, useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { Grid, TextField, Button, InputAdornment, FormControl } from '@material-ui/core';
+import { ImageOutlined } from '@material-ui/icons';
+import { Form } from 'components/Form/useForm';
+import { isAuthenticated } from 'auth';
+import { createProduct, getCategories } from 'admin/apiAdmin';
+import Snackbar from '@material-ui/core/Snackbar';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import MuiAlert from '@material-ui/lab/Alert';
 
 function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
-        justifyContent: "center",
+        justifyContent: 'center',
     },
     toolbar: {
-        alignItems: "center",
+        alignItems: 'center',
         paddingRight: 24, // keep right padding when drawer closed
     },
     toolbarIcon: {
@@ -30,15 +30,15 @@ const useStyles = makeStyles((theme) => ({
         padding: '0 8px',
         ...theme.mixins.toolbar,
     },
-}))
+}));
 
 export default function ProductForm() {
-    const classes = useStyles()
-    const { user, token } = isAuthenticated()
-    const [success, setSuccess] = useState(false)
-    const [error, setError] = useState(false)
-    const [indexSelected, setIndexSelected] = useState(0)
-    const [inputList, setInputList] = useState([{ image: '' }])
+    const classes = useStyles();
+    const { user, token } = isAuthenticated();
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState(false);
+    const [indexSelected, setIndexSelected] = useState(0);
+    const [inputList, setInputList] = useState([{ image: '' }]);
     const [values, setValues] = useState({
         name: '',
         description: '',
@@ -53,7 +53,7 @@ export default function ProductForm() {
         createdProduct: '',
         redirectToProfile: false,
         formData: '',
-    })
+    });
 
     const {
         name,
@@ -67,8 +67,8 @@ export default function ProductForm() {
         createdProduct,
         redirectToProfile,
         formData
-    } = values
-    const [allCategories, setAllCategories] = useState([])
+    } = values;
+    const [allCategories, setAllCategories] = useState([]);
 
     // load categories and set form data
     const init = () => {
@@ -77,76 +77,76 @@ export default function ProductForm() {
                 setValues({ ...values, error: data.error });
             } else {
                 data.map((c) => {
-                    setAllCategories(...allCategories, data)
+                    setAllCategories(...allCategories, data);
                     setValues({
                         ...values,
                         formData: new FormData()
-                    })
-                })
+                    });
+                });
             }
-        })
-    }
+        });
+    };
 
 
     const onCategoryChange = async (event, categories) => {
-        let myArray = []
-        setValues({ ...values, categories: categories })
-        let index = 0
+        let myArray = [];
+        setValues({ ...values, categories: categories });
+        let index = 0;
         categories.map(category => {
             formData.append('category' + index, category._id);
-            index++
-        })
+            index++;
+        });
 
-    }
+    };
 
     useEffect(() => {
         init();
-    }, [])
+    }, []);
 
 
     const handleChange = name => event => {
         const value = event.target.value;
         formData.set(name, value);
-        setValues({ ...values, [name]: value })
-    }
+        setValues({ ...values, [name]: value });
+    };
 
     const handleInputChange = async (e, index) => {
-        let name = e.target.name
-        let value = e.target.files[0]
-        formData.append(name + indexSelected, value)
-    }
+        let name = e.target.name;
+        let value = e.target.files[0];
+        formData.append(name + indexSelected, value);
+    };
 
     const handleImageUpdate = async (index) => {
-        setIndexSelected(index)
-    }
+        setIndexSelected(index);
+    };
 
     const handleRemoveClick = index => {
-        const list = [...inputList]
-        formData.delete('image' + index)
-        console.log(index)
+        const list = [...inputList];
+        formData.delete('image' + index);
+        console.log(index);
         for (var pair of formData.entries()) {
-            console.log(pair[0] + ', ' + pair[1])
+            console.log(pair[0] + ', ' + pair[1]);
         }
 
-        list.splice(index, 1)
+        list.splice(index, 1);
 
-        setInputList(list)
-    }
+        setInputList(list);
+    };
 
     const handleAddClick = () => {
-        setInputList([...inputList, { image: '' }])
-    }
+        setInputList([...inputList, { image: '' }]);
+    };
 
     const clickSumit = event => {
         event.preventDefault();
-        setValues({ ...values, message: '', loading: true })
+        setValues({ ...values, message: '', loading: true });
         for (var pair of formData.entries()) {
-            console.log(pair[0] + ', ' + pair[1])
+            console.log(pair[0] + ', ' + pair[1]);
         }
         createProduct(user._id, token, formData).then(data => {
             if (data.error) {
-                setValues({ ...values, message: data.message })
-                setError(data.error)
+                setValues({ ...values, message: data.message });
+                setError(data.error);
             } else {
                 setValues({
                     ...values,
@@ -158,18 +158,18 @@ export default function ProductForm() {
                     loading: false,
                     createdProduct: data.name
                 });
-                setSuccess(data.success)
+                setSuccess(data.success);
             }
         });
-    }
+    };
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
-            return
+            return;
         }
-        setSuccess(false)
-        setError(false)
-    }
+        setSuccess(false);
+        setError(false);
+    };
 
     return (
         <Form>
@@ -232,7 +232,7 @@ export default function ProductForm() {
                 </Grid>
                 {inputList.map((x, i) => {
                     return (
-                        <Grid container>
+                        <Grid container key={i}>
 
                             {
                                 <Grid item xs={6}>
@@ -241,7 +241,7 @@ export default function ProductForm() {
                                         <label htmlFor="raised-button-file">
                                             <Button color="primary" variant="outlined" onClick={e => handleImageUpdate(i)} component="span" aria-label="add" size="large" startIcon={<ImageOutlined />}>
                                                 Adicionar Imagem
-                                  </Button>
+                                            </Button>
                                         </label>
                                     </FormControl>
                                 </Grid>
@@ -268,7 +268,7 @@ export default function ProductForm() {
                     <FormControl variant="outlined" className={classes.formControl}>
                         <Button variant="contained" color="primary" className={classes.btn} onClick={clickSumit} >
                             Adicionar
-                </Button>
+                        </Button>
                     </FormControl>
                 </Grid>
             </Grid>
@@ -277,17 +277,17 @@ export default function ProductForm() {
             <Snackbar open={success} autoHideDuration={6000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="success">
                     This is a success message!
-        </Alert>
+                </Alert>
             </Snackbar>
 
             <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="error">
                     This is a error message!
-        </Alert>
+                </Alert>
             </Snackbar>
 
             {JSON.stringify(inputList)}
 
         </Form>
-    )
+    );
 }

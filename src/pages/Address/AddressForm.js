@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
-import { getCep } from 'admin/apiAdmin'
-import { Button, TextField, CssBaseline, makeStyles, Paper, FormControl, Container } from '@material-ui/core'
-import { useHistory } from "react-router-dom";
-import { useTheme } from '@material-ui/core'
-import { IconButton } from '@material-ui/core'
-import { createAddress } from 'admin/apiAdmin'
-import { isAuthenticated } from 'auth'
-import { Search } from '@material-ui/icons'
+import React, { useState } from 'react';
+import { getCep } from 'admin/apiAdmin';
+import { Button, TextField, CssBaseline, makeStyles, Paper, FormControl, Container } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
+import { useTheme } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
+import { createAddress } from 'admin/apiAdmin';
+import { isAuthenticated } from 'auth';
+import { Search } from '@material-ui/icons';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(3, 0, 2),
     },
 
-}))
+}));
 
 export default function AddressForm() {
     const [values, setValues] = useState({
@@ -45,11 +45,11 @@ export default function AddressForm() {
         logradouro: '',
         siafi: '',
         uf: '',
-    })
-    const [success, setSuccess] = useState(false)
-    const [error, setError] = useState(false)
-    const [message, setMessage] = useState('')
-    const [loading, setLoading] = useState(false)
+    });
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState(false);
+    const [message, setMessage] = useState('');
+    const [loading, setLoading] = useState(false);
     const {
         nick,
         buyer,
@@ -64,22 +64,22 @@ export default function AddressForm() {
         logradouro,
         siafi,
         uf,
-    } = values
+    } = values;
     const history = useHistory();
     const classes = useStyles();
     const theme = useTheme();
-    const [open, setOpen] = React.useState(false)
-    const { user, token } = isAuthenticated()
+    const [open, setOpen] = React.useState(false);
+    const { user, token } = isAuthenticated();
 
 
     const handleChange = name => event => {
-        setValues({ ...values, error: false, [name]: event.target.value })
-    }
+        setValues({ ...values, error: false, [name]: event.target.value });
+    };
 
     function handleClick() {
-        const nCep = cep.replace(/-/g, '')
+        const nCep = cep.replace(/-/g, '');
         if (nCep.length === 8) {
-            setValues({ ...values, cep: nCep })
+            setValues({ ...values, cep: nCep });
             getCep(nCep).then(data => {
                 setValues({
                     ...values,
@@ -92,41 +92,41 @@ export default function AddressForm() {
                     logradouro: data.logradouro,
                     siafi: data.siafi,
                     uf: data.uf
-                })
-                setError(false)
-                console.log(data)
+                });
+                setError(false);
+                console.log(data);
 
 
-            })
+            });
         } else {
-            console.log('error')
+            console.log('error');
         }
     }
 
 
     const clickSumit = event => {
         event.preventDefault();
-        setLoading(true)
-        setError(false)
-        setSuccess(false)
+        setLoading(true);
+        setError(false);
+        setSuccess(false);
 
-        setValues({ ...values, 'buyer': user._id })
-        console.log(values)
+        setValues({ ...values, 'buyer': user._id });
+        console.log(values);
         createAddress(user._id, token, values).then(data => {
             if (data.error) {
-                setMessage(data.message)
-                setError(data.error)
-                setSuccess(data.success)
-                setLoading(false)
+                setMessage(data.message);
+                setError(data.error);
+                setSuccess(data.success);
+                setLoading(false);
             } else {
                 setValues(values);
-                setSuccess(data.success)
-                setError(data.error)
-                setSuccess(data.success)
-                setLoading(false)
+                setSuccess(data.success);
+                setError(data.error);
+                setSuccess(data.success);
+                setLoading(false);
             }
         });
-    }
+    };
 
     return (
 
@@ -145,7 +145,7 @@ export default function AddressForm() {
                 />
 
                 <TextField
-                    onChange={handleChange("cep")}
+                    onChange={handleChange('cep')}
                     margin="normal"
                     name="cep"
                     label="CEP"
@@ -215,5 +215,5 @@ export default function AddressForm() {
         </Container>
 
 
-    )
+    );
 }

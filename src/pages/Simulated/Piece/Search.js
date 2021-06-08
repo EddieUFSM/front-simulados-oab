@@ -1,19 +1,19 @@
 
 import clsx from 'clsx';
-import React, { useState, useEffect } from 'react'
-import { makeStyles, useTheme } from '@material-ui/core'
-import { Card, CardMedia, CardContent, CardActions, Grid, AppBar, Toolbar, IconButton, Drawer, Typography, Button } from '@material-ui/core'
-import { ChevronLeft, ChevronRight } from '@material-ui/icons'
+import React, { useState, useEffect } from 'react';
+import { makeStyles, useTheme } from '@material-ui/core';
+import { Card, CardContent, CardActions, Grid, AppBar, Toolbar, IconButton, Drawer, Typography, Button } from '@material-ui/core';
+import { ChevronLeft, ChevronRight } from '@material-ui/icons';
 
-import Chip from '@material-ui/core/Chip'
-import { MdMenu } from 'react-icons/md'
-import SearchSection from 'components/Piece/Search'
-import FooterSection from 'components/Footer/Footer'
-import { getAllPieces, deletePiece } from 'admin/apiAdmin'
+import Chip from '@material-ui/core/Chip';
+import { MdMenu } from 'react-icons/md';
+import SearchSection from 'components/Piece/Search';
+import FooterSection from 'components/Footer/Footer';
+import { getAllPieces, deletePiece } from 'admin/apiAdmin';
 
-import TopMenu from 'pages/Menus/TopMenu'
-import SideBarMenu from 'pages/Menus/SidebarMenu'
-import { isAuthenticated } from 'auth'
+import TopMenu from 'pages/Menus/TopMenu';
+import SideBarMenu from 'pages/Menus/SidebarMenu';
+import { isAuthenticated } from 'auth';
 
 import DoneIcon from '@material-ui/icons/Done';
 
@@ -132,12 +132,12 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        border: "none",
+        border: 'none',
     },
     paper: {
         width: 800,
         backgroundColor: theme.palette.background.paper,
-        border: "none",
+        border: 'none',
         padding: theme.spacing(2, 4, 3),
     },
     chip: {
@@ -145,71 +145,71 @@ const useStyles = makeStyles((theme) => ({
     },
     danger: {
 
-        backgroundColor: "#F01300",
-        borderColor: "#F01300",
-        color: "#ffffff",
-        "&:hover": {
-            backgroundColor: "#932822",
-            borderColor: "#932822",
-            boxShadow: "none"
+        backgroundColor: '#F01300',
+        borderColor: '#F01300',
+        color: '#ffffff',
+        '&:hover': {
+            backgroundColor: '#932822',
+            borderColor: '#932822',
+            boxShadow: 'none'
         },
-        "&:active": {
-            boxShadow: "none",
-            backgroundColor: "#932822",
-            borderColor: "#932822"
+        '&:active': {
+            boxShadow: 'none',
+            backgroundColor: '#932822',
+            borderColor: '#932822'
         },
-        "&:focus": {
-            boxShadow: "0 0 0 0.2rem #93282200"
+        '&:focus': {
+            boxShadow: '0 0 0 0.2rem #93282200'
         }
     }
 
-}))
+}));
 
 export default function Home() {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = useState(false);
-    const [allPieces, setAllPieces] = useState([])
-    const [error, setError] = useState(false)
-    const [message, setMessage] = useState('')
+    const [allPieces, setAllPieces] = useState([]);
+    const [error, setError] = useState(false);
+    const [message, setMessage] = useState('');
 
     const init = () => {
         getAllPieces().then(data => {
-            console.log(data)
+            console.log(data);
             if (data.error) {
                 setError(data.error);
-                setMessage(data.message)
-                console.log("err:" + data.message)
+                setMessage(data.message);
+                console.log('err:' + data.message);
             } else {
 
-                console.log("questions:" + data)
-                setAllPieces(data)
+                console.log('questions:' + data);
+                setAllPieces(data);
             }
-        })
-    }
+        });
+    };
 
     useEffect(() => {
         init();
-    }, [])
+    }, []);
 
     const handleDelete = (questionId) => {
         deletePiece(isAuthenticated().token, questionId).then(data => {
             if (data.error) {
                 setError(data.error);
-                setMessage(data.message)
+                setMessage(data.message);
             } else {
                 getAllPieces().then(data => {
                     if (data.error) {
                         setError(data.error);
-                        setMessage(data.message)
+                        setMessage(data.message);
                     } else {
-                        setAllPieces(data)
-                        console.log(data)
+                        setAllPieces(data);
+                        console.log(data);
                     }
-                })
+                });
             }
-        })
-    }
+        });
+    };
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -258,7 +258,7 @@ export default function Home() {
 
                 <div className={classes.drawerHeader} />
                 {/** Main content */}
-                <SearchSection style={{ display: "none" }} />
+                <SearchSection style={{ display: 'none' }} />
                 {/* End hero unit */}
                 <Grid container spacing={4}>
                     {allPieces.map((piece) => (
@@ -285,13 +285,13 @@ export default function Home() {
                                     />
                                 </CardContent>
                                 <CardActions>
-                                    <Button size="small" color="primary" variant="contained" href={"/piece/" + piece._id + "/Single"}>
+                                    <Button size="small" color="primary" variant="contained" href={'/piece/' + piece._id + '/Single'}>
                                         Ver Questão
                                     </Button>
-                                    <Button size="small" color="primary" variant="contained" href={"/piece/" + piece._id + "/edit"}>
+                                    <Button size="small" color="primary" variant="contained" href={'/piece/' + piece._id + '/edit'}>
                                         Editar
                                     </Button>
-                                    <Button size="small" variant="outlined" className={classes.danger} onClick={() => { handleDelete(piece._id) }} >
+                                    <Button size="small" variant="outlined" className={classes.danger} onClick={() => { handleDelete(piece._id); }} >
                                         Excluir
                                     </Button>
                                 </CardActions>
@@ -302,5 +302,5 @@ export default function Home() {
                 <FooterSection />
             </main>
         </div>
-    )
+    );
 }

@@ -1,10 +1,9 @@
-import React, { forwardRef } from 'react';
-import Carousel from 'infinite-react-carousel'
+import React from 'react';
+import PropTypes from 'prop-types';
+import Carousel from 'infinite-react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
 
-const ImageCarousel = forwardRef(({
-    images = [],
-}) => {
+const ImageCarousel = React.forwardRef(({ images = [], }) => {
     const settings = {
         centerMode: true,
         arrows: false,
@@ -16,7 +15,7 @@ const ImageCarousel = forwardRef(({
             ...base,
             border: 0,
             // This line disable the blue border
-            boxShadow: "none",
+            boxShadow: 'none',
             outline: 'none',
             dots: true,
             slidesPerRow: 5
@@ -26,21 +25,26 @@ const ImageCarousel = forwardRef(({
     return (
         <Carousel  {...settings}>
             {images.map((k) => (
-                <div styles={style}>
+                <div key={k} styles={style}>
                     <img src={k} style={{
-                        textAlign: "center",
-                        display: "block",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        margin: "auto",
+                        textAlign: 'center',
+                        display: 'block',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        margin: 'auto',
                         height: '200px',
                         width: 'auto'
                     }} />
                 </div>
             ))}
         </Carousel>
-    )
-})
+    );
+});
 
+ImageCarousel.displayName = 'ImageCarousel';
+ImageCarousel.propTypes = {
+    style: PropTypes.object
+};
 
 export default ImageCarousel;
+export const proptype = ImageCarousel.PropTypes;

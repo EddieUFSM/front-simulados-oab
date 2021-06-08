@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import { Grid, makeStyles, Card, CardContent, Typography, TextField, Button, CardActions, FormControl } from '@material-ui/core'
-import { createSimulatedByExam, getExams } from 'admin/apiAdmin'
-import { useHistory } from "react-router-dom"
-import Snackbar from '@material-ui/core/Snackbar'
-import { isAuthenticated } from 'auth'
-import MuiAlert from '@material-ui/lab/Alert'
+import React, { useState, useEffect } from 'react';
+import { Grid, makeStyles, Card, CardContent, Typography, TextField, Button, CardActions, FormControl } from '@material-ui/core';
+import { createSimulatedByExam, getExams } from 'admin/apiAdmin';
+import { useHistory } from 'react-router-dom';
+import Snackbar from '@material-ui/core/Snackbar';
+import { isAuthenticated } from 'auth';
+import MuiAlert from '@material-ui/lab/Alert';
 
-import Autocomplete from '@material-ui/lab/Autocomplete'
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const useStyles = makeStyles((theme) => ({
     /** Mui T */
@@ -22,66 +22,66 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1),
         minWidth: 120,
     },
-}))
+}));
 
 function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 export default function MenuGame() {
     const classes = useStyles();
     const history = useHistory();
-    const [allExams, setAllExams] = useState([])
-    const { user, token } = isAuthenticated()
-    const [success, setSuccess] = useState(false)
-    const [error, setError] = useState(false)
-    const [message, setMessage] = useState('')
+    const [allExams, setAllExams] = useState([]);
+    const { user, token } = isAuthenticated();
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState(false);
+    const [message, setMessage] = useState('');
     const [values, setValues] = useState({
-        exam: "",
-    })
+        exam: '',
+    });
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
-            return
+            return;
         }
         setSuccess(false);
-        setError(false)
-    }
+        setError(false);
+    };
 
 
     const loadExam = () => {
         getExams(token).then((data) => {
             if (data.error) {
-                console.log(error)
+                console.log(error);
             } else {
-                console.log(data)
-                setAllExams(data)
+                console.log(data);
+                setAllExams(data);
             }
-        })
-    }
+        });
+    };
     useEffect(() => {
-        loadExam()
-    }, [])
+        loadExam();
+    }, []);
 
     const handleExamChange = (e, seletectedExam) => [
         setValues({ ...values, exam: seletectedExam })
-    ]
+    ];
 
     const clickSumit = event => {
-        event.preventDefault()
+        event.preventDefault();
         createSimulatedByExam(user._id, token, values).then(data => {
             if (data.error) {
-                setMessage(data.message)
-                setError(data.error)
-                setSuccess(data.success)
+                setMessage(data.message);
+                setError(data.error);
+                setSuccess(data.success);
             } else {
                 history.push(`/FirstFase/${data.simulated._id}/start`, { simulated: data.simulated, message: data.message, success: data.success, error: data.error });
-                setMessage(data.message)
-                setError(data.error)
-                setSuccess(data.success)
+                setMessage(data.message);
+                setError(data.error);
+                setSuccess(data.success);
             }
         });
 
-    }
+    };
 
     return (
         <div className="App">
@@ -151,5 +151,5 @@ export default function MenuGame() {
             </Snackbar>
 
         </div >
-    )
+    );
 }

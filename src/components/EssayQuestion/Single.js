@@ -1,53 +1,53 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardHeader, CardContent, Radio, Button, Typography, Chip, CardActions, Grid } from '@material-ui/core';
-import styled, { ThemeConsumer, ThemeContext } from "styled-components"
-import { getEssayQuestion, deleteEssayQuestion } from 'admin/apiAdmin'
+import { Card, CardHeader, CardContent, Button, Typography, Chip, CardActions, Grid } from '@material-ui/core';
+import styled from 'styled-components';
+import { getEssayQuestion, deleteEssayQuestion } from 'admin/apiAdmin';
 
-import { useParams } from 'react-router-dom'
-import { isAuthenticated, signout, isAdmin } from "auth"
+import { useParams } from 'react-router-dom';
+import { isAuthenticated } from 'auth';
 
 const Row = styled.div`
   display: flex;
   align-items: center;
-`
+`;
 const Text = styled.div`
   font-family: Roboto, sans-serif;
   font-size: 14px;
-`
+`;
 const AnswerContainer = styled(Button)`
   && {
     padding: 0;
     padding-right: 20px;
     text-transform: none;
   }
-`
+`;
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
     container: {
-        marginLeft: "3rem"
+        marginLeft: '3rem'
     },
     title: {
-        fontSize: "3.2rem",
-        fontWeight: "600",
-        display: "inline-block",
-        position: "relative"
+        fontSize: '3.2rem',
+        fontWeight: '600',
+        display: 'inline-block',
+        position: 'relative'
     },
     subtitle: {
-        fontSize: "1.313rem",
-        maxWidth: "500px",
-        margin: "10px 0 0"
+        fontSize: '1.313rem',
+        maxWidth: '500px',
+        margin: '10px 0 0'
     },
     main: {
-        background: "#FFFFFF",
-        position: "relative",
-        zIndex: "3"
+        background: '#FFFFFF',
+        position: 'relative',
+        zIndex: '3'
     },
     mainRaised: {
-        margin: "-60px 30px 0px",
-        borderRadius: "6px",
+        margin: '-60px 30px 0px',
+        borderRadius: '6px',
         boxShadow:
-            "0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)"
+            '0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)'
     },
     root: {
         flexGrow: 1,
@@ -192,50 +192,50 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(3)
     }
 
-}))
+}));
 
 export default function EssayQuestionCard() {
     const classes = useStyles();
-    const [essayQuestion, setEssayQuestion] = useState({})
-    const [aEnunciated, setAEnunciated] = useState('')
-    const [bEnunciated, setBEnunciated] = useState('')
-    const [error, setError] = useState(false)
-    const [message, setMessage] = useState('')
+    const [essayQuestion, setEssayQuestion] = useState({});
+    const [aEnunciated, setAEnunciated] = useState('');
+    const [bEnunciated, setBEnunciated] = useState('');
+    const [error, setError] = useState(false);
+    const [message, setMessage] = useState('');
     let { idEssayQuestion } = useParams();
 
     const handleDelete = (essayQuestionId) => {
         deleteEssayQuestion(isAuthenticated().token, essayQuestionId).then(data => {
             if (data.error) {
                 setError(data.error);
-                setMessage(data.message)
+                setMessage(data.message);
             } else {
-                console.log(data)
+                console.log(data);
             }
-        })
-    }
+        });
+    };
 
     const init = () => {
         getEssayQuestion(isAuthenticated().token, idEssayQuestion).then(data => {
             if (data == undefined) {
-                return
+                return;
             } else if (data.error) {
-                setEssayQuestion(data)
+                setEssayQuestion(data);
             } else {
-                setEssayQuestion(data)
-                setAEnunciated(data.questionA.enunciated)
-                setBEnunciated(data.questionB.enunciated)
+                setEssayQuestion(data);
+                setAEnunciated(data.questionA.enunciated);
+                setBEnunciated(data.questionB.enunciated);
             }
-        })
-    }
+        });
+    };
 
     useEffect(() => {
-        init()
-    }, [])
+        init();
+    }, []);
 
 
     return (
         <Card id={essayQuestion._id} elevation={0}>
-            <Card content style={{ overflowX: "hidden" }}>
+            <Card content style={{ overflowX: 'hidden' }}>
                 <CardHeader
                     style={{ paddingRight: 40, paddingLeft: 0 }}
                     title={
@@ -247,7 +247,7 @@ export default function EssayQuestionCard() {
                         </>
                     }
                 />
-                <CardContent style={{ overflowX: "hidden" }}>
+                <CardContent style={{ overflowX: 'hidden' }}>
                     <Typography variant="body1">
                         Questão: {essayQuestion.enunciated}
                     </Typography>
@@ -268,12 +268,12 @@ export default function EssayQuestionCard() {
                 </CardContent>
 
                 <CardActions>
-                    <Button size="small" color="primary" variant="contained" href={"/essayQuestion/" + essayQuestion._id + "/Edit"}> Editar </Button>
-                    <Button size="small" variant="outlined" className={classes.danger} onClick={() => { handleDelete(essayQuestion._id) }} > Excluir </Button>
+                    <Button size="small" color="primary" variant="contained" href={'/essayQuestion/' + essayQuestion._id + '/Edit'}> Editar </Button>
+                    <Button size="small" variant="outlined" className={classes.danger} onClick={() => { handleDelete(essayQuestion._id); }} > Excluir </Button>
                 </CardActions>
 
 
             </Card>
         </Card >
-    )
+    );
 }

@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
   <script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>
+
+  <script src="https://sdk.mercadopago.com/js/v2"></script>
   <meta name="description" content="Simulados OAB App" />
   <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -37,7 +39,9 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
 
-
+  <script>
+    window.Mercadopago.setPublishableKey(process.env.MERCADOPAGO_PUBLIC_KEY);
+  </script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 </body>
 

@@ -1,44 +1,44 @@
-import React, { useState } from 'react'
-import { TextField, Button } from '@material-ui/core'
-import { update, updateUser } from 'admin/apiUser'
-import { isAuthenticated } from 'auth'
-import { Redirect } from 'react-router-dom'
+import React, { useState } from 'react';
+import { TextField, Button } from '@material-ui/core';
+import { update, updateUser } from 'admin/apiUser';
+import { isAuthenticated } from 'auth';
+import { Redirect } from 'react-router-dom';
 
 export default function ChangePassword() {
-    const { user, token } = isAuthenticated()
-    const [password, setPassword] = useState('')
-    const [confirmation, setConfirmation] = useState('')
-    const [error, setError] = useState(false)
-    const [success, setSuccess] = useState(false)
-    const [message, setMessage] = useState('')
+    const { user, token } = isAuthenticated();
+    const [password, setPassword] = useState('');
+    const [confirmation, setConfirmation] = useState('');
+    const [error, setError] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [message, setMessage] = useState('');
 
     const handleChange = event => {
-        setPassword(event.target.value)
-    }
+        setPassword(event.target.value);
+    };
 
     const handleConfirmationChange = event => {
-        setConfirmation(event.target.value)
-    }
+        setConfirmation(event.target.value);
+    };
 
     const clickSubmit = (event) => {
-        event.preventDefault()
+        event.preventDefault();
         update(user._id, token, { 'password': password, 'confirmation': confirmation }).then((data) => {
             if (data.error) {
-                console.log("deu ruim")
+                console.log('deu ruim');
             } else {
                 updateUser(data.user, () => {
-                    setSuccess(true)
-                })
+                    setSuccess(true);
+                });
             }
-        })
-    }
+        });
+    };
 
     const redirectUser = (success) => {
-        console.log('5')
+        console.log('5');
         if (success) {
-            return <Redirect to="/home" />
+            return <Redirect to="/home" />;
         }
-    }
+    };
 
     return (
         <div>
@@ -79,5 +79,5 @@ export default function ChangePassword() {
             </Button>
             {redirectUser(success)}
         </div>
-    )
+    );
 }

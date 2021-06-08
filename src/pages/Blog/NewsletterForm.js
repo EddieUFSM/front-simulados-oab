@@ -4,7 +4,7 @@ import { Paper } from '@material-ui/core/';
 
 const useStyles = makeStyles((theme) => ({
 
-}))
+}));
 
 export default function ImgMediaCard() {
     const classes = useStyles();

@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
-import { Grid, makeStyles, Card, CardContent, Typography, TextField, Select, Button, CardActions, FormControl, InputLabel } from '@material-ui/core'
-import { createCustomSimulatedByDiscipline } from 'admin/apiAdmin'
-import { useHistory } from "react-router-dom"
-import Snackbar from '@material-ui/core/Snackbar'
-import { isAuthenticated } from 'auth'
+import React, { useState } from 'react';
+import { Grid, makeStyles, Card, CardContent, Typography, TextField, Select, Button, CardActions, FormControl, InputLabel } from '@material-ui/core';
+import { createCustomSimulatedByDiscipline } from 'admin/apiAdmin';
+import { useHistory } from 'react-router-dom';
+import Snackbar from '@material-ui/core/Snackbar';
+import { isAuthenticated } from 'auth';
 import { Fragment } from 'react';
 
-import MuiAlert from '@material-ui/lab/Alert'
+import MuiAlert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles((theme) => ({
     /** Mui T */
@@ -22,76 +22,76 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1),
         minWidth: 120,
     },
-}))
+}));
 
 function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 export default function MenuGame() {
     const classes = useStyles();
-    const [inputList, setInputList] = useState([{ discipline: "", quant: "" }]);
+    const [inputList, setInputList] = useState([{ discipline: '', quant: '' }]);
     const disciplines = [
-        { discipline: "PENAL" },
-        { discipline: "CIVIL" },
-        { discipline: "ADMINISTRATIVO" },
-        { discipline: "PROCESSUAL CIVIL" },
-        { discipline: "CONSTITUCIONAL" },
-        { discipline: "EMPRESARIAL" },
-        { discipline: "PROCESSUAL PENAL" },
-        { discipline: "TRABALHISTA" },
-        { discipline: "PROCESSUAL DO TRABALHO" },
-        { discipline: "TRIBUTÁRIO" },
-        { discipline: "HUMANOS" },
-        { discipline: "CÓDIGO DE DEFESA DO CONSUMIDOR" },
-        { discipline: "ESTATUTO DA CRIANÇA E ADOLESCENTE" },
-        { discipline: "AMBIENTAL" },
-        { discipline: "INTERNACIONAL" },
-        { discipline: "FILOSOFIA DO DIREITO" },
-        { discipline: "ESTATUTO DA ADVOCACIA" },
-        { discipline: "REGULAMENTO GERAL" },
-        { discipline: "CÓDIGO DE ÉTICA" },
-        { discipline: "DISCIPLINA DA OAB" },
-        { discipline: "CÓDIGO DE TRÂNSITO BRASILEIRO" }
-    ]
+        { discipline: 'PENAL' },
+        { discipline: 'CIVIL' },
+        { discipline: 'ADMINISTRATIVO' },
+        { discipline: 'PROCESSUAL CIVIL' },
+        { discipline: 'CONSTITUCIONAL' },
+        { discipline: 'EMPRESARIAL' },
+        { discipline: 'PROCESSUAL PENAL' },
+        { discipline: 'TRABALHISTA' },
+        { discipline: 'PROCESSUAL DO TRABALHO' },
+        { discipline: 'TRIBUTÁRIO' },
+        { discipline: 'HUMANOS' },
+        { discipline: 'CÓDIGO DE DEFESA DO CONSUMIDOR' },
+        { discipline: 'ESTATUTO DA CRIANÇA E ADOLESCENTE' },
+        { discipline: 'AMBIENTAL' },
+        { discipline: 'INTERNACIONAL' },
+        { discipline: 'FILOSOFIA DO DIREITO' },
+        { discipline: 'ESTATUTO DA ADVOCACIA' },
+        { discipline: 'REGULAMENTO GERAL' },
+        { discipline: 'CÓDIGO DE ÉTICA' },
+        { discipline: 'DISCIPLINA DA OAB' },
+        { discipline: 'CÓDIGO DE TRÂNSITO BRASILEIRO' }
+    ];
     const history = useHistory();
-    const [questionsAvailable, setQuestionsAvailable] = useState(80)
-    const { user, token } = isAuthenticated()
-    const [success, setSuccess] = useState(false)
-    const [error, setError] = useState(false)
-    const [message, setMessage] = useState('')
+    const [questionsAvailable, setQuestionsAvailable] = useState(80);
+    const { user, token } = isAuthenticated();
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState(false);
+    const [message, setMessage] = useState('');
     const [values, setValues] = useState({
         timeToAnswer: '',
         nQuestions: []
-    })
+    });
 
     const {
         timeToAnswer,
         nQuestions
-    } = values
-    const SomaMaxQuestion = 80
+    } = values;
+    const SomaMaxQuestion = 80;
 
     const handleChange = (e, index) => {
-        const { name, value } = e.target
+        const { name, value } = e.target;
 
         if (name == 'timeToAnswer') {
-            setValues({ ...values, timeToAnswer: value })
-            return
+            setValues({ ...values, timeToAnswer: value });
+            return;
         }
 
-        const list = [...inputList]
-        list[index][name] = value
+        const list = [...inputList];
+        list[index][name] = value;
 
         setInputList(list);
-    }
+    };
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
-            return
+            return;
         }
         setSuccess(false);
-        setError(false)
-    }
+        setError(false);
+    };
 
     // handle input change
     const handleInputChange = (e, index) => {
@@ -101,54 +101,54 @@ export default function MenuGame() {
 
         let soma = 0;
         list.map(m => {
-            soma = Number(m.quant) + Number(soma)
-        })
+            soma = Number(m.quant) + Number(soma);
+        });
 
-        setQuestionsAvailable(Number(SomaMaxQuestion) - Number(soma))
-        setInputList(list)
-    }
+        setQuestionsAvailable(Number(SomaMaxQuestion) - Number(soma));
+        setInputList(list);
+    };
 
     // handle click event of the Remove button
     const handleRemoveClick = index => {
         const list = [...inputList];
         list.splice(index, 1);
         setInputList(list);
-    }
+    };
 
     // handle click event of the Add button
     const handleAddClick = () => {
-        setInputList([...inputList, { discipline: "", quant: "" }]);
-    }
+        setInputList([...inputList, { discipline: '', quant: '' }]);
+    };
 
     const clickSumit = event => {
-        event.preventDefault()
+        event.preventDefault();
 
         if (questionsAvailable < 0) {
-            setMessage('O simulado pode ter no máximo 80')
-            setError(true)
-            return
+            setMessage('O simulado pode ter no máximo 80');
+            setError(true);
+            return;
         }
 
         inputList.map(questions => {
-            nQuestions.push(questions)
-        })
+            nQuestions.push(questions);
+        });
 
 
         createCustomSimulatedByDiscipline(user._id, token, values).then(data => {
 
             if (data.error) {
-                setMessage(data.message)
-                setError(data.error)
-                setSuccess(data.success)
+                setMessage(data.message);
+                setError(data.error);
+                setSuccess(data.success);
             } else {
                 history.push(`/FirstFase/${data.simulated._id}/start`, { simulated: data.simulated, message: data.message, success: data.success, error: data.error });
-                setMessage(data.message)
-                setError(data.error)
-                setSuccess(data.success)
+                setMessage(data.message);
+                setError(data.error);
+                setSuccess(data.success);
             }
         });
 
-    }
+    };
 
     return (
         <div className="App">
@@ -178,10 +178,9 @@ export default function MenuGame() {
 
                         </Grid>
                         {inputList.map((x, i) => (
-                            <Fragment>
-
-
+                            <Fragment key={i}>
                                 <Grid
+
                                     item
                                     md={5}
                                     xs={12}
@@ -197,6 +196,7 @@ export default function MenuGame() {
                                             {
                                                 disciplines.map((discipline) => (
                                                     <option
+                                                        key={discipline.discipline._id}
                                                         value={discipline.discipline}
                                                         onChange={handleChange}
                                                     >
@@ -288,5 +288,5 @@ export default function MenuGame() {
             </Snackbar>
             <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div>
         </div >
-    )
+    );
 }

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Link, useHistory, Redirect } from "react-router-dom"
-import { Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Grid, Box, Typography, makeStyles, Container, CircularProgress, IconButton } from '@material-ui/core';
-import { MdLock } from "react-icons/md";
-import { signin, authenticate } from "auth"
-import Alert from '@material-ui/lab/Alert'
+import { Link, useHistory, Redirect } from 'react-router-dom';
+import { Avatar, Button, CssBaseline, TextField, Box, Typography, makeStyles, Container, CircularProgress } from '@material-ui/core';
+import { MdLock } from 'react-icons/md';
+import { signin, authenticate } from 'auth';
+import Alert from '@material-ui/lab/Alert';
 
 function Copyright() {
     return (
@@ -50,54 +50,54 @@ export default function SignIn() {
         redirectToReferrer: false,
         message: '',
         success: false
-    })
+    });
 
-    const { email, password, loading, error, redirectToReferrer, success, message } = values
+    const { email, password, loading, error, redirectToReferrer, success, message } = values;
 
     const handleChange = name => event => {
-        setValues({ ...values, error: false, [name]: event.target.value })
-    }
+        setValues({ ...values, error: false, [name]: event.target.value });
+    };
 
     const clickSubmit = (event) => {
-        event.preventDefault()
-        setValues({ ...values, error: false, loading: true })
+        event.preventDefault();
+        setValues({ ...values, error: false, loading: true });
         signin({ email, password })
             .then(data => {
                 if (data.error) {
-                    setValues({ ...values, error: data.error, message: data.message, loading: false })
+                    setValues({ ...values, error: data.error, message: data.message, loading: false });
                 } else {
                     authenticate(data,
                         () => {
                             setValues({
                                 ...values,
                                 redirectToReferrer: true
-                            })
-                        })
-                    history.push("/home", { success: data.success, message: data.message })
+                            });
+                        });
+                    history.push('/home', { success: data.success, message: data.message });
                 }
-            })
-    }
+            });
+    };
 
     const showError = () => (
         <Alert severity="warning" style={{ display: error ? '' : 'none' }}>
             {message}
         </Alert>
-    )
+    );
     const showSuccess = () => (
         <Alert severity="success" style={{ display: success ? '' : 'none' }}>
             {message}
         </Alert>
-    )
+    );
     const showLoading = () => (
         loading && (
             <CircularProgress />
         )
-    )
+    );
     const redirectUser = () => {
         if (redirectToReferrer) {
-            return <Redirect to="/home" />
+            return <Redirect to="/home" />;
         }
-    }
+    };
 
     return (
 

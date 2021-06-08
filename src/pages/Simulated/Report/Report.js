@@ -1,52 +1,52 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import {
     Grid, makeStyles, useTheme, Container, Tab, AppBar, Card,
     CardActions,
     CardContent,
     Button,
-    Toolbar, IconButton, Drawer, Paper, Typography
-} from '@material-ui/core'
-import { ChevronLeft, ChevronRight } from '@material-ui/icons'
-import { MdMenu } from 'react-icons/md'
-import TopMenu from 'pages/Menus/TopMenu'
-import SideBarMenu from 'pages/Menus/SidebarMenu'
-import BarChart from './components/BarChart'
-import RadarChart from './components/RadarChart'
-import LineChart from './components/LineChart'
-import { getReport } from 'admin/apiAdmin'
-import { isAuthenticated } from 'auth'
+    Toolbar, IconButton, Drawer, Typography
+} from '@material-ui/core';
+import { ChevronLeft, ChevronRight } from '@material-ui/icons';
+import { MdMenu } from 'react-icons/md';
+import TopMenu from 'pages/Menus/TopMenu';
+import SideBarMenu from 'pages/Menus/SidebarMenu';
+import BarChart from './components/BarChart';
+import RadarChart from './components/RadarChart';
+import LineChart from './components/LineChart';
+import { getReport } from 'admin/apiAdmin';
+import { isAuthenticated } from 'auth';
 import { TabContext, TabList, TabPanel } from '@material-ui/lab';
-const drawerWidth = 240
+const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
     buttonCardRoot: {
         justifyContent: 'center'
     },
     container: {
-        marginLeft: "3rem"
+        marginLeft: '3rem'
     },
     title: {
-        fontSize: "3.2rem",
-        fontWeight: "600",
-        display: "inline-block",
-        position: "relative"
+        fontSize: '3.2rem',
+        fontWeight: '600',
+        display: 'inline-block',
+        position: 'relative'
     },
     subtitle: {
-        fontSize: "1.313rem",
-        maxWidth: "500px",
-        margin: "10px 0 0"
+        fontSize: '1.313rem',
+        maxWidth: '500px',
+        margin: '10px 0 0'
     },
     main: {
-        background: "#FFFFFF",
-        position: "relative",
-        zIndex: "3"
+        background: '#FFFFFF',
+        position: 'relative',
+        zIndex: '3'
     },
     mainRaised: {
-        margin: "-60px 30px 0px",
-        borderRadius: "6px",
+        margin: '-60px 30px 0px',
+        borderRadius: '6px',
         boxShadow:
-            "0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)"
+            '0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)'
     },
     root: {
         flexGrow: 1,
@@ -189,24 +189,24 @@ const useStyles = makeStyles((theme) => ({
     pageContent: {
         margin: theme.spacing(5),
         padding: theme.spacing(3),
-        backgroundColor: "transparent",
-        border: "0px",
-        boxShadow: "none"
+        backgroundColor: 'transparent',
+        border: '0px',
+        boxShadow: 'none'
     },
 
 
 
-}))
+}));
 
 export default function Simulado(props) {
-    const { user, token } = isAuthenticated()
-    const classes = useStyles()
-    const theme = useTheme()
-    const [open, setOpen] = useState(false)
-    const [error, setError] = useState(false)
-    const [success, setSuccess] = useState(false)
-    const [message, setMessage] = useState('')
-    const [report, setReport] = useState({})
+    const { user, token } = isAuthenticated();
+    const classes = useStyles();
+    const theme = useTheme();
+    const [open, setOpen] = useState(false);
+    const [error, setError] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [message, setMessage] = useState('');
+    const [report, setReport] = useState({});
     const [value, setValue] = React.useState('1');
 
     const handleChange = (event, newValue) => {
@@ -215,28 +215,28 @@ export default function Simulado(props) {
 
     const handleDrawerOpen = () => {
         setOpen(true);
-    }
+    };
     const handleDrawerClose = () => {
         setOpen(false);
-    }
+    };
     const init = async () => {
         await getReport(token, user.report).then(data => {
             if (data === undefined) {
-                setError(true)
-                setMessage("usuário não tem Report")
+                setError(true);
+                setMessage('usuário não tem Report');
             } else if (data.error) {
-                setError(data.error)
-                setMessage(data.message)
+                setError(data.error);
+                setMessage(data.message);
             } else {
-                console.log(data.report)
-                setReport(data.report)
+                console.log(data.report);
+                setReport(data.report);
             }
-        })
-    }
+        });
+    };
 
     useEffect(() => {
-        init()
-    }, [])
+        init();
+    }, []);
 
     return (
         <div className={classes.root}>
@@ -307,7 +307,7 @@ export default function Simulado(props) {
                                 <Grid container style={{ width: '100%' }} spacing={2}>
                                     {
                                         report.simulateds ? report.simulateds.map((item) => (
-                                            <Grid item xd={3} >
+                                            <Grid key={item._id} item xd={3} >
                                                 <Card>
                                                     <CardContent>
                                                         <Typography variant="h5">
@@ -318,7 +318,7 @@ export default function Simulado(props) {
                                                         </Typography>
                                                     </CardContent>
                                                     <CardActions className={classes.buttonCardRoot}>
-                                                        <Button size="small" variant="contained" color="secondary" href={"/simulated/" + item.simulated._id + "/overview"} >Detalhes</Button>
+                                                        <Button size="small" variant="contained" color="secondary" href={'/simulated/' + item.simulated._id + '/overview'} >Detalhes</Button>
                                                     </CardActions>
                                                 </Card>
                                             </Grid>
@@ -332,5 +332,5 @@ export default function Simulado(props) {
                 </Container>
             </main>
         </div>
-    )
+    );
 }

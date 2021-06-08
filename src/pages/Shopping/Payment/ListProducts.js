@@ -9,13 +9,13 @@ import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Divider from '@material-ui/core/Divider';
-import { Container } from '@material-ui/core'
-import { Button } from '@material-ui/core'
-import { getCard } from "admin/apiAdmin"
+import { Container } from '@material-ui/core';
+import { Button } from '@material-ui/core';
+import { getCard } from 'admin/apiAdmin';
 
-import { isAuthenticated } from 'auth'
+import { isAuthenticated } from 'auth';
 import { Paper, TextField } from '@material-ui/core';
-import ShowImage from 'pages/Shopping/Product/ShowImage'
+import ShowImage from 'pages/Shopping/Product/ShowImage';
 
 const useStyles = makeStyles((theme) => ({
     listItem: {
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ListOfProducts({ card }) {
-    const classes = useStyles()
+    const classes = useStyles();
     const frete = 20;
     const payments = [
         { name: 'Bandeira', detail: 'Visa' },
@@ -42,44 +42,44 @@ export default function ListOfProducts({ card }) {
         { name: 'Validade', detail: '04/2024' },
     ];
 
-    const [Card, setCard] = useState([])
-    const [success, setSuccess] = useState(false)
-    const [error, setError] = useState(false)
-    const [message, setMessage] = useState('')
+    const [Card, setCard] = useState([]);
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState(false);
+    const [message, setMessage] = useState('');
 
     const init = () => {
         isAuthenticated() ?
             getCard(isAuthenticated().user.token, isAuthenticated().user.currentShoppingCard).then(data => {
-                console.log(data)
+                console.log(data);
                 if (data.error) {
-                    setSuccess(data.success)
-                    setError(data.error)
-                    setMessage(data.message)
+                    setSuccess(data.success);
+                    setError(data.error);
+                    setMessage(data.message);
                 } else {
-                    setCard(data.card.products)
-                    setSuccess(data.success)
-                    setError(data.error)
-                    setMessage(data.message)
+                    setCard(data.card.products);
+                    setSuccess(data.success);
+                    setError(data.error);
+                    setMessage(data.message);
                 }
             })
-            : console.log('não autenticado')
-    }
+            : console.log('não autenticado');
+    };
 
     useEffect(() => {
-        init()
-    }, [])
+        init();
+    }, []);
 
 
     function mult(multiplicador, multiplicando) {
-        return (multiplicando * multiplicador)
+        return (multiplicando * multiplicador);
     }
 
     function subtotal() {
         let subtotal = 0;
         Card.map(({ price, qnt }) => {
-            subtotal = subtotal + (price * qnt)
-        })
-        return subtotal
+            subtotal = subtotal + (price * qnt);
+        });
+        return subtotal;
     }
 
     // handle input change
@@ -90,7 +90,7 @@ export default function ListOfProducts({ card }) {
         if (value == 0) {
             list.splice(index, 1);
             setCard(list);
-            return
+            return;
         }
         list[index][name] = value;
         setCard(list);
@@ -224,7 +224,7 @@ export default function ListOfProducts({ card }) {
                     variant='outlined'
                 >
                     Continuar
-                    </Button>
+                </Button>
             </Box>
 
         </Paper>

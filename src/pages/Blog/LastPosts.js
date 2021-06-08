@@ -8,9 +8,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-import imagePost from "assets/img/law.jpg";
+import imagePost from 'assets/img/law.jpg';
 import { Container } from '@material-ui/core';
-import { ThemeConsumer } from 'styled-components';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -20,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     },
     container: {
     }
-}))
+}));
 
 export default function ImgMediaCard() {
     const classes = useStyles();
@@ -48,10 +47,10 @@ export default function ImgMediaCard() {
                         <CardActions>
                             <Button size="small" color="primary">
                                 Compartilhar
-                        </Button>
+                            </Button>
                             <Button size="small" color="primary">
                                 Leia Mais
-                        </Button>
+                            </Button>
                         </CardActions>
                     </Card>
                 </Grid>
@@ -68,23 +67,23 @@ export default function ImgMediaCard() {
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="h2">
                                     Título
-                        </Typography>
+                                </Typography>
                                 <Typography component="subtitle1" variant="subtitle1">
                                     11 de Junho de 2021
-                    </Typography>
+                                </Typography>
                                 <Typography variant="body2" color="textSecondary" component="p">
                                     Resumo are a widespread group of cakes, with over 6,000 species, ranging
                                     across all worlds except earth
-                        </Typography>
+                                </Typography>
                             </CardContent>
                         </CardActionArea>
                         <CardActions>
                             <Button size="small" color="primary">
                                 Compartilhar
-                        </Button>
+                            </Button>
                             <Button size="small" color="primary">
                                 Leia Mais
-                        </Button>
+                            </Button>
                         </CardActions>
                     </Card>
                 </Grid>
@@ -101,23 +100,23 @@ export default function ImgMediaCard() {
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="h2">
                                     Título
-                        </Typography>
+                                </Typography>
                                 <Typography component="subtitle1" variant="subtitle1">
                                     11 de Junho de 2021
-                    </Typography>
+                                </Typography>
                                 <Typography variant="body2" color="textSecondary" component="p">
                                     Resumo are a widespread group of cakes, with over 6,000 species, ranging
                                     across all worlds except earth
-                        </Typography>
+                                </Typography>
                             </CardContent>
                         </CardActionArea>
                         <CardActions>
                             <Button size="small" color="primary">
                                 Compartilhar
-                        </Button>
+                            </Button>
                             <Button size="small" color="primary">
                                 Leia Mais
-                        </Button>
+                            </Button>
                         </CardActions>
                     </Card>
                 </Grid>

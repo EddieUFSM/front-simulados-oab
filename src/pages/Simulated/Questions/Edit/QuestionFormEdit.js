@@ -1,18 +1,18 @@
 
-import { Grid, InputLabel, Select, FormControl, Button, TextField, Radio, withStyles } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import { isAuthenticated } from 'auth'
-import { getThemes, getQuestion, editQuestion, getExams } from 'admin/apiAdmin'
-import { useForm, Form } from 'components/Form/useForm'
-import { useParams } from 'react-router-dom'
-import Autocomplete from '@material-ui/lab/Autocomplete'
-import Snackbar from '@material-ui/core/Snackbar'
-import MuiAlert from '@material-ui/lab/Alert'
+import { Grid, InputLabel, Select, FormControl, Button, TextField, Radio, withStyles } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { isAuthenticated } from 'auth';
+import { getThemes, getQuestion, editQuestion, getExams } from 'admin/apiAdmin';
+import { useForm, Form } from 'components/Form/useForm';
+import { useParams } from 'react-router-dom';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles((theme) => ({
     toolbar: {
-        alignItems: "center",
+        alignItems: 'center',
         paddingRight: 24, // keep right padding when drawer closed
     },
     toolbarIcon: {
@@ -44,84 +44,84 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: theme.spacing(4),
     },
     inputSelection: {
-        minWidth: "45vh",
-        maxWidth: "45vh"
+        minWidth: '45vh',
+        maxWidth: '45vh'
     },
     inputSelection6: {
-        minWidth: "68vh",
-        maxWidth: "68vh"
+        minWidth: '68vh',
+        maxWidth: '68vh'
     },
     imputExam: {
-        minWidth: "45vh",
-        maxWidth: "45vh"
+        minWidth: '45vh',
+        maxWidth: '45vh'
     },
     btn: {
         margin: theme.spacing(3),
         justifyContent: 'center'
     }
-}))
+}));
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 const CustomRadio = withStyles({
     root: {
-        color: "#3D61AD",
+        color: '#3D61AD',
         '&$checked': {
-            color: "#3D61AD",
+            color: '#3D61AD',
         },
     },
     checked: {},
-})((props) => <Radio color="default" {...props} />)
+})((props) => <Radio color="default" {...props} />);
 const initialFValues = {
     _id: '',
-    description: "",
-    level: "1° fase",
+    description: '',
+    level: '1° fase',
     optionAnswers: [
         {
             id: 0,
-            text: "",
+            text: '',
             flag: true
         },
         {
             id: 1,
-            text: "",
+            text: '',
             flag: false
         },
         {
             id: 2,
-            text: "",
+            text: '',
             flag: false
         },
         {
             id: 3,
-            text: "",
+            text: '',
             flag: false
         }
     ],
-    optionAnswerText0: "",
-    optionAnswerText1: "",
-    optionAnswerText2: "",
-    optionAnswerText3: "",
-    comment: "",
-    banca: "",
-    exam: "",
-    year: "",
-    discipline: "",
+    optionAnswerText0: '',
+    optionAnswerText1: '',
+    optionAnswerText2: '',
+    optionAnswerText3: '',
+    comment: '',
+    banca: '',
+    exam: '',
+    year: '',
+    discipline: '',
     themes: [],
-    formData: "",
+    formData: '',
     loading: false
 
-}
+};
 
 export default function Questionnaires() {
     const classes = useStyles();
     const [selectedValue, setSelectedValue] = React.useState('a');
-    const { user, token } = isAuthenticated()
+    const { user, token } = isAuthenticated();
     const {
         values,
         setValues,
         handleInputChange
-    } = useForm(initialFValues)
+    } = useForm(initialFValues);
     const {
         _id,
         description,
@@ -136,31 +136,31 @@ export default function Questionnaires() {
         year,
         discipline,
         themes
-    } = values
-    const [allThemes, setAllThemes] = useState([])
-    const [question, setQuestion] = useState({})
-    const [message, setMessage] = useState('')
+    } = values;
+    const [allThemes, setAllThemes] = useState([]);
+    const [question, setQuestion] = useState({});
+    const [message, setMessage] = useState('');
     let { idQuestion } = useParams();
-    const [success, setSuccess] = useState(false)
-    const [error, setError] = useState(false)
-    const [allExams, setAllExams] = useState([])
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState(false);
+    const [allExams, setAllExams] = useState([]);
 
     const loadThemes = () => {
         getThemes(token).then((data) => {
             if (data.error) {
-                console.log(error)
+                console.log(error);
             } else {
-                setAllThemes(data)
+                setAllThemes(data);
             }
-        })
-    }
+        });
+    };
     const init = () => {
         getQuestion(isAuthenticated().token, idQuestion).then(data => {
             if (data.error) {
-                setError(data.error)
-                setMessage(data.message)
+                setError(data.error);
+                setMessage(data.message);
             } else {
-                console.log("data.exam", data)
+                console.log('data.exam', data);
                 setValues({
                     ...values,
                     _id: idQuestion,
@@ -198,73 +198,73 @@ export default function Questionnaires() {
                     year: data.year,
                     discipline: data.discipline,
                     themes: data.themes,
-                    formData: "",
+                    formData: '',
                     loading: false
 
-                })
+                });
 
             }
-        })
-    }
+        });
+    };
     useEffect(() => {
-        init()
-        loadThemes()
-        loadExam()
-    }, [])
+        init();
+        loadThemes();
+        loadExam();
+    }, []);
     const loadExam = () => {
         getExams(token).then((data) => {
             if (data.error) {
-                console.log(error)
+                console.log(error);
             } else {
-                setAllExams(data)
+                setAllExams(data);
             }
-        })
-    }
+        });
+    };
     const handleExamChange = (e, seletectedExam) => [
         setValues({ ...values, exam: seletectedExam })
-    ]
+    ];
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
         }
         setSuccess(false);
-        setError(false)
-    }
+        setError(false);
+    };
     const handleThemesChange = (e, seletectedThemes) => {
-        setValues({ ...values, themes: seletectedThemes })
-    }
+        setValues({ ...values, themes: seletectedThemes });
+    };
     const handleChangeRadio = (event) => {
         setSelectedValue(event.target.name);
-        console.log(event.target.name)
+        console.log(event.target.name);
         if (event.target.name === 'a') {
-            console.log(values)
-            optionAnswers[0].flag = true
-            optionAnswers[1].flag = false
-            optionAnswers[2].flag = false
-            optionAnswers[3].flag = false
+            console.log(values);
+            optionAnswers[0].flag = true;
+            optionAnswers[1].flag = false;
+            optionAnswers[2].flag = false;
+            optionAnswers[3].flag = false;
         }
         if (event.target.name === 'b') {
-            console.log(values)
-            optionAnswers[0].flag = false
-            optionAnswers[1].flag = true
-            optionAnswers[2].flag = false
-            optionAnswers[3].flag = false
+            console.log(values);
+            optionAnswers[0].flag = false;
+            optionAnswers[1].flag = true;
+            optionAnswers[2].flag = false;
+            optionAnswers[3].flag = false;
         }
         if (event.target.name === 'c') {
-            console.log(values)
-            optionAnswers[0].flag = false
-            optionAnswers[1].flag = false
-            optionAnswers[2].flag = true
-            optionAnswers[3].flag = false
+            console.log(values);
+            optionAnswers[0].flag = false;
+            optionAnswers[1].flag = false;
+            optionAnswers[2].flag = true;
+            optionAnswers[3].flag = false;
         }
         if (event.target.name === 'd') {
-            console.log(values)
-            optionAnswers[0].flag = false
-            optionAnswers[1].flag = false
-            optionAnswers[2].flag = false
-            optionAnswers[3].flag = true
+            console.log(values);
+            optionAnswers[0].flag = false;
+            optionAnswers[1].flag = false;
+            optionAnswers[2].flag = false;
+            optionAnswers[3].flag = true;
         }
-    }
+    };
     const handleChange = name => event => {
         optionAnswers[0].text = optionAnswerText0;
 
@@ -273,64 +273,64 @@ export default function Questionnaires() {
         optionAnswers[2].text = optionAnswerText2;
 
         optionAnswers[3].text = optionAnswerText3;
-        const value = event.target.value
-        setValues({ ...values, [name]: value })
-    }
+        const value = event.target.value;
+        setValues({ ...values, [name]: value });
+    };
     const clickSumit = event => {
-        event.preventDefault()
-        setMessage('')
+        event.preventDefault();
+        setMessage('');
         values.description.replace(/  +/g, ' ');
         editQuestion(user._id, token, values).then(data => {
             if (data.error) {
-                setError(data.error)
-                setSuccess(data.success)
-                setMessage(data.message)
+                setError(data.error);
+                setSuccess(data.success);
+                setMessage(data.message);
             } else {
-                setError(data.error)
-                setSuccess(data.success)
+                setError(data.error);
+                setSuccess(data.success);
 
-                setMessage(data.message)
+                setMessage(data.message);
                 setValues({
                     ...values,
-                    description: "",
-                    level: "1° fase",
+                    description: '',
+                    level: '1° fase',
                     optionAnswers: [
                         {
                             id: 0,
-                            text: "",
+                            text: '',
                             flag: false
                         },
                         {
                             id: 1,
-                            text: "",
+                            text: '',
                             flag: false
                         },
                         {
                             id: 2,
-                            text: "",
+                            text: '',
                             flag: false
                         },
                         {
                             id: 3,
-                            text: "",
+                            text: '',
                             flag: false
                         }
                     ],
-                    optionAnswerText0: "",
-                    optionAnswerText1: "",
-                    optionAnswerText2: "",
-                    optionAnswerText3: "",
-                    comment: "",
-                    banca: "",
-                    exam: "",
-                    year: "",
-                    discipline: "",
-                    theme: "",
+                    optionAnswerText0: '',
+                    optionAnswerText1: '',
+                    optionAnswerText2: '',
+                    optionAnswerText3: '',
+                    comment: '',
+                    banca: '',
+                    exam: '',
+                    year: '',
+                    discipline: '',
+                    theme: '',
                     loading: false,
-                })
+                });
             }
-        })
-    }
+        });
+    };
     return (
         <Form>
             <Grid container>
@@ -396,7 +396,7 @@ export default function Questionnaires() {
                             value={discipline}
                             onChange={(handleChange('discipline'))}
                             label="Disciplina"
-                            style={{ width: "100%" }}
+                            style={{ width: '100%' }}
                         >
                             <option aria-label="None" value="" />
                             <option value={'PENAL'}>PENAL</option>
@@ -481,7 +481,7 @@ export default function Questionnaires() {
                             rowsMax="8"
                             multiline
                             rows="6"
-                            style={{ width: "95%" }}
+                            style={{ width: '95%' }}
                         />
                     </FormControl>
                 </Grid>
@@ -591,7 +591,7 @@ export default function Questionnaires() {
                             rows="4"
                             fullWidth
                             autoComplete="given-name"
-                            style={{ width: "95%" }}
+                            style={{ width: '95%' }}
                         />
                     </FormControl>
 
@@ -613,5 +613,5 @@ export default function Questionnaires() {
                 </Alert>
             </Snackbar>
         </Form>
-    )
+    );
 }

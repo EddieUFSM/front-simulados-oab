@@ -1,30 +1,30 @@
-import React from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
-import { Link, Grid, Container } from "@material-ui/core"
+import React from 'react';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Typography from '@material-ui/core/Typography';
+import { Link, Grid, Container } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        display: "flex",
+        display: 'flex',
         margin: 'auto',
         marginTop: theme.spacing(4),
     },
     details: {
-        display: "flex",
-        flexDirection: "column"
+        display: 'flex',
+        flexDirection: 'column'
     },
     content: {
-        flex: "1 0 auto"
+        flex: '1 0 auto'
     },
     cover: {
         width: '100%'
     },
     controls: {
-        display: "flex",
-        alignItems: "center",
+        display: 'flex',
+        alignItems: 'center',
         paddingLeft: theme.spacing(1),
         paddingBottom: theme.spacing(1)
     },
@@ -47,17 +47,17 @@ export default function MediaControlCard() {
                             <CardContent className={classes.content}>
                                 <Typography component="h5" variant="h5">
                                     Live From Space
-                    </Typography>
+                                </Typography>
                                 <Typography component="subtitle1" variant="subtitle1">
                                     11 de Junho de 2021
-                    </Typography>
+                                </Typography>
                                 <Typography variant="subtitle1" color="textSecondary">
                                     Resumo are a widespread group of cakes, with over 6,000 species, ranging
                                     across all worlds except earth
-                    </Typography>
+                                </Typography>
                                 <Link>
                                     Leia mais ...
-                        </Link>
+                                </Link>
                             </CardContent>
 
                         </div>
@@ -75,17 +75,17 @@ export default function MediaControlCard() {
                             <CardContent className={classes.content}>
                                 <Typography component="h5" variant="h5">
                                     Live From Space
-                    </Typography>
+                                </Typography>
                                 <Typography component="subtitle1" variant="subtitle1">
                                     11 de Junho de 2021
-                    </Typography>
+                                </Typography>
                                 <Typography variant="subtitle1" color="textSecondary">
                                     Resumo are a widespread group of cakes, with over 6,000 species, ranging
                                     across all worlds except earth
-                    </Typography>
+                                </Typography>
                                 <Link>
                                     Leia mais ...
-                        </Link>
+                                </Link>
                             </CardContent>
 
                         </div>

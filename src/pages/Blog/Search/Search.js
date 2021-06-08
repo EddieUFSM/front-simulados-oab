@@ -1,16 +1,16 @@
 /* eslint-disable no-use-before-define */
-import React from "react";
-import Chip from "@material-ui/core/Chip";
+import React from 'react';
+import Chip from '@material-ui/core/Chip';
 
-import Container from "@material-ui/core/Container";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
+import Container from '@material-ui/core/Container';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        "& > * + *": {
+        '& > * + *': {
             marginTop: theme.spacing(2)
         }
     },
@@ -37,6 +37,7 @@ export default function Sizes() {
                     renderTags={(value, getTagProps) =>
                         value.map((option, index) => (
                             <Chip
+                                key={index}
                                 label={option.tag}
                                 size="small"
                                 {...getTagProps({ index })}
@@ -61,10 +62,10 @@ export default function Sizes() {
 
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const tags = [
-    { tag: "Direito Constitucional" },
-    { tag: "2021" },
-    { tag: "Exame da Ordem" },
-    { tag: "Direito da Mulher" },
-    { tag: "Homofobia" },
+    { tag: 'Direito Constitucional' },
+    { tag: '2021' },
+    { tag: 'Exame da Ordem' },
+    { tag: 'Direito da Mulher' },
+    { tag: 'Homofobia' },
 
 ];

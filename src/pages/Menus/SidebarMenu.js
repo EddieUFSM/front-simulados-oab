@@ -1,19 +1,15 @@
-import React, { Fragment, useState } from 'react'
-import { makeStyles } from '@material-ui/core'
-import { Link as RouterLink } from 'react-router-dom'
-import { Box, List, ListItem, ListItemIcon, Typography, Button, ListItemText, Divider } from '@material-ui/core'
-import CollectionsBookmarkIcon from '@material-ui/icons/CollectionsBookmark';
+import React, { Fragment, useState } from 'react';
+import { makeStyles } from '@material-ui/core';
+import { Link as RouterLink } from 'react-router-dom';
+import { Box, List, ListItem, ListItemIcon, Typography, Button, ListItemText, Divider } from '@material-ui/core';
 import ShoppingCart from '@material-ui/icons/ShoppingCart';
-import { HomeOutlined, ShoppingCartOutlined, AccountBox, BallotOutlined, HistoryOutlined, ReportOutlined, SettingsOutlined, MarkunreadMailboxOutlined, AccountCircle, LibraryBooks, PostAdd, Description, Ballot, PeopleAlt } from '@material-ui/icons'
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import { HomeOutlined, ShoppingCartOutlined, AccountBox, BallotOutlined, HistoryOutlined, ReportOutlined, SettingsOutlined, MarkunreadMailboxOutlined, AccountCircle, Ballot, PeopleAlt } from '@material-ui/icons';
 
-import { isAuthenticated, signout, isAdmin } from "../../auth"
+import { isAuthenticated, signout, isAdmin } from '../../auth';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import ExpandLess from "@material-ui/icons/ExpandLess";
-import ExpandMore from "@material-ui/icons/ExpandMore";
-import Collapse from "@material-ui/core/Collapse";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import StarBorder from "@material-ui/icons/StarBorder";
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import Collapse from '@material-ui/core/Collapse';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -42,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     nested: {
         paddingLeft: theme.spacing(4)
     }
-}))
+}));
 
 export default function SideBarMenu() {
     const classes = useStyles();
@@ -52,23 +48,23 @@ export default function SideBarMenu() {
     const [openPrimeiraFaseOptions, setOpenPrimeiraFaseOptions] = useState(false);
     const history = useHistory();
     const [openUsersOptions, setOpenUsersOption] = useState(false);
-    const { user, token } = isAuthenticated()
+    const { user, token } = isAuthenticated();
 
     const handleClickBlog = () => {
         setOpenBlogOptions(!openBlogOptions);
-    }
+    };
     const handleClickPrimeiraFase = () => {
-        setOpenPrimeiraFaseOptions(!openPrimeiraFaseOptions)
-    }
+        setOpenPrimeiraFaseOptions(!openPrimeiraFaseOptions);
+    };
     const handleClickShopping = () => {
         setOpenShoppingOptions(!openShoppingOptions);
-    }
+    };
     const handleClickSimulados = () => {
         setOpenSimuladosOptions(!openSimuladosOptions);
-    }
+    };
     const handleClickUsers = () => {
-        setOpenUsersOption(!openUsersOptions)
-    }
+        setOpenUsersOption(!openUsersOptions);
+    };
 
     return (
         <Fragment>
@@ -189,12 +185,7 @@ export default function SideBarMenu() {
 
 
 
-                {/**
-                    * Shopping
-                    *
-                    */}
 
-                {/*
                 <List
                     component="nav"
                     aria-labelledby="nested-list-subheader"
@@ -254,7 +245,6 @@ export default function SideBarMenu() {
 
                     </Collapse>
                 </List>
- */}
                 {/**
                     * ADM
                     *
@@ -357,7 +347,7 @@ export default function SideBarMenu() {
                                 primary: classes.ListItemText
                             }} primary={'Conta do Usuário'} />
                         </ListItem>
-                        <ListItem button key={'Relatórios'} classes={{ root: classes.listItem }} component={RouterLink} to={"/report/" + user.report}>
+                        <ListItem button key={'Relatórios'} classes={{ root: classes.listItem }} component={RouterLink} to={'/report/' + user.report}>
                             <ListItemIcon> <ReportOutlined /> </ListItemIcon>
                             <ListItemText classes={{
                                 primary: classes.ListItemText
@@ -412,7 +402,7 @@ export default function SideBarMenu() {
                         color='primary'
                         startIcon={<AccountCircle />}
                         onClick={() => signout(() => {
-                            history.push('/home')
+                            history.push('/home');
                         })}
                     >
                         Logout
@@ -422,5 +412,5 @@ export default function SideBarMenu() {
             }
             <Divider />
         </Fragment>
-    )
+    );
 }

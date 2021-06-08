@@ -4,10 +4,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Box, CardMedia, Paper } from '@material-ui/core';
 
 
-import Comments from 'pages/Comments/Comments'
+import Comments from 'pages/Comments/Comments';
 
-import Tags from 'components/Tags/Tags'
-import LastPosts from 'pages/Blog/LastPosts'
+import Tags from 'components/Tags/Tags';
+import LastPosts from 'pages/Blog/LastPosts';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -87,5 +87,5 @@ export default function RecipeReviewCard() {
             <LastPosts />
 
         </Fragment>
-    )
+    );
 }

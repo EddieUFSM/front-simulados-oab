@@ -1,15 +1,15 @@
-import React, { Fragment, useEffect, useState } from "react"
-import { API } from 'config'
-import { IconButton, Badge, Button, ButtonBase, Avatar, makeStyles, Menu, Tooltip, Grid } from '@material-ui/core'
-import { GrDrag, } from 'react-icons/gr'
-import { MdAccountCircle, MdMail, MdShoppingCart, MdNotifications, MdBuild, MdExitToApp } from 'react-icons/md'
-import { useHistory } from "react-router-dom"
-import { isAuthenticated, signout, isAdmin } from "auth"
+import React, { Fragment, useEffect, useState } from 'react';
+import { API } from 'config';
+import { IconButton, Badge, Button, ButtonBase, Avatar, makeStyles, Menu, Tooltip, Grid } from '@material-ui/core';
+import { GrDrag, } from 'react-icons/gr';
+import { MdAccountCircle, MdMail, MdShoppingCart, MdNotifications, MdBuild, MdExitToApp } from 'react-icons/md';
+import { useHistory } from 'react-router-dom';
+import { isAuthenticated, signout, isAdmin } from 'auth';
 
-import { getListProductsCard } from 'admin/apiAdmin'
+import { getListProductsCard } from 'admin/apiAdmin';
 
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
-import logo from "assets/img/logoB.png";
+import logo from 'assets/img/logoB.png';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -52,43 +52,43 @@ const useStyles = makeStyles((theme) => ({
         marginRight: theme.spacing(2),
     }
 
-}))
+}));
 
 export default function TopMenu({ card, ...rest }) {
     const history = useHistory();
     const classes = useStyles();
-    const { user } = isAuthenticated()
+    const { user } = isAuthenticated();
 
-    const [listProducts, setListProducts] = useState({})
-    const [success, setSuccess] = useState(false)
-    const [error, setError] = useState(false)
-    const [message, setMessage] = useState('')
+    const [listProducts, setListProducts] = useState({});
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState(false);
+    const [message, setMessage] = useState('');
 
     const init = () => {
         isAuthenticated() ?
             getListProductsCard(isAuthenticated().user.token, isAuthenticated().user.currentShoppingCard).then(data => {
                 if (data.error) {
-                    setSuccess(data.success)
-                    setError(data.error)
-                    setMessage(data.message)
+                    setSuccess(data.success);
+                    setError(data.error);
+                    setMessage(data.message);
                 } else {
-                    console.log("lista de produtos: " + data.listProducts)
-                    setListProducts(data.listProducts)
-                    setSuccess(data.success)
-                    setError(data.error)
-                    setMessage(data.message)
+                    console.log('lista de produtos: ' + data.listProducts);
+                    setListProducts(data.listProducts);
+                    setSuccess(data.success);
+                    setError(data.error);
+                    setMessage(data.message);
                 }
             })
-            : console.log('não autenticado')
-    }
+            : console.log('não autenticado');
+    };
 
     useEffect(() => {
-        init()
-    }, [])
+        init();
+    }, []);
 
     const goToProfile = (e) => {
-        history.push("/User/Account")
-    }
+        history.push('/User/Account');
+    };
 
     return (
         <Fragment>
@@ -159,7 +159,7 @@ export default function TopMenu({ card, ...rest }) {
                                                     color='inherit'
                                                     badgeContent={4}
                                                     onClick={() => signout(() => {
-                                                        history.push('/home')
+                                                        history.push('/home');
                                                     })}
                                                 >
                                                     <MdExitToApp />
@@ -172,11 +172,11 @@ export default function TopMenu({ card, ...rest }) {
                         )}
                     </PopupState>
                     {isAdmin() &&
-                        <Badge color="primary" badgeContent={"Admin"} anchorOrigin={{
+                        <Badge color="primary" badgeContent={'Admin'} anchorOrigin={{
                             vertical: 'bottom',
                             horizontal: 'right',
                         }}
-                            style={{ marginLeft: '25px' }}
+                        style={{ marginLeft: '25px' }}
                         >
                             <ButtonBase color="primary" variant="outlined" component="span" aria-label="add" size="large" onClick={(e) => goToProfile(e)}>
                                 <Avatar src={`${API}/user/photo/${user._id}`} />

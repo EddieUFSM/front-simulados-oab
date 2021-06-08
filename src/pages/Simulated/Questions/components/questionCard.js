@@ -1,24 +1,24 @@
-import React from "react"
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { CardHeader, CardContent, Card, Radio, Button } from '@material-ui/core';
 
-import styled from "styled-components"
+import styled from 'styled-components';
 
 const Row = styled.div`
   display: flex;
   align-items: center;
-`
+`;
 const Text = styled.div`
   font-family: Roboto, sans-serif;
   font-size: 14px;
-`
+`;
 const AnswerContainer = styled(Button)`
   && {
     padding: 0;
     padding-right: 20px;
     text-transform: none;
   }
-`
+`;
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,11 +26,11 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         height: '100vh'
     }, container: {
-        marginLeft: "3rem"
+        marginLeft: '3rem'
     },
     questionnaireHeader: {
-        backgroundColor: "#2076d2",
-        color: "#fff",
+        backgroundColor: '#2076d2',
+        color: '#fff',
     },
     timer: {
         paddingLeft: theme.spacing(4),
@@ -40,27 +40,27 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: theme.spacing(2),
     },
     title: {
-        fontSize: "3.2rem",
-        fontWeight: "600",
-        display: "inline-block",
-        position: "relative",
+        fontSize: '3.2rem',
+        fontWeight: '600',
+        display: 'inline-block',
+        position: 'relative',
         flexGrow: 1
     },
     subtitle: {
-        fontSize: "1.313rem",
-        maxWidth: "500px",
-        margin: "10px 0 0"
+        fontSize: '1.313rem',
+        maxWidth: '500px',
+        margin: '10px 0 0'
     },
     main: {
-        background: "#FFFFFF",
-        position: "relative",
-        zIndex: "3"
+        background: '#FFFFFF',
+        position: 'relative',
+        zIndex: '3'
     },
     mainRaised: {
-        margin: "-60px 30px 0px",
-        borderRadius: "6px",
+        margin: '-60px 30px 0px',
+        borderRadius: '6px',
         boxShadow:
-            "0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)"
+            '0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)'
     },
     appBar: {
         boxShadow: 'none',
@@ -195,7 +195,7 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(6),
     },
     button: {
-        margin: "5px"
+        margin: '5px'
     }
 
 
@@ -214,7 +214,7 @@ export default function QuestionCard(props) {
                     </span>
                 }
             />
-            <CardContent style={{ overflowX: "hidden" }}>
+            <CardContent style={{ overflowX: 'hidden' }}>
                 <span>
                     {props.question.description}
                 </span>
@@ -234,5 +234,5 @@ export default function QuestionCard(props) {
                 ))
             }
         </Card>
-    )
+    );
 }

@@ -1,28 +1,27 @@
-import React, { useState, useEffect, Fragment } from "react"
+import React, { useState, useEffect, Fragment } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import { Drawer, CardHeader, CardContent, Grid, Container, Card, Radio, AppBar, Toolbar, Typography, IconButton, Button, useTheme, Box, CircularProgress, Fade } from '@material-ui/core';
-import { ChevronLeft, ChevronRight } from '@material-ui/icons'
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdMenu } from 'react-icons/md'
-import styled from "styled-components"
-import Pagination from '@material-ui/lab/Pagination'
-import { isAuthenticated } from 'auth'
-import { getSimulated, saveSimulated, getPoints, endSimulated } from 'admin/apiAdmin'
+import { Drawer, CardHeader, CardContent, Grid, Container, Card, Radio, AppBar, Toolbar, Typography, IconButton, Button, useTheme } from '@material-ui/core';
+import { ChevronLeft, ChevronRight } from '@material-ui/icons';
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdMenu } from 'react-icons/md';
+import styled from 'styled-components';
+import Pagination from '@material-ui/lab/Pagination';
+import { isAuthenticated } from 'auth';
+import { getSimulated, saveSimulated, endSimulated } from 'admin/apiAdmin';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
-import TopMenu from 'pages/Menus/TopMenu'
-import SideBarMenu from 'pages/Menus/SidebarMenu'
-import { useHistory } from "react-router-dom";
-import { useWorker, WORKER_STATUS } from "@koale/useworker";
-const drawerWidth = 240
+import TopMenu from 'pages/Menus/TopMenu';
+import SideBarMenu from 'pages/Menus/SidebarMenu';
+import { useHistory } from 'react-router-dom';
+const drawerWidth = 240;
 const Row = styled.div`
   display: flex;
   align-items: center;
-`
+`;
 const useStyles = makeStyles((theme) => ({
     row: {
         display: 'flex',
@@ -33,11 +32,11 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         height: '100vh'
     }, container: {
-        marginLeft: "3rem"
+        marginLeft: '3rem'
     },
     simulatedHeader: {
-        backgroundColor: "#2076d2",
-        color: "#fff",
+        backgroundColor: '#2076d2',
+        color: '#fff',
     },
     timer: {
         paddingLeft: theme.spacing(4),
@@ -47,27 +46,27 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: theme.spacing(2),
     },
     title: {
-        fontSize: "3.2rem",
-        fontWeight: "600",
-        display: "inline-block",
-        position: "relative",
+        fontSize: '3.2rem',
+        fontWeight: '600',
+        display: 'inline-block',
+        position: 'relative',
         flexGrow: 1
     },
     subtitle: {
-        fontSize: "1.313rem",
-        maxWidth: "500px",
-        margin: "10px 0 0"
+        fontSize: '1.313rem',
+        maxWidth: '500px',
+        margin: '10px 0 0'
     },
     main: {
-        background: "#FFFFFF",
-        position: "relative",
-        zIndex: "3"
+        background: '#FFFFFF',
+        position: 'relative',
+        zIndex: '3'
     },
     mainRaised: {
-        margin: "-60px 30px 0px",
-        borderRadius: "6px",
+        margin: '-60px 30px 0px',
+        borderRadius: '6px',
         boxShadow:
-            "0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)"
+            '0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)'
     },
     appBar: {
         boxShadow: 'none',
@@ -201,32 +200,32 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(6),
     },
     button: {
-        margin: "5px"
+        margin: '5px'
     }
-}))
+}));
 
 export default function Simulated(props) {
-    const { user, token } = isAuthenticated()
-    const [questions, setQuestions] = useState([])
-    const [currentQuestion, setCurrentQuestion] = useState(0)
-    const [timeToAnswer, setTimeToAnswer] = useState(0)
+    const { user, token } = isAuthenticated();
+    const [questions, setQuestions] = useState([]);
+    const [currentQuestion, setCurrentQuestion] = useState(0);
+    const [timeToAnswer, setTimeToAnswer] = useState(0);
     const classes = useStyles();
     const theme = useTheme();
-    const [open, setOpen] = useState(false)
-    const [end, setEnd] = useState(false)
-    const [pointsTotal, setPointsTotal] = useState(0)
-    const [error, setError] = useState(false)
-    const [success, setSuccess] = useState(false)
-    const [message, setMessage] = useState('')
-    const [loading, setLoading] = useState(true)
-    const [selectedOptionQuestion, setSelectedOptionQuestion] = useState([])
-    const [seconds, setSeconds] = useState(0)
-    const [pause, setPause] = useState(false)
-    const history = useHistory()
+    const [open, setOpen] = useState(false);
+    const [end, setEnd] = useState(false);
+    const [pointsTotal, setPointsTotal] = useState(0);
+    const [error, setError] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [message, setMessage] = useState('');
+    const [loading, setLoading] = useState(true);
+    const [selectedOptionQuestion, setSelectedOptionQuestion] = useState([]);
+    const [seconds, setSeconds] = useState(0);
+    const [pause, setPause] = useState(false);
+    const history = useHistory();
     const Transition = React.forwardRef(function Transition(props, ref) {
         return <Slide direction="up" ref={ref} {...props} />;
-    })
-    const [simulated, setSimulated] = useState({})
+    });
+    const [simulated, setSimulated] = useState({});
     const makeAllInivialValues = (number) => {
         for (let index = 0; index < number; index++) {
             setSelectedOptionQuestion(oldArray => [...oldArray, {
@@ -236,54 +235,52 @@ export default function Simulated(props) {
                     2: false,
                     3: false
                 }
-            }])
+            }]);
         }
-    }
+    };
     const init = () => {
         getSimulated(token, props.match.params.SimuladoId).then(data => {
             if (data.error) {
                 setError(data.error);
-                setMessage(data.message)
+                setMessage(data.message);
             } else {
-                setSeconds(data.simulated.timeToAnswer)
-                setTimeToAnswer(data.simulated.timeToAnswer)
-                setQuestions(data.simulated.questions)
-                setPointsTotal(data.simulated.pointsTotal)
-                setSimulated(data.simulated)
-                setEnd(data.simulated.end)
-                makeAllInivialValues(80)
-                setLoading(false)
+                setSeconds(data.simulated.timeToAnswer);
+                setTimeToAnswer(data.simulated.timeToAnswer);
+                setQuestions(data.simulated.questions);
+                setPointsTotal(data.simulated.pointsTotal);
+                setSimulated(data.simulated);
+                setEnd(data.simulated.end);
+                makeAllInivialValues(80);
+                setLoading(false);
             }
-        })
-    }
+        });
+    };
     useEffect(() => {
         init();
-    }, [])
+    }, []);
     const handleDrawerOpen = () => {
         setOpen(true);
-    }
+    };
     const handleDrawerClose = () => {
         setOpen(false);
-    }
+    };
     const updateAnswer = (questionIndex, answerIndex) => {
         const ques = { ...questions };
-        questions[questionIndex].selectedAnswerIndex = answerIndex
-        setQuestions(ques)
-    }
+        questions[questionIndex].selectedAnswerIndex = answerIndex;
+        setQuestions(ques);
+    };
     const handleChange = (event, value) => {
-        setCurrentQuestion(value - 1)
-        console.log(questions)
-    }
+        setCurrentQuestion(value - 1);
+        console.log(questions);
+    };
     const handleChangeQuestion = async (value) => {
         if (questions) {
-            if (value < 1) {
-            } else if (value > questions.length) {
-            } else {
-                setCurrentQuestion(value - 1)
-                console.log(questions)
+            if (value > 1 || value < questions.length) {
+                setCurrentQuestion(value - 1);
+                console.log(questions);
             }
         }
-    }
+    };
     const selectOptionQuestion = (event, index) => {
         let newArr = [...selectedOptionQuestion]; // copying the old datas array
 
@@ -294,16 +291,16 @@ export default function Simulated(props) {
             if (i < 4) {
                 newArr[currentQuestion].options[i] = false;
             } else if (i == 4) {
-                setSelectedOptionQuestion(newArr)
-                console.log(selectedOptionQuestion[currentQuestion])
+                setSelectedOptionQuestion(newArr);
+                console.log(selectedOptionQuestion[currentQuestion]);
             }
         }
-    }
+    };
     const clickContinue = () => {
-        setPause(false)
-    }
+        setPause(false);
+    };
     function QuestionCard(props) {
-        const classes = useStyles()
+        const classes = useStyles();
 
         return (
             <Card id={props.questions[currentQuestion].question ? props.questions[currentQuestion].question.questionId : undefined} className={classes.questionCardContainer}>
@@ -315,7 +312,7 @@ export default function Simulated(props) {
                         </span>
                     }
                 />
-                <CardContent style={{ overflowX: "hidden" }}>
+                <CardContent style={{ overflowX: 'hidden' }}>
                     <span>
                         {props.questions[currentQuestion].question ? props.questions[currentQuestion].question.description : undefined}
                     </span>
@@ -338,7 +335,7 @@ export default function Simulated(props) {
                                         checked={selectedOptionQuestion[currentQuestion] ? selectedOptionQuestion[currentQuestion].options[index] : false}
                                         value={index}
                                     />
-                                    <Typography style={{ textAlign: "left" }} value={index}>{option.text}</Typography>
+                                    <Typography style={{ textAlign: 'left' }} value={index}>{option.text}</Typography>
                                 </Button>
                             </Row>
                         ))
@@ -346,34 +343,34 @@ export default function Simulated(props) {
                         <></>
                 }
             </Card>
-        )
+        );
     }
     function Timer(props) {
-        const { className } = props
-        const [open, setOpen] = React.useState(false)
+        const { className } = props;
+        const [open, setOpen] = React.useState(false);
         useEffect(() => {
             if (seconds > 0 && !pause) {
                 if (!end) {
-                    setTimeout(() => setSeconds(seconds - 1), 1000)
+                    setTimeout(() => setSeconds(seconds - 1), 1000);
                 }
             } else if (seconds == 0) {
 
                 if (!end) {
                     endSimulated(user._id, token, simulated._id, user.report, { 'questionsAnswers': selectedOptionQuestion, 'timeToAnswer': seconds }).then(data => {
-                        setSimulated(data.simulated)
-                        setPointsTotal(data.simulated.pointsTotal)
-                    })
-                    setEnd(true)
-                    setOpen(false)
+                        setSimulated(data.simulated);
+                        setPointsTotal(data.simulated.pointsTotal);
+                    });
+                    setEnd(true);
+                    setOpen(false);
                 }
             } else {
-                setOpen(true)
+                setOpen(true);
             }
         });
 
-        const minutes = Math.floor(seconds / 60)
+        const minutes = Math.floor(seconds / 60);
 
-        const hour = Math.floor(minutes / 60)
+        const hour = Math.floor(minutes / 60);
 
         return (
             <Fragment>
@@ -389,14 +386,14 @@ export default function Simulated(props) {
                     aria-describedby="alert-dialog-slide-description"
 
                 >
-                    <DialogTitle id="alert-dialog-slide-title">{"Simulado Encerrado!"}</DialogTitle>
+                    <DialogTitle id="alert-dialog-slide-title">{'Simulado Encerrado!'}</DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-slide-description">
                             Você acertou {pointsTotal} de {questions.length} questões.
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button color="primary" variant='contained' onClick={(e) => { redirectToReport(e) }}>
+                        <Button color="primary" variant='contained' onClick={(e) => { redirectToReport(e); }}>
                             Relatório
                         </Button>
                     </DialogActions>
@@ -425,27 +422,27 @@ export default function Simulated(props) {
         );
     }
     const clickSave = (event) => {
-        event.preventDefault()
-        setPause(true)
+        event.preventDefault();
+        setPause(true);
         saveSimulated(user._id, token, props.match.params.SimuladoId, { 'questionsAnswers': selectedOptionQuestion, 'timeToAnswer': seconds }).then(data => {
-            console.log(data)
-        })
-    }
+            console.log(data);
+        });
+    };
     const redirectToReport = async (event) => {
-        event.preventDefault()
-        history.push("/report/" + user.report)
+        event.preventDefault();
+        history.push('/report/' + user.report);
 
 
-    }
+    };
     const clickEnd = async (event) => {
-        event.preventDefault()
-        setEnd(true)
-        setSeconds(0)
+        event.preventDefault();
+        setEnd(true);
+        setSeconds(0);
         endSimulated(user._id, token, simulated._id, user.report, { 'questionsAnswers': selectedOptionQuestion, 'timeToAnswer': seconds }).then(data => {
-            setSimulated(data.simulated)
-            setPointsTotal(data.simulated.pointsTotal)
-        })
-    }
+            setSimulated(data.simulated);
+            setPointsTotal(data.simulated.pointsTotal);
+        });
+    };
     return (
         <div className={classes.root}>
             {/** Menu Topo */}
@@ -487,7 +484,7 @@ export default function Simulated(props) {
                 <Container style={{ marginTop: '2%' }}>
                     <Grid container spacing={5}>
                         <Grid item xs={12}>
-                            <Row style={{ justifyContent: "center" }}>
+                            <Row style={{ justifyContent: 'center' }}>
                                 <Typography variant="h5" >
                                     {timeToAnswer > 0 && !loading ? <Timer seconds={timeToAnswer} className={classes.timer} /> : <></>}
                                 </Typography>
@@ -502,7 +499,7 @@ export default function Simulated(props) {
                                 : <>
                                     <Grid container spacing={5}>
                                         <Grid item sm={12} md={8} xs={8}>
-                                            <Row style={{ justifyContent: "center" }}>
+                                            <Row style={{ justifyContent: 'center' }}>
                                                 <Pagination
                                                     count={questions.length}
                                                     page={currentQuestion + 1}
@@ -511,15 +508,15 @@ export default function Simulated(props) {
                                                     showLastButton
                                                 />
                                             </Row>
-                                            <Row style={{ marginTop: "30px" }}>
+                                            <Row style={{ marginTop: '30px' }}>
                                                 <QuestionCard questions={questions} updateAnswer={updateAnswer} />
                                             </Row>
-                                            <Row style={{ justifyContent: "center", marginTop: "30px" }}>
-                                                <Button size="medium" color="primary" onClick={() => { handleChangeQuestion(currentQuestion) }}>
+                                            <Row style={{ justifyContent: 'center', marginTop: '30px' }}>
+                                                <Button size="medium" color="primary" onClick={() => { handleChangeQuestion(currentQuestion); }}>
                                                     <MdKeyboardArrowLeft />
                                                     Anterior
                                                 </Button>
-                                                <Button size="medium" color="primary" onClick={() => { handleChangeQuestion(currentQuestion + 2) }}>
+                                                <Button size="medium" color="primary" onClick={() => { handleChangeQuestion(currentQuestion + 2); }}>
                                                     Próxima
                                                     <MdKeyboardArrowRight />
                                                 </Button>
@@ -530,10 +527,10 @@ export default function Simulated(props) {
                                                 {
                                                     questions !== undefined ? questions.map((question, index) => (
                                                         <Button
+                                                            key={index}
                                                             variant="contained"
-                                                            color="primary"
                                                             value={index + 1}
-                                                            onClick={() => { handleChangeQuestion(index + 1) }} question={questions[index]}
+                                                            onClick={() => { handleChangeQuestion(index + 1); }} question={questions[index]}
                                                             questionIndex={index}
                                                             className={classes.button}
                                                             color={
@@ -544,7 +541,7 @@ export default function Simulated(props) {
                                                                             selectedOptionQuestion[index].options[1] ||
                                                                             selectedOptionQuestion[index].options[2] ||
                                                                             selectedOptionQuestion[index].options[3]
-                                                                            ? "primary" : 'inherit'} variant="contained"> {index + 1} </Button>
+                                                                            ? 'primary' : 'inherit'} > {index + 1} </Button>
                                                     )) : <></>
                                                 }
                                             </div>
@@ -560,7 +557,7 @@ export default function Simulated(props) {
                 </Container>
                 {loading ?
                     <Dialog open={loading} TransitionComponent={Transition} keepMounted aria-labelledby="alert-dialog-slide-title" aria-describedby="alert-dialog-slide-description">
-                        <DialogTitle id="alert-dialog-slide-title">{"Aguarde! Estamos preparando o seu Simulado!"}</DialogTitle>
+                        <DialogTitle id="alert-dialog-slide-title">{'Aguarde! Estamos preparando o seu Simulado!'}</DialogTitle>
                         <DialogActions style={{ textAlign: 'center' }}>
                             ...
                         </DialogActions>
@@ -571,7 +568,7 @@ export default function Simulated(props) {
             </main>
 
         </div >
-    )
+    );
 }
 
 // export default simulated;

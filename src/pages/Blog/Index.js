@@ -1,45 +1,45 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import clsx from 'clsx';
-import { AppBar, makeStyles, useTheme, Toolbar, IconButton, Drawer } from '@material-ui/core'
-import TopMenu from 'pages/Menus/TopMenu'
-import SideBarMenu from 'pages/Menus/SidebarMenu'
-import { ChevronLeft, ChevronRight } from '@material-ui/icons'
-import { MdMenu } from 'react-icons/md'
-import Header from './Index/Header'
-import LastPost from './LastPosts'
-import LastPostHorizontal from './LastPostHorizontal'
-import SideNavBlog from './SiderNavBlog'
-import SearchSection from './Search/Search'
-import NewsLetterForm from './NewsletterForm'
-import Footer from 'components/Footer/Footer'
+import { AppBar, makeStyles, useTheme, Toolbar, IconButton, Drawer } from '@material-ui/core';
+import TopMenu from 'pages/Menus/TopMenu';
+import SideBarMenu from 'pages/Menus/SidebarMenu';
+import { ChevronLeft, ChevronRight } from '@material-ui/icons';
+import { MdMenu } from 'react-icons/md';
+import Header from './Index/Header';
+import LastPost from './LastPosts';
+import LastPostHorizontal from './LastPostHorizontal';
+import SideNavBlog from './SiderNavBlog';
+import SearchSection from './Search/Search';
+import NewsLetterForm from './NewsletterForm';
+import Footer from 'components/Footer/Footer';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
 
     container: {
-        marginLeft: "3rem"
+        marginLeft: '3rem'
     },
     title: {
-        fontSize: "3.2rem",
-        fontWeight: "600",
-        display: "inline-block",
-        position: "relative"
+        fontSize: '3.2rem',
+        fontWeight: '600',
+        display: 'inline-block',
+        position: 'relative'
     },
     subtitle: {
-        fontSize: "1.313rem",
-        maxWidth: "500px",
-        margin: "10px 0 0"
+        fontSize: '1.313rem',
+        maxWidth: '500px',
+        margin: '10px 0 0'
     },
     main: {
-        background: "#FFFFFF",
-        position: "relative",
-        zIndex: "3"
+        background: '#FFFFFF',
+        position: 'relative',
+        zIndex: 3
     },
     mainRaised: {
-        margin: "-60px 30px 0px",
-        borderRadius: "6px",
+        margin: '-60px 30px 0px',
+        borderRadius: '6px',
         boxShadow:
-            "0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)"
+            '0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)'
     },
     root: {
         flexGrow: 1,
@@ -184,7 +184,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: 'transparent',
         border: 'none'
     }
-}))
+}));
 
 export default function Dashboard() {
     const classes = useStyles();
