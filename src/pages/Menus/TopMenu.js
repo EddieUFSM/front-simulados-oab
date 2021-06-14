@@ -6,7 +6,7 @@ import { MdAccountCircle, MdMail, MdShoppingCart, MdNotifications, MdBuild, MdEx
 import { useHistory } from 'react-router-dom';
 import { isAuthenticated, signout, isAdmin } from 'auth';
 
-import { getListProductsCard } from 'admin/apiAdmin';
+import { getListProductsCard } from 'apis';
 
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import logo from 'assets/img/logoB.png';

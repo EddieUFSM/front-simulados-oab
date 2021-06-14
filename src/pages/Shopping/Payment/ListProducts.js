@@ -11,7 +11,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Divider from '@material-ui/core/Divider';
 import { Container } from '@material-ui/core';
 import { Button } from '@material-ui/core';
-import { getCard } from 'admin/apiAdmin';
+import { getCard } from 'apis';
 
 import { isAuthenticated } from 'auth';
 import { Paper, TextField } from '@material-ui/core';

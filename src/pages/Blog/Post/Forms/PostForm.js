@@ -7,7 +7,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { ImageOutlined } from '@material-ui/icons';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import { createPost } from 'admin/apiAdmin';
+import { createPost } from 'apis';
 
 
 function Alert(props) {

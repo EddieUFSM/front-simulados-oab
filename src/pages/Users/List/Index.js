@@ -4,7 +4,7 @@ import {
     makeStyles
 } from '@material-ui/core';
 
-import { getAllUsers } from 'admin/apiAdmin';
+import { getAllUsers } from 'apis';
 import { isAuthenticated } from 'auth';
 
 import { DataGrid } from '@material-ui/data-grid';

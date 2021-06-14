@@ -9,7 +9,7 @@ import { MdMenu } from 'react-icons/md';
 import TopMenu from 'pages/Menus/TopMenu';
 import SideBarMenu from 'pages/Menus/SidebarMenu';
 
-import { getCard } from 'admin/apiAdmin';
+import { getCard } from 'apis';
 import ListProduct from 'pages/Shopping/Payment/ListProducts';
 import SelectAddress from 'pages/Shopping/Payment/Address';
 
@@ -189,7 +189,7 @@ export default function Card() {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
-
+    const { user, token } = isAuthenticated();
     const [Card, setCard] = useState({});
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
@@ -197,7 +197,7 @@ export default function Card() {
 
     const init = () => {
         isAuthenticated() ?
-            getCard(isAuthenticated().user.token, isAuthenticated().user.currentShoppingCard).then(data => {
+            getCard(token, isAuthenticated().user.currentShoppingCard).then(data => {
                 if (data.error) {
                     setSuccess(data.success);
                     setError(data.error);

@@ -37,7 +37,7 @@ import Home from './pages/WebSite/Home';
 import MailBox from './pages/Messages/BoxMail';
 import NewMessage from './pages/Messages/Write';
 import Question from './pages/Simulated/Questions/Single/SingleQuestion';
-import Piece from './pages/Simulated/Questions/Single/Single';
+import Piece from './pages/Simulated/Piece/Single';
 import Report from './pages/Simulated/Report/Report';
 import SearchPiece from './pages/Simulated/Piece/Search';
 import SearchEssayQuestions from './pages/Simulated/EssayQuestions/Search';

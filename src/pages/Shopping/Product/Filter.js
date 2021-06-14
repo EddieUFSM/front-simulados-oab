@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, IconButton, Container, Grid, Button, FormControl, MenuItem, Paper, Divider, CardMedia, Select, Card, CardActionArea, CardContent, Typography, CardActions, FormLabel, FormGroup, FormControlLabel, Checkbox, FormHelperText, Slider, Chip } from '@material-ui/core';
 import { MdDelete as DeleteIcon } from 'react-icons/md';
 import { makeStyles } from '@material-ui/core/styles';
-import { getAllProducts } from 'admin/apiAdmin';
+import { getAllProducts } from 'apis';
 import { API } from 'config';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Banner from 'assets/img/Banner/banner01.png';

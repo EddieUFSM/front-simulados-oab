@@ -9,7 +9,7 @@ import Chip from '@material-ui/core/Chip';
 import { MdMenu } from 'react-icons/md';
 import SearchSection from 'components/Piece/Search';
 import FooterSection from 'components/Footer/Footer';
-import { getAllPieces, deletePiece } from 'admin/apiAdmin';
+import { getAllPieces, deletePiece } from 'apis';
 
 import TopMenu from 'pages/Menus/TopMenu';
 import SideBarMenu from 'pages/Menus/SidebarMenu';

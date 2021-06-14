@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardHeader, CardContent, Radio, Button, Typography, Chip, CardActions } from '@material-ui/core';
 import styled from 'styled-components';
-import { getQuestion, deleteQuestion } from 'admin/apiAdmin';
+import { getQuestion, deleteQuestion } from 'apis';
 
 import { useParams } from 'react-router-dom';
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, Container, Grid, Button, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { isAuthenticated } from 'auth';
-import { createExam } from 'admin/apiAdmin';
+import { createExam } from 'apis';
 
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';

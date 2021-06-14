@@ -3,7 +3,7 @@ import { Grid, InputLabel, Select, FormControl, Button, TextField, Radio, withSt
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { isAuthenticated } from 'auth';
-import { createQuestion, getThemes, getExams } from 'admin/apiAdmin';
+import { createQuestion, getThemes, getExams } from 'apis';
 import { useForm, Form } from 'components/Form/useForm';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Snackbar from '@material-ui/core/Snackbar';

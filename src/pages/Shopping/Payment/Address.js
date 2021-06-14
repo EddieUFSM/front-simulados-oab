@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { FormControl, RadioGroup, FormControlLabel, Radio, Typography, Paper, Button, Grid, Divider, Box } from '@material-ui/core';
 import { AddCircleOutline } from '@material-ui/icons';
 import { isAuthenticated } from 'auth';
+import { getAddresses } from 'apis/address';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,36 +25,24 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function AdressSelection() {
+export default function AddressSelection() {
     const classes = useStyles();
     const { user, token } = isAuthenticated();
-    let addresses = [
-        {
-            nick: 'Casa',
-            addressLineOne: 'Avenida Paulista',
-            addressLineTwo: 'Apto. 1002',
-            number: '258',
-            ZipCode: '00000-000',
-            country: 'Brasil',
-            city: 'São Paulo'
-
-        },
-        {
-            nick: 'Trabalho',
-            addressLineOne: 'Avenida Paulista',
-            addressLineTwo: 'Apto. 1002',
-            number: '258',
-            ZipCode: '00000-000',
-            country: 'Brasil',
-            city: 'São Paulo'
-
-        }
-    ];
-    const [value, setValue] = React.useState(addresses[0].nick);
+    const [addresses, setAddresses] = useState([]);
+    const [value, setValue] = useState(0);
     const handleChange = (event) => {
         setValue(event.target.value);
     };
-    console.log(user);
+
+    function init (){
+        getAddresses(user._id, token).then(data => {
+            setAddresses(data.addresses);
+        });
+    }
+
+    useEffect(() => {
+        init();
+    }, []);
 
 
     return (
@@ -64,29 +53,36 @@ export default function AdressSelection() {
                     <Grid container>
                         <Grid item md={12} >
                             <RadioGroup aria-label="address" name="nick" value={value} onChange={handleChange}>
-                                {addresses.map((address) => (
+                                {addresses? addresses.map((address, index) => (
                                     <>
+                                        {JSON.stringify(index)}
                                         <Box display="flex" flexWrap="nowrap"
                                             alignItems="center" >
-                                            <FormControlLabel value={address.nick} control={<Radio />} />
+                                            <FormControlLabel value={index} control={<Radio />} />
                                             <Box>
                                                 <Typography variant='h5'>
                                                     {address.nick}
                                                 </Typography>
                                                 <Typography>
-                                                    Endereço: {address.addressLineOne}, {address.number} - {address.addressLineTwo}
+                                                    Endereço: {address.logradouro}, {address.number} - {address.bairro}
                                                 </Typography>
                                                 <Typography>
-                                                    CEP: {address.ZipCode}
+                                                    CEP: {address.cep}
                                                 </Typography>
                                                 <Typography>
-                                                    {address.country}, {address.city}
+                                                    {address.localidade}, {address.uf}
                                                 </Typography>
+                                                <Button variant='contained'>
+                                                    Editar
+                                                </Button>
+                                                <Button variant='contained'>
+                                                    Excluir
+                                                </Button>
                                             </Box>
                                         </Box>
                                         <Divider style={{ marginTop: 20, marginBottom: 20 }} />
                                     </>
-                                ))}
+                                )): <></>}
                             </RadioGroup>
                         </Grid>
                     </Grid>

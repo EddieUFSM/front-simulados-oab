@@ -5,7 +5,7 @@ import { Grid, TextField, Button, InputAdornment, FormControl } from '@material-
 import { ImageOutlined } from '@material-ui/icons';
 import { Form } from 'components/Form/useForm';
 import { isAuthenticated } from 'auth';
-import { createProduct, getCategories } from 'admin/apiAdmin';
+import { createProduct, getCategories } from 'apis';
 import Snackbar from '@material-ui/core/Snackbar';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import MuiAlert from '@material-ui/lab/Alert';

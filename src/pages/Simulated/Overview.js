@@ -8,7 +8,7 @@ import { ChevronLeft, ChevronRight } from '@material-ui/icons';
 import { MdMenu } from 'react-icons/md';
 import TopMenu from 'pages/Menus/TopMenu';
 import SideBarMenu from 'pages/Menus/SidebarMenu';
-import { getSimulated } from 'admin/apiAdmin';
+import { getSimulated } from 'apis';
 import { isAuthenticated } from 'auth';
 import { useParams } from 'react-router-dom';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';

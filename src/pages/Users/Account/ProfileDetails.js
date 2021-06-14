@@ -19,7 +19,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { isAuthenticated, signout } from 'auth';
-import { editUser, deleteUser } from 'admin/apiAdmin';
+import { editUser, deleteUser } from 'apis';
 
 
 const useStyles = makeStyles((theme) => ({

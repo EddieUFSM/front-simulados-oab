@@ -10,7 +10,7 @@ import TopMenu from 'pages/Menus/TopMenu';
 import SideBarMenu from 'pages/Menus/SidebarMenu';
 import SingleProduct from './Single/Product';
 import FooterSection from 'components/Footer/Footer';
-import { getProduct } from 'admin/apiAdmin';
+import { getProduct } from 'apis';
 
 import { isAuthenticated } from 'auth';
 

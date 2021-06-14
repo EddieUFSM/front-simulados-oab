@@ -4,7 +4,7 @@ import { Grid, TextField, FormControl, MenuItem, InputLabel, Select, FormLabel, 
 
 export default function PaymentForm() {
     return (
-        <form action="/process_payment" method="post" id="paymentForm">
+        <form action="/process_payment" method="post" id="paymentForm" >
             <Grid container spacing={2} style={{ padding: 30 }}>
                 <Grid item md={12} xs={12}>
                     <Typography variant='h6'>Detalhe do comprador</Typography>
@@ -18,9 +18,8 @@ export default function PaymentForm() {
                     <FormControl variant="outlined" fullWidth>
                         <InputLabel id="demo-simple-select-label">Tipo do documento</InputLabel>
                         <Select id="docType" label='Tipo de documento' name="docType" data-checkout="docType" fullWidth >
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                            <MenuItem value={10}>RG</MenuItem>
+                            <MenuItem value={20}>CPF</MenuItem>
                         </Select >
                     </FormControl>
                 </Grid>
@@ -108,10 +107,9 @@ export default function PaymentForm() {
                         <input type="hidden" name="paymentMethodId" id="paymentMethodId" />
                         <input type="hidden" name="description" id="description" />
                         <br />
-                        <Button type="submit">Pagar</Button>
+                        <Button variant='contained' color='primary' type="submit">Pagar</Button>
                         <br />
                     </div>
-
                 </Grid>
 
             </Grid>

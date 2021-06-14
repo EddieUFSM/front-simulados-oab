@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { getCep } from 'admin/apiAdmin';
+import { getCep } from 'apis';
 import { Button, TextField, CssBaseline, makeStyles, Paper, FormControl, Container } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { useTheme } from '@material-ui/core';
 import { IconButton } from '@material-ui/core';
-import { createAddress } from 'admin/apiAdmin';
+import { createAddress } from 'apis';
 import { isAuthenticated } from 'auth';
 import { Search } from '@material-ui/icons';
 

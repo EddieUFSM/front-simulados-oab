@@ -15,7 +15,7 @@ import Rating from '@material-ui/lab/Rating';
 import { Container, Paper } from '@material-ui/core';
 import ImageCarousel from 'components/Carousel/ImageCarousel';
 import ProductsCarousel from 'components/Carousel/ProductsCarousel';
-import { getProduct, addProduct } from 'admin/apiAdmin';
+import { getProduct, addProduct } from 'apis';
 import { isAuthenticated } from 'auth';
 import { FaFacebook, FaPinterest, FaShoppingCart } from 'react-icons/fa';
 import { AiFillTwitterCircle } from 'react-icons/ai';

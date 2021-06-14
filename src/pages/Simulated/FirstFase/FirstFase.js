@@ -7,7 +7,7 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdMenu } from 'react-icons/m
 import styled from 'styled-components';
 import Pagination from '@material-ui/lab/Pagination';
 import { isAuthenticated } from 'auth';
-import { getSimulated, saveSimulated, endSimulated } from 'admin/apiAdmin';
+import { getSimulated, saveSimulated, endSimulated } from 'apis';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';

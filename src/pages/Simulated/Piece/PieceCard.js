@@ -1,48 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import { Drawer, AppBar, Toolbar, IconButton, useTheme } from '@material-ui/core';
-import { ChevronLeft, ChevronRight } from '@material-ui/icons';
-import { MdMenu } from 'react-icons/md';
+import { Card, Button, CardHeader, Typography, Chip, CardContent, CardActions} from '@material-ui/core';
 import styled from 'styled-components';
+import { getPiece, deletePiece } from 'apis';
+
+import { useParams } from 'react-router-dom';
+
 import { isAuthenticated } from 'auth';
-import { getSimulated } from 'apis';
-import TopMenu from 'pages/Menus/TopMenu';
-import SideBarMenu from 'pages/Menus/SidebarMenu';
-const drawerWidth = 240;
+
 const Row = styled.div`
   display: flex;
   align-items: center;
 `;
+const Text = styled.div`
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+`;
+const AnswerContainer = styled(Button)`
+  && {
+    padding: 0;
+    padding-right: 20px;
+    text-transform: none;
+  }
+`;
+const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
-    row: {
-        display: 'flex',
-        alignItems: 'center'
-    },
-    root: {
-        display: 'flex',
-        flexGrow: 1,
-        height: '100vh'
-    }, container: {
+    container: {
         marginLeft: '3rem'
-    },
-    simulatedHeader: {
-        backgroundColor: '#2076d2',
-        color: '#fff',
-    },
-    timer: {
-        paddingLeft: theme.spacing(4),
-    },
-    questionCardContainer: {
-        paddingLeft: theme.spacing(4),
-        paddingBottom: theme.spacing(2),
     },
     title: {
         fontSize: '3.2rem',
         fontWeight: '600',
         display: 'inline-block',
-        position: 'relative',
-        flexGrow: 1
+        position: 'relative'
     },
     subtitle: {
         fontSize: '1.313rem',
@@ -59,6 +49,11 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '6px',
         boxShadow:
             '0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)'
+    },
+    root: {
+        flexGrow: 1,
+        display: 'flex',
+        height: '100vh'
     },
     appBar: {
         boxShadow: 'none',
@@ -106,6 +101,7 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: -drawerWidth,
     },
     contentShift: {
+
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.enteringScreen,
@@ -191,75 +187,81 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.background.paper,
         padding: theme.spacing(6),
     },
-    button: {
-        margin: '5px'
+    /** Mui T */
+    pageContent: {
+        margin: theme.spacing(5),
+        padding: theme.spacing(3)
     }
+
 }));
 
-export default function Simulated(props) {
-    const { user, token } = isAuthenticated();
-    const [simulated, setSimulated] = useState({});
+export default function PieceCard() {
     const classes = useStyles();
-    const theme = useTheme();
-    const [open, setOpen] = useState(false);
+    const [piece, setPiece] = useState({});
+    const [error, setError] = useState(false);
+    const [message, setMessage] = useState('');
+    let { idPiece } = useParams();
 
-    const init = async () => {
-        await getSimulated(token, props.match.params.SimuladoId).then(data => {
+
+    const handleDelete = (pieceId) => {
+        deletePiece(isAuthenticated().token, pieceId).then(data => {
             if (data.error) {
                 setError(data.error);
                 setMessage(data.message);
             } else {
-                setSimulated(data.simulated);
+
+
+                if (data.error) {
+                    setError(data.error);
+                    setMessage(data.message);
+                } else {
+                    console.log(data);
+                }
+
             }
         });
     };
+
+    const init = () => {
+        getPiece(isAuthenticated().token, idPiece).then(data => {
+            if (data.error) {
+                setPiece(data);
+            } else {
+                setPiece(data);
+                console.log(data);
+
+            }
+        });
+    };
+
     useEffect(() => {
         init();
     }, []);
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    };
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
+
+
     return (
-        <div className={classes.root}>
-            {/** Menu Topo */}
-            <AppBar color='inherit' className={clsx(classes.appBar, classes.appBar, { [classes.appBarShift]: open, })}>
-                <Toolbar>
-                    {/* left */}
-                    <IconButton
-                        edge="start"
-                        className={clsx(classes.menuIcon, classes.menuButton, open && classes.hide)}
-                        color="inherit"
-                        onClick={handleDrawerOpen}
-                        aria-label="menu">
-                        <MdMenu />
-                    </IconButton>
-                    <TopMenu />
-                </Toolbar>
-            </AppBar>
+        <Card id={piece._id} className={classes.pieceCardContainer}>
+            <Card content style={{ overflowX: 'hidden' }}>
+                <CardHeader style={{ paddingRight: 40, paddingLeft: 20 }} title={<Typography variant="h5"> Peça {piece.theme}</Typography>} subheader={<Typography variant="h5">{piece.year} <span> {piece.banca}</span> </Typography>}/>
+                <CardContent style={{ overflowX: 'hidden' }}>
+                    <Typography variant="body1" style={{marginBottom: 20}}>
+                        {piece.enunciated}
+                    </Typography>
+                    <Chip label={piece.theme} style={{marginRight: 10}}/>
+                    <Chip label={piece.year}  style={{marginRight: 10}}/>
+                </CardContent>
+                <CardActions style={{ paddingRight: 40, paddingLeft: 20 }}>
+                    <Button size="small" color="primary" variant="contained" href={'/piece/' + piece._id + '/Edit'}>
+                        Edit
+                    </Button>
 
-            {/** Menu Lateral */}
-            <Drawer className={classes.drawer} variant="persistent" anchor="left" open={open} classes={{ paper: classes.drawerPaper, }} >
-                <div className={classes.drawerHeader}>
-                    <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'ltr' ? <ChevronLeft /> : <ChevronRight />}
-                    </IconButton>
-                </div>
-                <div className={classes.drawerContainer}>
-                    <SideBarMenu />
-                </div>
-            </Drawer>
+                    <Button size="small" variant="outlined" className={classes.danger} onClick={() => { handleDelete(piece._id); }} >
+                        Excluir
+                    </Button>
+                </CardActions>
 
-            {/** Main Space */}
-            <main className={clsx(classes.content, { [classes.contentShift]: open, })}>
-
-                {/** Timer */}
-
-            </main>
-        </div >
+               
+            </Card>
+        </Card>
     );
 }
-
-// export default simulated;

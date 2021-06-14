@@ -1,40 +1,14 @@
 import { API } from 'config';
-
-export const addProduct = (userId, token, product) => {
-    return fetch(`${API}/card/add/${userId}`, {
-        method: 'PUT',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({ product: product })
-    })
-        .then(response => {
-            return response.json();
-        })
-        .catch(err => {
-            console.log(err);
-        });
+import { createAddress, getAddresses } from './address';
+import { getCard, getListProductsCard, addProduct} from './card';
+export {
+    createAddress,
+    getAddresses,
+    getCard, 
+    getListProductsCard, 
+    addProduct
 };
-export const createAddress = (userId, token, address) => {
 
-    return fetch(`${API}/Address/create/${userId}`, {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify(address)
-    })
-        .then(response => {
-            return response.json();
-        })
-        .catch(err => {
-            console.log(err);
-        });
-};
 export const createCategory = (userId, token, category) => {
     return fetch(`${API}/category/create/${userId}`, {
         method: 'POST',
@@ -170,7 +144,6 @@ export const createCustomSimulatedByDiscipline = (userId, token, simulated) => {
             console.log(err);
         });
 };
-
 export const createSimulatedByExam = (userId, token, simulated) => {
     return fetch(`${API}/simulated/create-simulated-by-exam/${userId}`, {
         method: 'POST',
@@ -214,7 +187,6 @@ export const deleteQuestion = (token, questionId) => {
         })
         .catch(err => console.log(err));
 };
-
 export const deleteEssayQuestion = (token, EssayQuestionId) => {
     return fetch(`${API}/EssayQuestion/${EssayQuestionId}`, {
         method: 'delete',
@@ -224,7 +196,6 @@ export const deleteEssayQuestion = (token, EssayQuestionId) => {
         })
         .catch(err => console.log(err));
 };
-
 export const deletePiece = (token, pieceId) => {
     return fetch(`${API}/piece/${pieceId}`, {
         method: 'delete',
@@ -250,8 +221,8 @@ export const deleteUser = (userId, token) => {
             console.log(err);
         });
 };
-export const editPiece = (userId, token, piece) => {
-    return fetch(`${API}/piece/${piece._id}/edit`, {
+export const editPiece = (token,idPiece, piece) => {
+    return fetch(`${API}/piece/${idPiece}/edit`, {
         method: 'PUT',
         headers: {
             Accept: 'application/json',
@@ -267,7 +238,6 @@ export const editPiece = (userId, token, piece) => {
             console.log(err);
         });
 };
-
 export const editEssayQuestion = (userId, token, essayQuestionId, essayQuestion) => {
     console.log(JSON.stringify(essayQuestion));
     return fetch(`${API}/essayQuestion/${essayQuestionId}/edit`, {
@@ -441,19 +411,6 @@ export const getReport = (token, reportId) => {
             console.log(err);
         });
 };
-export const getCard = (token, currentShoppingCard) => {
-    return fetch(`${API}/Card/${currentShoppingCard}`, {
-        method: 'GET',
-        Authorization: `Bearer ${token}`
-    })
-        .then(response => {
-            return response.json();
-        })
-        .catch(err => {
-            console.log(err);
-        });
-
-};
 export const getCep = (cep) => {
     return fetch(`https://viacep.com.br/ws/${cep}/json`, {
         method: 'GET'
@@ -484,19 +441,6 @@ export const getPiece = (token, pieceID) => {
         .catch(err => {
             console.log(err);
         });
-};
-export const getListProductsCard = (token, currentShoppingCard) => {
-    return fetch(`${API}/card/listProductsCard/${currentShoppingCard}`, {
-        method: 'GET',
-        Authorization: `Bearer ${token}`
-    })
-        .then(response => {
-            return response.json();
-        })
-        .catch(err => {
-            console.log(err);
-        });
-
 };
 export const getProduct = (token, idProduct) => {
     return fetch(`${API}/product/${idProduct}/Single`, {

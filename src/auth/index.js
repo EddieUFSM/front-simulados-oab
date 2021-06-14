@@ -2,7 +2,6 @@
 import { API } from 'config';
 
 export const signup = (user) => {
-    console.log(API);
     return fetch(`${API}/signup`, {
         method: 'POST',
         headers: {
@@ -12,11 +11,12 @@ export const signup = (user) => {
         body: JSON.stringify(user)
     })
         .then(response => {
-            console.log(response);
             return response.json();
         })
         .catch(err => {
-            console.log('err');
+            if(err){
+                return err.json();
+            }
         });
 };
 

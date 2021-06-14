@@ -9,7 +9,7 @@ import BannerImage from 'pages/Shopping/BannerImage';
 import ProductCategories from 'pages/Shopping/ProductCategories';
 import HowItWorks from 'pages/Shopping/HowItWorks';
 import ContactUsSection from 'pages/Shopping/ContactUsSection';
-import { getAllProducts } from 'admin/apiAdmin';
+import { getAllProducts } from 'apis';
 import ProductCarausel from 'pages/Shopping/ProductCarausel';
 import FooterSection from 'components/Footer/Footer';
 

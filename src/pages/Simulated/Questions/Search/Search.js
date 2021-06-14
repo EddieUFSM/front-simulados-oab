@@ -10,7 +10,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Chip, Button } from '@material-ui/core';
 import { MdMenu } from 'react-icons/md';
-import { getAllQuestions, deleteQuestion } from 'admin/apiAdmin';
+import { getAllQuestions, deleteQuestion } from 'apis';
 
 import TopMenu from 'pages/Menus/TopMenu';
 import SideBarMenu from 'pages/Menus/SidebarMenu';

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Grid, makeStyles, Card, CardContent, Typography, TextField, Select, Button, CardActions, FormControl, InputLabel } from '@material-ui/core';
-import { createCustomSimulatedByDiscipline } from 'admin/apiAdmin';
+import { createCustomSimulatedByDiscipline } from 'apis';
 import { useHistory } from 'react-router-dom';
 import Snackbar from '@material-ui/core/Snackbar';
 import { isAuthenticated } from 'auth';

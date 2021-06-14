@@ -1,59 +1,30 @@
+
+import clsx from 'clsx';
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardHeader, CardContent, Button, Typography, Chip, CardActions } from '@material-ui/core';
-import styled from 'styled-components';
-import { getPiece, deletePiece } from 'admin/apiAdmin';
+import { makeStyles, useTheme } from '@material-ui/core';
+import {  AppBar, Toolbar, IconButton, Drawer} from '@material-ui/core';
+import { ChevronLeft, ChevronRight } from '@material-ui/icons';
 
-import { useParams } from 'react-router-dom';
+import { MdMenu } from 'react-icons/md';
+import { getAllPieces, deletePiece } from 'apis';
 
+import TopMenu from 'pages/Menus/TopMenu';
+import SideBarMenu from 'pages/Menus/SidebarMenu';
 import { isAuthenticated } from 'auth';
+import PieceCard from './PieceCard';
 
-const Row = styled.div`
-  display: flex;
-  align-items: center;
-`;
-const Text = styled.div`
-  font-family: Roboto, sans-serif;
-  font-size: 14px;
-`;
-const AnswerContainer = styled(Button)`
-  && {
-    padding: 0;
-    padding-right: 20px;
-    text-transform: none;
-  }
-`;
+
 const drawerWidth = 240;
+
+const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+
 const useStyles = makeStyles((theme) => ({
-    container: {
-        marginLeft: '3rem'
-    },
-    title: {
-        fontSize: '3.2rem',
-        fontWeight: '600',
-        display: 'inline-block',
-        position: 'relative'
-    },
-    subtitle: {
-        fontSize: '1.313rem',
-        maxWidth: '500px',
-        margin: '10px 0 0'
-    },
-    main: {
-        background: '#FFFFFF',
-        position: 'relative',
-        zIndex: '3'
-    },
-    mainRaised: {
-        margin: '-60px 30px 0px',
-        borderRadius: '6px',
-        boxShadow:
-            '0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)'
-    },
     root: {
         flexGrow: 1,
         display: 'flex',
-        height: '100vh'
+        height: '100vh',
+        listStyle: 'none',
     },
     appBar: {
         boxShadow: 'none',
@@ -93,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
     },
     content: {
         flexGrow: 1,
-        padding: 0,
+        padding: theme.spacing(3),
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -134,13 +105,7 @@ const useStyles = makeStyles((theme) => ({
     hide: {
         display: 'none',
     },
-    paper: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-        alignItems: 'center',
-        display: 'flex',
-    },
+
     input: {
         marginLeft: theme.spacing(1),
         flex: 1
@@ -158,79 +123,63 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         width: 400,
     },
-    icon: {
-        marginRight: theme.spacing(2),
-    },
-    heroContent: {
-        backgroundColor: theme.palette.background.paper,
-        padding: theme.spacing(8, 0, 6),
-    },
-    heroButtons: {
-        marginTop: theme.spacing(4),
-    },
-    cardGrid: {
-        paddingTop: theme.spacing(8),
-        paddingBottom: theme.spacing(8),
-    },
-    card: {
-        height: '100%',
+    modal: {
+
         display: 'flex',
-        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        border: 'none',
     },
-    cardMedia: {
-        paddingTop: '56.25%', // 16:9
-    },
-    cardContent: {
-        flexGrow: 1,
-    },
-    footer: {
+    paper: {
+        width: 800,
         backgroundColor: theme.palette.background.paper,
-        padding: theme.spacing(6),
+        border: 'none',
+        padding: theme.spacing(2, 4, 3),
     },
-    /** Mui T */
-    pageContent: {
-        margin: theme.spacing(5),
-        padding: theme.spacing(3)
+    chip: {
+        margin: theme.spacing(0.5),
+    },
+    danger: {
+
+        backgroundColor: '#F01300',
+        borderColor: '#F01300',
+        color: '#ffffff',
+        '&:hover': {
+            backgroundColor: '#932822',
+            borderColor: '#932822',
+            boxShadow: 'none'
+        },
+        '&:active': {
+            boxShadow: 'none',
+            backgroundColor: '#932822',
+            borderColor: '#932822'
+        },
+        '&:focus': {
+            boxShadow: '0 0 0 0.2rem #93282200'
+        }
     }
 
 }));
 
-
-export default function PieceCard() {
+export default function Home() {
     const classes = useStyles();
-    const [piece, setPiece] = useState({});
+    const theme = useTheme();
+    const [open, setOpen] = useState(false);
+    const [allPieces, setAllPieces] = useState([]);
     const [error, setError] = useState(false);
     const [message, setMessage] = useState('');
-    let { idPiece } = useParams();
 
-
-    const handleDelete = (pieceId) => {
-        deletePiece(isAuthenticated().token, pieceId).then(data => {
+    const init = () => {
+        getAllPieces().then(data => {
+            console.log(data);
             if (data.error) {
                 setError(data.error);
                 setMessage(data.message);
+                console.log('err:' + data.message);
             } else {
 
-
-                if (data.error) {
-                    setError(data.error);
-                    setMessage(data.message);
-                } else {
-                    console.log(data);
-                }
-
-            }
-        });
-    };
-
-    const init = () => {
-        getPiece(isAuthenticated().token, idPiece).then(data => {
-            if (data.error) {
-                setPiece(data);
-            } else {
-                setPiece(data);
-                console.log(data);
-
+                console.log('questions:' + data);
+                setAllPieces(data);
             }
         });
     };
@@ -239,47 +188,74 @@ export default function PieceCard() {
         init();
     }, []);
 
+    const handleDelete = (questionId) => {
+        deletePiece(isAuthenticated().token, questionId).then(data => {
+            if (data.error) {
+                setError(data.error);
+                setMessage(data.message);
+            } else {
+                getAllPieces().then(data => {
+                    if (data.error) {
+                        setError(data.error);
+                        setMessage(data.message);
+                    } else {
+                        setAllPieces(data);
+                        console.log(data);
+                    }
+                });
+            }
+        });
+    };
+
+    const handleDrawerOpen = () => {
+        setOpen(true);
+    };
+
+    const handleDrawerClose = () => {
+        setOpen(false);
+    };
 
     return (
-        <Card id={piece._id} className={classes.pieceCardContainer}>
-            <Card content style={{ overflowX: 'hidden' }}>
-                <CardHeader
-                    style={{ paddingRight: 40, paddingLeft: 0 }}
-                    title={
-                        <>
-                            <Typography variant="h5">
-                                {piece.year}
-                                <span> {piece.banca}</span>
-                            </Typography>
-                        </>
-                    }
-                />
-                <CardContent style={{ overflowX: 'hidden' }}>
-                    <Typography variant="body1">
-                        {piece.enunciated}
-                    </Typography>
+        <div className={classes.root}>
+            {/** Menu Topo */}
+            <AppBar color='inherit' className={clsx(classes.appBar, { [classes.appBarShift]: open, })}>
+                <Toolbar>
+                    {/* left */}
+                    <IconButton
+                        edge="start"
+                        className={clsx(classes.menuIcon, classes.menuButton, open && classes.hide)}
+                        color="inherit"
+                        onClick={handleDrawerOpen}
+                        aria-label="menu">
+                        <MdMenu />
+                    </IconButton>
+                    <TopMenu />
+                </Toolbar>
+            </AppBar>
 
-                    <Chip
-                        label={piece.discipline}
-                    />
-                    <Chip label={theme} />
+            {/** Menu Lateral */}
+            <Drawer className={classes.drawer} variant="persistent" anchor="left" open={open} classes={{ paper: classes.drawerPaper, }} >
+                <div className={classes.drawerHeader}>
+                    <IconButton onClick={handleDrawerClose}>
+                        {theme.direction === 'ltr' ? <ChevronLeft /> : <ChevronRight />}
+                    </IconButton>
+                </div>
+                <div className={classes.drawerContainer}>
+                    <SideBarMenu />
+                </div>
+            </Drawer>
 
+            {/** Main Space */}
+            <main
+                className={clsx(classes.content, {
+                    [classes.contentShift]: open,
+                })}
+            >
 
-                </CardContent>
-
-                <CardActions>
-                    <Button size="small" color="primary" variant="contained" href={'/piece/' + piece._id + '/Edit'}>
-                        Edit
-                    </Button>
-
-                    <Button size="small" variant="outlined" className={classes.danger} onClick={() => { handleDelete(piece._id); }} >
-                        Excluir
-                    </Button>
-                </CardActions>
-
-
-            </Card>
-
-        </Card>
+                <div className={classes.drawerHeader} />
+                {/** Main content */}
+                <PieceCard/>
+            </main>
+        </div>
     );
 }

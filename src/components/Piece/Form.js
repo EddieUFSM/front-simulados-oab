@@ -3,7 +3,7 @@ import { Grid, InputLabel, Select, FormControl, Button, TextField, Radio, withSt
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { isAuthenticated } from 'auth';
-import { createPiece, getExams } from 'admin/apiAdmin';
+import { createPiece, getExams } from 'apis';
 import { useForm, Form } from 'components/Form/useForm';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -235,6 +235,7 @@ export default function Questionnaires() {
                             <option value={'Direito Empresarial'}>Direito Empresarial</option>
                             <option value={'Direito Penal'}>Direito Penal</option>
                             <option value={'Direito Tributário'}>Direito Tributário</option>
+                            <option value={'Direito do Trabalho'}>Direito do Trabalho</option>
                         </Select>
                     </FormControl>
                 </Grid>

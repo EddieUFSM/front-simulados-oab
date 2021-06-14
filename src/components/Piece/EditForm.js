@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { isAuthenticated } from 'auth';
 import { useParams } from 'react-router-dom';
-import { createPiece, getExams, getPiece } from 'admin/apiAdmin';
+import {  editPiece, getExams, getPiece } from 'apis';
 import { useForm, Form } from 'components/Form/useForm';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -82,7 +82,7 @@ const initialFValues = {
     formData: '',
     loading: false
 };
-export default function Questionnaires() {
+export default function Piece() {
     const classes = useStyles();
     const [selectedValue, setSelectedValue] = React.useState('a');
     const { user, token } = isAuthenticated();
@@ -91,7 +91,6 @@ export default function Questionnaires() {
     const {
         values,
         setValues,
-        handleInputChange
     } = useForm(initialFValues);
     const [allThemes, setAllThemes] = useState(['Direito Administrativo', 'Direito Civil', 'Direito Constitucional', 'Direito do Trabalho', 'Direito Empresarial', 'Direito Penal', 'Direito Tributário']);
     const [message, setMessage] = useState('');
@@ -99,6 +98,7 @@ export default function Questionnaires() {
         enunciated,
         theme,
         comment,
+        exam,
         banca,
         year,
     } = values;
@@ -107,11 +107,9 @@ export default function Questionnaires() {
 
     const loadPiece = () => {
         getPiece(token, idPiece).then((data) => {
-            console.log(data);
             if (data.error) {
                 console.log(error);
             } else {
-                console.log(data);
                 setValues({
                     ...values,
                     enunciated: data.enunciated,
@@ -119,6 +117,7 @@ export default function Questionnaires() {
                     banca: data.banca,
                     year: data.year,
                     theme: data.theme,
+                    comment: data.comment
                 });
             }
         });
@@ -128,7 +127,6 @@ export default function Questionnaires() {
             if (data.error) {
                 console.log(error);
             } else {
-                console.log(data);
                 setAllExams(data);
             }
         });
@@ -160,8 +158,8 @@ export default function Questionnaires() {
     const clickSumit = event => {
         event.preventDefault();
         setMessage('');
-        console.log(values);
-        createPiece(user._id, token, values).then(data => {
+        console.log(user);
+        editPiece(token, idPiece,  values).then(data => {
             if (data.error) {
                 setError(data.error);
                 setSuccess(data.success);
@@ -170,17 +168,6 @@ export default function Questionnaires() {
                 setError(data.error);
                 setSuccess(data.success);
                 setMessage(data.message);
-                setValues({
-                    ...values,
-                    enunciated: '',
-
-                    comment: '',
-                    banca: '',
-                    exam: '',
-                    year: '',
-                    theme: '',
-                    loading: false,
-                });
             }
         });
     };
@@ -207,12 +194,10 @@ export default function Questionnaires() {
                     <FormControl variant="outlined" className={classes.formControl}>
                         <InputLabel htmlFor="outlined-age-native-simple">Ano</InputLabel>
                         <Select
-
                             native
                             value={year}
                             onChange={(handleChange('year'))}
                             label="Ano"
-
                         >
                             <option aria-label="None" value="" />
                             <option value={2020}>2020</option>
@@ -245,6 +230,7 @@ export default function Questionnaires() {
                         <InputLabel htmlFor="outlined-age-native-simple">Tema</InputLabel>
                         <Select
                             native
+                            defaultValue={theme}
                             value={theme}
                             onChange={(handleChange('theme'))}
                             style={{ width: '100%' }}
@@ -256,6 +242,7 @@ export default function Questionnaires() {
                             <option value={'Direito Empresarial'}>Direito Empresarial</option>
                             <option value={'Direito Penal'}>Direito Penal</option>
                             <option value={'Direito Tributário'}>Direito Tributário</option>
+                            <option value={'Direito do Trabalho'}>Direito do Trabalho</option>
                         </Select>
                     </FormControl>
                 </Grid>
@@ -266,6 +253,7 @@ export default function Questionnaires() {
                             options={allExams}
                             getOptionLabel={option => option.name}
                             value={values.exam}
+                            defaultValue={values.exam}
                             onChange={handleExamChange}
                             renderInput={params => (
                                 <TextField
@@ -317,7 +305,7 @@ export default function Questionnaires() {
                 </Grid>
                 <Grid item xs={6}>
                     <Button variant="contained" color="primary" className={classes.btn} type="submit" onClick={clickSumit}>
-                        Adicionar
+                        Editar
                     </Button>
                 </Grid>
             </Grid>

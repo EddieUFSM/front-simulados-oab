@@ -57,10 +57,10 @@ export default function Checkout() {
 
     return (
 
-        <main className={classes.layout}>
+        <main className={classes.layout} style={{paddingBottom: 20}}>
             <Paper className={classes.paper}>
                 <Typography component="h1" variant="h4" align="center">
-          Checkout
+                    Checkout
                 </Typography>
                 <PaymentForm />
             </Paper>

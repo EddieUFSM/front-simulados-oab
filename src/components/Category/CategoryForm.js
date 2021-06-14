@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Container, Grid, Button, TextField } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import { isAuthenticated } from '../../auth';
-import { createCategory } from '../../admin/apiAdmin';
+import { createCategory } from '../../apis';
 
 
 import Snackbar from '@material-ui/core/Snackbar';
@@ -13,15 +12,7 @@ function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-
-const useStyles = makeStyles((category) => ({
-    root: {
-        flexGrow: 1,
-    }
-}));
-
 export default function NewForm() {
-    const classes = useStyles;
     const { user, token } = isAuthenticated();
     const [values, setValues] = useState({
         category: '',

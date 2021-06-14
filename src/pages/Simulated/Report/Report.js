@@ -14,7 +14,7 @@ import SideBarMenu from 'pages/Menus/SidebarMenu';
 import BarChart from './components/BarChart';
 import RadarChart from './components/RadarChart';
 import LineChart from './components/LineChart';
-import { getReport } from 'admin/apiAdmin';
+import { getReport } from 'apis';
 import { isAuthenticated } from 'auth';
 import { TabContext, TabList, TabPanel } from '@material-ui/lab';
 const drawerWidth = 240;

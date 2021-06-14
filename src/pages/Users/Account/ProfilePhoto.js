@@ -20,7 +20,7 @@ import {
     Button
 } from '@material-ui/core';
 import { isAuthenticated } from '../../../auth';
-import { editProfilePhoto } from '../../../admin/apiAdmin';
+import { editProfilePhoto } from '../../../apis';
 
 const useStyles = makeStyles((theme) => ({
     root: {},

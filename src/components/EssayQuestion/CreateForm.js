@@ -1,9 +1,9 @@
 
-import { Grid, InputLabel, Select, FormControl, Button, TextField, Radio, withStyles } from '@material-ui/core';
+import { Grid, InputLabel, Select, FormControl, Button, TextField } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { isAuthenticated } from 'auth';
-import { CreateEssayQuestion, getExams } from 'admin/apiAdmin';
+import { CreateEssayQuestion, getExams } from 'apis';
 import { useForm, Form } from 'components/Form/useForm';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -63,16 +63,6 @@ function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-const CustomRadio = withStyles({
-    root: {
-        color: '#3D61AD',
-        '&$checked': {
-            color: '#3D61AD',
-        },
-    },
-    checked: {},
-})((props) => <Radio color="default" {...props} />);
-
 const initialFValues = {
     enunciated: '',
     questionA: '',
@@ -95,7 +85,6 @@ export default function Questionnaires() {
     const {
         values,
         setValues,
-        handleInputChange
     } = useForm(initialFValues);
     const [message, setMessage] = useState('');
     const {
@@ -147,7 +136,6 @@ export default function Questionnaires() {
     const clickSumit = event => {
         event.preventDefault();
         setMessage('');
-        console.log(values);
         CreateEssayQuestion(user._id, token, values).then(data => {
             if (data.error) {
                 setError(data.error);
@@ -243,6 +231,7 @@ export default function Questionnaires() {
                             <option value={'Direito Empresarial'}>Direito Empresarial</option>
                             <option value={'Direito Penal'}>Direito Penal</option>
                             <option value={'Direito Tributário'}>Direito Tributário</option>
+                            <option value={'Direito do Trabalho'}>Direito do Trabalho</option>
                         </Select>
                     </FormControl>
                 </Grid>

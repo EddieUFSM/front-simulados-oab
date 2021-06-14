@@ -8,7 +8,7 @@ import { DataGrid } from '@material-ui/data-grid';
 import Chip from '@material-ui/core/Chip';
 import { MdMenu } from 'react-icons/md';
 import FooterSection from 'components/Footer/Footer';
-import { getAllEssayQuestions, deleteEssayQuestion } from 'admin/apiAdmin';
+import { getAllEssayQuestions, deleteEssayQuestion } from 'apis';
 
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';

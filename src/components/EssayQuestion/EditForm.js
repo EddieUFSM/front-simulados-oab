@@ -1,10 +1,10 @@
 
-import { Grid, InputLabel, Select, FormControl, Button, TextField, Radio, withStyles } from '@material-ui/core';
+import { Grid, InputLabel, Select, FormControl, Button, TextField } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { isAuthenticated } from 'auth';
 import { useParams } from 'react-router-dom';
-import { getExams, getEssayQuestion, editEssayQuestion } from 'admin/apiAdmin';
+import { getExams, getEssayQuestion, editEssayQuestion } from 'apis';
 import { useForm, Form } from 'components/Form/useForm';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -63,16 +63,6 @@ const useStyles = makeStyles((theme) => ({
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
-
-const CustomRadio = withStyles({
-    root: {
-        color: '#3D61AD',
-        '&$checked': {
-            color: '#3D61AD',
-        },
-    },
-    checked: {},
-})((props) => <Radio color="default" {...props} />);
 
 const initialFValues = {
     enunciated: '',
@@ -268,6 +258,7 @@ export default function Questionnaires() {
                             <option value={'Direito Empresarial'}>Direito Empresarial</option>
                             <option value={'Direito Penal'}>Direito Penal</option>
                             <option value={'Direito Tributário'}>Direito Tributário</option>
+                            <option value={'Direito do Trabalho'}>Direito do Trabalho</option>
                         </Select>
                     </FormControl>
                 </Grid>

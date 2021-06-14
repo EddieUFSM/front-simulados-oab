@@ -15,7 +15,7 @@ import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import 'assets/styles/owl_carousel_override.css';
 
-import { getAllProducts } from 'admin/apiAdmin';
+import { getAllProducts } from 'apis';
 
 const styles = (theme) => ({
     root: {
