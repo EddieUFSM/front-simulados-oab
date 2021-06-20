@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@material-ui/core';
-import { update, updateUser } from 'apis/apiUser';
+import { update, updateUser } from 'apis/user';
 import { isAuthenticated } from 'auth';
 import { Redirect } from 'react-router-dom';
 

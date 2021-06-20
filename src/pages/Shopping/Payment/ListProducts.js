@@ -11,7 +11,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Divider from '@material-ui/core/Divider';
 import { Container } from '@material-ui/core';
 import { Button } from '@material-ui/core';
-import { getCard } from 'apis';
+import { readCard } from 'apis';
 
 import { isAuthenticated } from 'auth';
 import { Paper, TextField } from '@material-ui/core';
@@ -49,7 +49,7 @@ export default function ListOfProducts({ card }) {
 
     const init = () => {
         isAuthenticated() ?
-            getCard(isAuthenticated().user.token, isAuthenticated().user.currentShoppingCard).then(data => {
+            readCard(isAuthenticated().user.token, isAuthenticated().user.currentShoppingCard).then(data => {
                 console.log(data);
                 if (data.error) {
                     setSuccess(data.success);

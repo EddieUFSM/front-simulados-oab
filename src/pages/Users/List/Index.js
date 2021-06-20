@@ -24,7 +24,7 @@ const CustomerListView = () => {
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
     const [message, setMessage] = useState('');
-    const { user, token } = isAuthenticated();
+    const { token } = isAuthenticated();
     const [rows, setRows] = useState([]);
     const [loading, setLoading] = useState(true);
 

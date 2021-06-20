@@ -3,7 +3,7 @@ import { Grid, InputLabel, Select, FormControl, Button, TextField } from '@mater
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { isAuthenticated } from 'auth';
-import { CreateEssayQuestion, getExams } from 'apis';
+import { createEssayQuestion, getExams } from 'apis';
 import { useForm, Form } from 'components/Form/useForm';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -136,7 +136,7 @@ export default function Questionnaires() {
     const clickSumit = event => {
         event.preventDefault();
         setMessage('');
-        CreateEssayQuestion(user._id, token, values).then(data => {
+        createEssayQuestion(user._id, token, values).then(data => {
             if (data.error) {
                 setError(data.error);
                 setSuccess(data.success);

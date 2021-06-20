@@ -6,7 +6,7 @@ import { MdAccountCircle, MdMail, MdShoppingCart, MdNotifications, MdBuild, MdEx
 import { useHistory } from 'react-router-dom';
 import { isAuthenticated, signout, isAdmin } from 'auth';
 
-import { getListProductsCard } from 'apis';
+import { listProductsCard } from 'apis';
 
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import logo from 'assets/img/logoB.png';
@@ -66,17 +66,19 @@ export default function TopMenu({ card, ...rest }) {
 
     const init = () => {
         isAuthenticated() ?
-            getListProductsCard(isAuthenticated().user.token, isAuthenticated().user.currentShoppingCard).then(data => {
-                if (data.error) {
-                    setSuccess(data.success);
-                    setError(data.error);
-                    setMessage(data.message);
-                } else {
-                    console.log('lista de produtos: ' + data.listProducts);
-                    setListProducts(data.listProducts);
-                    setSuccess(data.success);
-                    setError(data.error);
-                    setMessage(data.message);
+            listProductsCard(isAuthenticated().user.token, isAuthenticated().user.currentShoppingCard).then(data => {
+                if(data) {
+                    if (data.error) {
+                        setSuccess(data.success);
+                        setError(data.error);
+                        setMessage(data.message);
+                    } else {
+                        console.log('lista de produtos: ' + data.listProducts);
+                        setListProducts(data.listProducts);
+                        setSuccess(data.success);
+                        setError(data.error);
+                        setMessage(data.message);
+                    }
                 }
             })
             : console.log('não autenticado');

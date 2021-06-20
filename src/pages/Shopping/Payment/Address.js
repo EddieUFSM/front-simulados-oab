@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { FormControl, RadioGroup, FormControlLabel, Radio, Typography, Paper, Button, Grid, Divider, Box } from '@material-ui/core';
 import { AddCircleOutline } from '@material-ui/icons';
 import { isAuthenticated } from 'auth';
-import { getAddresses } from 'apis/address';
+import { listAddresses } from 'apis/address';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -35,7 +35,7 @@ export default function AddressSelection() {
     };
 
     function init (){
-        getAddresses(user._id, token).then(data => {
+        listAddresses(user._id, token).then(data => {
             setAddresses(data.addresses);
         });
     }

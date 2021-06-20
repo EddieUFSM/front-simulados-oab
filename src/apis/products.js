@@ -1,34 +1,15 @@
 import { API } from 'config';
 
-
-export const getListProductsCard = (token, currentShoppingCard) => {
-    return fetch(`${API}/card/listProductsCard/${currentShoppingCard}`, {
-        method: 'GET',
+export const createProduct = (userId, token, product) => {
+    for (var pair of product.entries()) {
+        console.log(pair[0] + ', ' + pair[1]);
+    }
+    return fetch(`${API}/product/create/${userId}`, {
+        method: 'POST',
         headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
-        }
-    })
-        .then(response => {
-            return response.json();
-        })
-        .catch(err => {
-            console.log(err);
-        });
-
-};
-
-
-export const addProduct = (userId, token, product) => {
-    return fetch(`${API}/card/add/${userId}`, {
-        method: 'PUT',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify({ product: product })
+        body: product
     })
         .then(response => {
             return response.json();
@@ -37,10 +18,8 @@ export const addProduct = (userId, token, product) => {
             console.log(err);
         });
 };
-
-
-export const getCard = (token, currentShoppingCard) => {
-    return fetch(`${API}/Card/${currentShoppingCard}`, {
+export const getAllProducts = (token) => {
+    return fetch(`${API}/products`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -51,8 +30,19 @@ export const getCard = (token, currentShoppingCard) => {
         .then(response => {
             return response.json();
         })
-        .catch(err => {
-            console.log(err);
-        });
-
+        .catch(err => console.log(err));
+};
+export const getProduct = (token, idProduct) => {
+    return fetch(`${API}/product/${idProduct}/Single`, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
 };

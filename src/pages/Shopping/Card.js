@@ -9,7 +9,7 @@ import { MdMenu } from 'react-icons/md';
 import TopMenu from 'pages/Menus/TopMenu';
 import SideBarMenu from 'pages/Menus/SidebarMenu';
 
-import { getCard } from 'apis';
+import { readCard } from 'apis';
 import ListProduct from 'pages/Shopping/Payment/ListProducts';
 import SelectAddress from 'pages/Shopping/Payment/Address';
 
@@ -197,7 +197,7 @@ export default function Card() {
 
     const init = () => {
         isAuthenticated() ?
-            getCard(token, isAuthenticated().user.currentShoppingCard).then(data => {
+            readCard(token, isAuthenticated().user.currentShoppingCard).then(data => {
                 if (data.error) {
                     setSuccess(data.success);
                     setError(data.error);
