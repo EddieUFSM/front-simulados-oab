@@ -10,7 +10,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Chip, Button } from '@material-ui/core';
 import { MdMenu } from 'react-icons/md';
-import { getAllQuestions, deleteQuestion } from 'apis';
+import { listQuestions, deleteQuestion } from 'apis';
 
 import TopMenu from 'pages/Menus/TopMenu';
 import SideBarMenu from 'pages/Menus/SidebarMenu';
@@ -245,7 +245,7 @@ export default function Home() {
     ];
 
     const init = () => {
-        getAllQuestions().then(async data => {
+        listQuestions().then(async data => {
             if (data.error) {
                 setError(data.error);
                 setMessage(data.message);

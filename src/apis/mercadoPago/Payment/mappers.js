@@ -1,20 +1,20 @@
-import { API } from "config";
+import { API } from 'config';
 
 async function setItems(products){
-    let items = []
-    await products.map((item, index) => {
-        let product = {}
-        product.id = item.product._id
-        product.title = item.product.name
-        product.description = item.product.description
-        product.picture_url = `${API}/product/photo/${item.product._id}/0`
-        product.category_id = item.product.categories[0]._id
-        product.unit_price = item.product.price
-        product.quantity = item.quant
-        await items.push(product)
-    })
+    let items = [];
+    products.map((item, index) => {
+        let product = {};
+        product.id = item.product._id;
+        product.title = item.product.name;
+        product.description = item.product.description;
+        product.picture_url = `${API}/product/photo/${item.product._id}/0`;
+        product.category_id = item.product.categories[0]._id;
+        product.unit_price = item.product.price;
+        product.quantity = item.quant;
+        items.push(product);
+    });
 
-    return items
+    return items;
 }
 
 async function setPayer(client){
@@ -26,7 +26,7 @@ async function setPayer(client){
             number: client.cell.subst(2,10)
         },
         address: client.addresses[0]
-    }
+    };
     
 }
 
@@ -39,12 +39,12 @@ async function setReceiverAddress(address){
             street_name: address.logradouro,
             street_number: address.number
         }
-    }
+    };
 }
 
 export const configPaymentInfo = (card) => {
     const body = {
-	  additional_info: {
+        additional_info: {
             items: setItems(card.products),
             payer: setPayer(card.client),
             shipments: setReceiverAddress(card.freight.address),

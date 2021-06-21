@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardHeader, CardContent, Button, Typography, Chip, CardActions, Grid } from '@material-ui/core';
 import styled from 'styled-components';
-import { getEssayQuestion, deleteEssayQuestion } from 'apis';
+import { readEssayQuestion, deleteEssayQuestion } from 'apis';
 
 import { useParams } from 'react-router-dom';
 import { isAuthenticated } from 'auth';
@@ -215,7 +215,7 @@ export default function EssayQuestionCard() {
     };
 
     const init = () => {
-        getEssayQuestion(isAuthenticated().token, idEssayQuestion).then(data => {
+        readEssayQuestion(isAuthenticated().token, idEssayQuestion).then(data => {
             if (data == undefined) {
                 return;
             } else if (data.error) {

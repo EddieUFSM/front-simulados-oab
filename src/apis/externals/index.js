@@ -1,3 +1,3 @@
-import { getCep} from './cpf';
+import { getAddressFromPostalCode } from './cpf';
 
-export {getCep};
+export { getAddressFromPostalCode };

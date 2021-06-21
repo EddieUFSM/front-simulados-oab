@@ -1,6 +1,6 @@
 import { API } from 'config';
 
-export const getReport = (token, reportId) => {
+export const readReport = (token, reportId) => {
     return fetch(`${API}/report/${reportId}`, {
         method: 'GET',
         headers: {

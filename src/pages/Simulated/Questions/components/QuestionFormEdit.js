@@ -3,7 +3,7 @@ import { Grid, InputLabel, Select, FormControl, Button, TextField, Radio, withSt
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { isAuthenticated } from 'auth';
-import { getThemes, getQuestion, editQuestion, getExams } from 'apis';
+import { listThemes, readQuestion, updateQuestion, listExams } from 'apis';
 import { useForm, Form } from 'components/Form/useForm';
 import { useParams } from 'react-router-dom';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -145,7 +145,7 @@ export default function Questionnaires() {
     const [error, setError] = useState(false);
     const [allExams, setAllExams] = useState([]);
     const loadThemes = () => {
-        getThemes(token).then((data) => {
+        listThemes(token).then((data) => {
             if (data.error) {
                 console.log(error);
             } else {
@@ -154,7 +154,7 @@ export default function Questionnaires() {
         });
     };
     const init = () => {
-        getQuestion(isAuthenticated().token, idQuestion).then(data => {
+        readQuestion(isAuthenticated().token, idQuestion).then(data => {
             if (data.error) {
                 setError(data.error);
                 setMessage(data.message);
@@ -210,7 +210,7 @@ export default function Questionnaires() {
         loadExam();
     }, []);
     const loadExam = () => {
-        getExams(token).then((data) => {
+        listExams(token).then((data) => {
             if (data.error) {
                 console.log(error);
             } else {
@@ -279,7 +279,7 @@ export default function Questionnaires() {
         event.preventDefault();
         setMessage('');
         console.log(values);
-        editQuestion(user._id, token, values).then(data => {
+        updateQuestion(user._id, token, values).then(data => {
             if (data.error) {
                 setError(data.error);
                 setSuccess(data.success);

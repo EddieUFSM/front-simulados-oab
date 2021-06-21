@@ -20,7 +20,8 @@ import {
     Button
 } from '@material-ui/core';
 import { isAuthenticated } from '../../../auth';
-import { editProfilePhoto } from '../../../apis';
+import { updateProfilePhoto } from '../../../apis';
+import { User } from '../../../apis';
 
 const useStyles = makeStyles((theme) => ({
     root: {},
@@ -47,12 +48,11 @@ const Profile = ({ className, ...rest }) => {
     const {
         formData
     } = photo;
-
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
     const [message, setMessage] = useState('');
     const [imageLink, setImageLink] = useState(`${API}/user/photo/${user._id}`);
-
+    const userApi = new User;
     // load categories and set form data
     const init = () => {
         setPhoto({
@@ -65,6 +65,10 @@ const Profile = ({ className, ...rest }) => {
     useEffect(() => {
         init();
     }, []);
+
+    const ImageAvatar  = () => {
+        return <Avatar src={imageLink} className={classes.avatar}/>;
+    };
 
     const handlePhotoChange = async (e) => {
         let name = e.target.name;
@@ -79,7 +83,7 @@ const Profile = ({ className, ...rest }) => {
         setSuccess(true);
         setError(false);
         setImageLink(imageLink);
-        editProfilePhoto(user._id, token, formData).then(data => {
+        updateProfilePhoto(user._id, token, formData).then(data => {
             if (data.error) {
                 setPhoto({ ...formData, formData: new FormData });
                 setMessage(data.message);
@@ -104,22 +108,18 @@ const Profile = ({ className, ...rest }) => {
             setMessage('Adidione uma imagem para atualizar a foto do perfil');
             return;
         }
-
         setImageLink(imageLink);
-
-        editProfilePhoto(user._id, token, formData).then(data => {
-            if (data.error) {
-                setPhoto({ ...formData, formData: new FormData });
-                setMessage(data.message);
-                setError(data.error);
-                setSuccess(data.success);
-            } else {
-                setPhoto({ ...formData, formData: new FormData });
-                setMessage(data.message);
-                setError(data.error);
-                setSuccess(data.success);
-            }
-        });
+        try {
+            const data = userApi.updatePhoto(user._id, token, formData);
+            console.log(data);
+            setPhoto({ ...formData, formData: new FormData });
+            setImageLink(`${API}/user/photo/${user._id}`);
+            setSuccess(true);
+        } catch (e) {
+            console.log(e);
+            setError(true);
+        }
+       
     };
 
     const handleClose = (event, reason) => {
@@ -129,19 +129,6 @@ const Profile = ({ className, ...rest }) => {
         setSuccess(false);
         setError(false);
     };
-
-    const showError = () => (
-        <Alert severity="warning" style={{ display: error ? '' : 'none' }}>
-            {message}
-        </Alert>
-    );
-    const showSuccess = () => (
-        <Alert severity="success" style={{ display: success ? '' : 'none' }}>
-            {message}
-        </Alert>
-    );
-
-
 
     return (
         <>
@@ -169,10 +156,7 @@ const Profile = ({ className, ...rest }) => {
                                         }}
                                         badgeContent={<Edit color="primary" style={{ fontSize: 40 }} />}
                                     >
-                                        <Avatar
-                                            src={imageLink}
-                                            className={classes.avatar}
-                                        />
+                                        <ImageAvatar/>
                                     </Badge>
 
 
@@ -212,13 +196,13 @@ const Profile = ({ className, ...rest }) => {
 
             <Snackbar open={success} autoHideDuration={6000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="success">
-          This is a success message!
+                    {message}
                 </Alert>
             </Snackbar>
 
             <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="error">
-          This is a error message!
+                    {message}
                 </Alert>
             </Snackbar>
         </>

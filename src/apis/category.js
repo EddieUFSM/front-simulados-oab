@@ -19,7 +19,7 @@ export const createCategory = (userId, token, category) => {
 };
 
 
-export const getCategories = (token) => {
+export const listCategories = (token) => {
     return fetch(`${API}/categories`, {
         method: 'GET',
         headers: {

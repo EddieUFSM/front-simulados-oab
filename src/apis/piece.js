@@ -1,6 +1,6 @@
 import { API } from 'config';
 
-export const getPiece = (token, pieceID) => {
+export const readPiece = (token, pieceID) => {
     return fetch(`${API}/Piece/${pieceID}`, {
         method: 'GET',
         headers: {
@@ -16,7 +16,7 @@ export const getPiece = (token, pieceID) => {
             console.log(err);
         });
 };
-export const getAllPieces = (token) => {
+export const listPieces = (token) => {
     return fetch(`${API}/pieces`, {
         method: 'GET',
         headers: {
@@ -57,7 +57,7 @@ export const deletePiece = (token, pieceId) => {
         })
         .catch(err => console.log(err));
 };
-export const editPiece = (token,idPiece, piece) => {
+export const updatePiece = (token,idPiece, piece) => {
     return fetch(`${API}/piece/${idPiece}/edit`, {
         method: 'PUT',
         headers: {

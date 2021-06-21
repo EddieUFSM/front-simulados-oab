@@ -19,7 +19,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { isAuthenticated, signout } from 'auth';
-import { editUser, deleteUser } from 'apis';
+import { updateUser, deleteUser } from 'apis';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -82,7 +82,7 @@ const ProfileDetails = ({ className, ...rest }) => {
         console.log(values);
         event.preventDefault();
         setMessage('');
-        editUser(user._id, token, values).then(data => {
+        updateUser(user._id, token, values).then(data => {
             if (data.error) {
 
                 setMessage(data.message);

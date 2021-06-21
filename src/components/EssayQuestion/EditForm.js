@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { isAuthenticated } from 'auth';
 import { useParams } from 'react-router-dom';
-import { getExams, getEssayQuestion, editEssayQuestion } from 'apis';
+import { listExams, readEssayQuestion, updateEssayQuestion } from 'apis';
 import { useForm, Form } from 'components/Form/useForm';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -105,7 +105,7 @@ export default function Questionnaires() {
     const [error, setError] = useState(false);
 
     const loadEssayQuestion = () => {
-        getEssayQuestion(token, idEssayQuestion).then((data) => {
+        readEssayQuestion(token, idEssayQuestion).then((data) => {
             console.log(data);
             if (data.error) {
                 console.log(error);
@@ -128,7 +128,7 @@ export default function Questionnaires() {
     };
 
     const loadExam = () => {
-        getExams(token).then((data) => {
+        listExams(token).then((data) => {
             if (data.error) {
                 console.log(error);
             } else {
@@ -164,7 +164,7 @@ export default function Questionnaires() {
     const clickSumit = event => {
         event.preventDefault();
         setMessage('');
-        editEssayQuestion(user._id, token, idEssayQuestion, values).then(data => {
+        updateEssayQuestion(user._id, token, idEssayQuestion, values).then(data => {
             if (data.error) {
                 setError(data.error);
                 setSuccess(data.success);

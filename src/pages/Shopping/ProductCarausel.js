@@ -15,7 +15,7 @@ import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import 'assets/styles/owl_carousel_override.css';
 
-import { getAllProducts } from 'apis';
+import { listProducts } from 'apis';
 
 const styles = (theme) => ({
     root: {
@@ -72,7 +72,7 @@ function ProductCarausel(props) {
     const [success, setSuccess] = useState(false);
     const [message, setMessage] = useState('');
     const init = () => {
-        getAllProducts().then(data => {
+        listProducts().then(data => {
             if (data.error) {
                 setProductList(data.products);
                 setMessage(data.message);

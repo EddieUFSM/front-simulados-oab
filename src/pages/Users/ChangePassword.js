@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@material-ui/core';
-import { update, updateUser } from 'apis/user';
+import { resetPassword, updateProfile } from 'apis/';
 import { isAuthenticated } from 'auth';
 import { Redirect } from 'react-router-dom';
 
@@ -22,11 +22,11 @@ export default function ChangePassword() {
 
     const clickSubmit = (event) => {
         event.preventDefault();
-        update(user._id, token, { 'password': password, 'confirmation': confirmation }).then((data) => {
+        resetPassword(user._id, token, { 'password': password, 'confirmation': confirmation }).then((data) => {
             if (data.error) {
-                console.log('deu ruim');
+                console.log(data.error);
             } else {
-                updateUser(data.user, () => {
+                updateProfile(data.user, () => {
                     setSuccess(true);
                 });
             }

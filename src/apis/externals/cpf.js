@@ -1,4 +1,4 @@
-export const getCep = (cep) => {
+export const getAddressFromPostalCode = (cep) => {
     return fetch(`https://viacep.com.br/ws/${cep}/json`, {
         method: 'GET'
     }).then(response => {

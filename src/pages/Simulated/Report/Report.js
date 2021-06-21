@@ -14,7 +14,7 @@ import SideBarMenu from 'pages/Menus/SidebarMenu';
 import BarChart from './components/BarChart';
 import RadarChart from './components/RadarChart';
 import LineChart from './components/LineChart';
-import { getReport } from 'apis';
+import { readReport } from 'apis';
 import { isAuthenticated } from 'auth';
 import { TabContext, TabList, TabPanel } from '@material-ui/lab';
 const drawerWidth = 240;
@@ -220,7 +220,7 @@ export default function Simulado(props) {
         setOpen(false);
     };
     const init = async () => {
-        await getReport(token, user.report).then(data => {
+        await readReport(token, user.report).then(data => {
             if (data === undefined) {
                 setError(true);
                 setMessage('usuário não tem Report');

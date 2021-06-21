@@ -18,7 +18,7 @@ export const createExam = (userId, token, exam) => {
         });
 };
 
-export const getExams = (token) => {
+export const listExams = (token) => {
     return fetch(`${API}/exams`, {
         method: 'GET',
         headers: {

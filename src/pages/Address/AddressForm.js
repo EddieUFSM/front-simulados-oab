@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getCep } from 'apis';
+import { getAddressFromPostalCode } from 'apis';
 import { Button, TextField, CssBaseline, makeStyles, Paper, FormControl, Container } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { useTheme } from '@material-ui/core';
@@ -8,7 +8,6 @@ import { createAddress } from 'apis';
 import { isAuthenticated } from 'auth';
 import { Search } from '@material-ui/icons';
 
-const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: theme.spacing(8),
@@ -80,7 +79,7 @@ export default function AddressForm() {
         const nCep = cep.replace(/-/g, '');
         if (nCep.length === 8) {
             setValues({ ...values, cep: nCep });
-            getCep(nCep).then(data => {
+            getAddressFromPostalCode(nCep).then(data => {
                 setValues({
                     ...values,
                     bairro: data.bairro,

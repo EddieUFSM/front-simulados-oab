@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardHeader, CardContent, Radio, Button, Typography, Chip, CardActions } from '@material-ui/core';
 import styled from 'styled-components';
-import { getQuestion, deleteQuestion } from 'apis';
+import { readQuestion, deleteQuestion } from 'apis';
 
 import { useParams } from 'react-router-dom';
 
@@ -231,7 +231,7 @@ export default function QuestionCard() {
     };
 
     const init = () => {
-        getQuestion(isAuthenticated().token, idQuestion).then(data => {
+        readQuestion(isAuthenticated().token, idQuestion).then(data => {
             if (data.error) {
                 setQuestion(data);
             } else {

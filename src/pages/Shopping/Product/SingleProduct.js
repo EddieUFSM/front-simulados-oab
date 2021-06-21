@@ -10,7 +10,7 @@ import TopMenu from 'pages/Menus/TopMenu';
 import SideBarMenu from 'pages/Menus/SidebarMenu';
 import SingleProduct from './Single/Product';
 import FooterSection from 'components/Footer/Footer';
-import { getProduct } from 'apis';
+import { readProduct } from 'apis';
 
 import { isAuthenticated } from 'auth';
 
@@ -201,7 +201,7 @@ export default function Users() {
     };
 
     const init = () => {
-        getProduct(isAuthenticated().token, idProduct).then(data => {
+        readProduct(isAuthenticated().token, idProduct).then(data => {
             if (data.error) {
                 setSelectedProduct(data);
             } else {

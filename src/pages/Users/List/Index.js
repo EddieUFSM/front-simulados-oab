@@ -4,7 +4,7 @@ import {
     makeStyles
 } from '@material-ui/core';
 
-import { getAllUsers } from 'apis';
+import { listUsers } from 'apis';
 import { isAuthenticated } from 'auth';
 
 import { DataGrid } from '@material-ui/data-grid';
@@ -45,7 +45,7 @@ const CustomerListView = () => {
     ];
 
     const init = () => {
-        getAllUsers(token).then(async data => {
+        listUsers(token).then(async data => {
             if (data.error) {
                 setError(data.error);
                 setSuccess(data.success);
@@ -69,13 +69,9 @@ const CustomerListView = () => {
     }, []);
 
     return (
-
         <div style={{ height: 500, width: '100%', padding: 16 }}>
             <DataGrid loading={loading} rows={rows} columns={columns} pageSize={10} checkboxSelection />
         </div>
-
-
-
     );
 };
 

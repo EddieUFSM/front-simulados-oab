@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { isAuthenticated } from 'auth';
 import { useParams } from 'react-router-dom';
-import {  editPiece, getExams, getPiece } from 'apis';
+import {  updatePiece, listExams, readPiece } from 'apis';
 import { useForm, Form } from 'components/Form/useForm';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -106,7 +106,7 @@ export default function Piece() {
     const [error, setError] = useState(false);
 
     const loadPiece = () => {
-        getPiece(token, idPiece).then((data) => {
+        readPiece(token, idPiece).then((data) => {
             if (data.error) {
                 console.log(error);
             } else {
@@ -123,7 +123,7 @@ export default function Piece() {
         });
     };
     const loadExam = () => {
-        getExams(token).then((data) => {
+        listExams(token).then((data) => {
             if (data.error) {
                 console.log(error);
             } else {
@@ -159,7 +159,7 @@ export default function Piece() {
         event.preventDefault();
         setMessage('');
         console.log(user);
-        editPiece(token, idPiece,  values).then(data => {
+        updatePiece(token, idPiece,  values).then(data => {
             if (data.error) {
                 setError(data.error);
                 setSuccess(data.success);

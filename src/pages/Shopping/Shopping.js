@@ -9,7 +9,7 @@ import BannerImage from 'pages/Shopping/BannerImage';
 import ProductCategories from 'pages/Shopping/ProductCategories';
 import HowItWorks from 'pages/Shopping/HowItWorks';
 import ContactUsSection from 'pages/Shopping/ContactUsSection';
-import { getAllProducts } from 'apis';
+import { listProducts } from 'apis';
 import ProductCarausel from 'pages/Shopping/ProductCarausel';
 import FooterSection from 'components/Footer/Footer';
 
@@ -189,7 +189,7 @@ export default function Shopping() {
     });
 
     const init = () => {
-        getAllProducts().then(data => {
+        listProducts().then(data => {
             if (data.error) {
                 setValues({ ...values, error: data.error });
             } else {

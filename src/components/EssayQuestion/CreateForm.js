@@ -3,7 +3,7 @@ import { Grid, InputLabel, Select, FormControl, Button, TextField } from '@mater
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { isAuthenticated } from 'auth';
-import { createEssayQuestion, getExams } from 'apis';
+import { createEssayQuestion, listExams } from 'apis';
 import { useForm, Form } from 'components/Form/useForm';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -102,7 +102,7 @@ export default function Questionnaires() {
 
 
     const loadExam = () => {
-        getExams(token).then((data) => {
+        listExams(token).then((data) => {
             if (data.error) {
                 console.log(error);
             } else {

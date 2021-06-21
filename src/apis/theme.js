@@ -17,7 +17,7 @@ export const createTheme = (userId, token, theme) => {
             console.log(err);
         });
 };
-export const getThemes = (token) => {
+export const listThemes = (token) => {
     return fetch(`${API}/themes`, {
         method: 'GET',
         headers: {

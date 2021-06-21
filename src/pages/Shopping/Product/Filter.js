@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, IconButton, Container, Grid, Button, FormControl, MenuItem, Paper, Divider, CardMedia, Select, Card, CardActionArea, CardContent, Typography, CardActions, FormLabel, FormGroup, FormControlLabel, Checkbox, FormHelperText, Slider, Chip } from '@material-ui/core';
 import { MdDelete as DeleteIcon } from 'react-icons/md';
 import { makeStyles } from '@material-ui/core/styles';
-import { getAllProducts } from 'apis';
+import { listProducts } from 'apis';
 import { API } from 'config';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Banner from 'assets/img/Banner/banner01.png';
@@ -172,7 +172,7 @@ export default function Filters() {
     const [products, setProducts] = useState([]);
 
     const init = () => {
-        getAllProducts().then(data => {
+        listProducts().then(data => {
             if (data.error) {
                 setMessage(data.message);
                 setError(data.error);

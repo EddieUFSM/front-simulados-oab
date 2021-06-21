@@ -8,7 +8,7 @@ import { DataGrid } from '@material-ui/data-grid';
 import Chip from '@material-ui/core/Chip';
 import { MdMenu } from 'react-icons/md';
 import FooterSection from 'components/Footer/Footer';
-import { getAllEssayQuestions, deleteEssayQuestion } from 'apis';
+import { listEssayQuestions, deleteEssayQuestion } from 'apis';
 
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -240,7 +240,7 @@ export default function Home() {
     ];
 
     const init = () => {
-        getAllEssayQuestions().then(async data => {
+        listEssayQuestions().then(async data => {
             if (data.error) {
                 setError(data.error);
                 setMessage(data.message);
@@ -268,7 +268,7 @@ export default function Home() {
                 setError(data.error);
                 setMessage(data.message);
             } else {
-                getAllEssayQuestions().then(data => {
+                listEssayQuestions().then(data => {
                     if (data.error) {
                         setError(data.error);
                         setMessage(data.message);

@@ -15,7 +15,7 @@ import Rating from '@material-ui/lab/Rating';
 import { Container, Paper } from '@material-ui/core';
 import ImageCarousel from 'components/Carousel/ImageCarousel';
 import ProductsCarousel from 'components/Carousel/ProductsCarousel';
-import { getProduct, addProduct } from 'apis';
+import { readProduct, addProduct } from 'apis';
 import { isAuthenticated } from 'auth';
 import { FaFacebook, FaPinterest, FaShoppingCart } from 'react-icons/fa';
 import { AiFillTwitterCircle } from 'react-icons/ai';
@@ -70,7 +70,7 @@ export default function RecipeReviewCard() {
     const { user, token } = isAuthenticated();
 
     const init = () => {
-        getProduct(token, idProduct).then(data => {
+        readProduct(token, idProduct).then(data => {
             if (data.error) {
                 setProduct(data);
             } else {

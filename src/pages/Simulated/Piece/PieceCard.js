@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, Button, CardHeader, Typography, Chip, CardContent, CardActions} from '@material-ui/core';
 import styled from 'styled-components';
-import { getPiece, deletePiece } from 'apis';
+import { readPiece, deletePiece } from 'apis';
 
 import { useParams } from 'react-router-dom';
 
@@ -223,7 +223,7 @@ export default function PieceCard() {
     };
 
     const init = () => {
-        getPiece(isAuthenticated().token, idPiece).then(data => {
+        readPiece(isAuthenticated().token, idPiece).then(data => {
             if (data.error) {
                 setPiece(data);
             } else {

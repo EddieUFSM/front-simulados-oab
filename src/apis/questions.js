@@ -26,7 +26,7 @@ export const deleteQuestion = (token, questionId) => {
         })
         .catch(err => console.log(err));
 };
-export const editQuestion = (userId, token, question) => {
+export const updateQuestion = (userId, token, question) => {
     return fetch(`${API}/question/${question._id}/edit`, {
         method: 'PUT',
         headers: {
@@ -43,7 +43,7 @@ export const editQuestion = (userId, token, question) => {
             console.log(err);
         });
 };
-export const getAllQuestions = (token) => {
+export const listQuestions = (token) => {
     return fetch(`${API}/questions`, {
         method: 'GET',
         headers: {
@@ -57,7 +57,7 @@ export const getAllQuestions = (token) => {
         })
         .catch(err => console.log(err));
 };
-export const getQuestion = (token, idQuestion) => {
+export const readQuestion = (token, idQuestion) => {
     return fetch(`${API}/question/${idQuestion}/Single`, {
         method: 'GET',
         headers: {

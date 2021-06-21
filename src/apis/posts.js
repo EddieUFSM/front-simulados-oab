@@ -1,6 +1,6 @@
 import { API } from 'config';
 
-export const getPosts = (token) => {
+export const listPosts = (token) => {
     return fetch(`${API}/posts`, {
         method: 'GET',
         headers: {

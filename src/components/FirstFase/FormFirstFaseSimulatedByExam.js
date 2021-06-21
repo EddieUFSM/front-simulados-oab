@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, makeStyles, Card, CardContent, Typography, TextField, Button, CardActions, FormControl } from '@material-ui/core';
-import { createSimulatedByExam, getExams } from 'apis';
+import { createSimulatedByExam, listExams } from 'apis';
 import { useHistory } from 'react-router-dom';
 import Snackbar from '@material-ui/core/Snackbar';
 import { isAuthenticated } from 'auth';
@@ -49,7 +49,7 @@ export default function MenuGame() {
 
 
     const loadExam = () => {
-        getExams(token).then((data) => {
+        listExams(token).then((data) => {
             if (data.error) {
                 console.log(error);
             } else {

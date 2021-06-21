@@ -18,7 +18,7 @@ export const createProduct = (userId, token, product) => {
             console.log(err);
         });
 };
-export const getAllProducts = (token) => {
+export const listProducts = (token) => {
     return fetch(`${API}/products`, {
         method: 'GET',
         headers: {
@@ -32,7 +32,7 @@ export const getAllProducts = (token) => {
         })
         .catch(err => console.log(err));
 };
-export const getProduct = (token, idProduct) => {
+export const readProduct = (token, idProduct) => {
     return fetch(`${API}/product/${idProduct}/Single`, {
         method: 'GET',
         headers: {

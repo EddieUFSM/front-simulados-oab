@@ -6,7 +6,7 @@ import {  AppBar, Toolbar, IconButton, Drawer} from '@material-ui/core';
 import { ChevronLeft, ChevronRight } from '@material-ui/icons';
 
 import { MdMenu } from 'react-icons/md';
-import { getAllPieces, deletePiece } from 'apis';
+import { listPieces, deletePiece } from 'apis';
 
 import TopMenu from 'pages/Menus/TopMenu';
 import SideBarMenu from 'pages/Menus/SidebarMenu';
@@ -170,7 +170,7 @@ export default function Home() {
     const [message, setMessage] = useState('');
 
     const init = () => {
-        getAllPieces().then(data => {
+        listPieces().then(data => {
             console.log(data);
             if (data.error) {
                 setError(data.error);
@@ -194,7 +194,7 @@ export default function Home() {
                 setError(data.error);
                 setMessage(data.message);
             } else {
-                getAllPieces().then(data => {
+                listPieces().then(data => {
                     if (data.error) {
                         setError(data.error);
                         setMessage(data.message);

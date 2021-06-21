@@ -1,5 +1,12 @@
-import { createAddress, listAddresses, readAddress, removeAddress } from './address';
-import { readCard, listProductsCard, addProduct} from './card';
+import { 
+    createAddress, 
+    listAddresses, 
+    readAddress, 
+    deleteAddress } from './address';
+import {
+    readCard, 
+    listProductsCard, 
+    addProduct } from './card';
 import { 
     createCustomSimulatedByDiscipline, 
     createSimulatedByExam, 
@@ -7,17 +14,66 @@ import {
     getSimulated, 
     getPoints, 
     saveSimulated } from './simulated';
-import { getAllUsers, editUser, deleteUser,update, updateUser, editProfilePhoto } from './user';
-import { getEssayQuestion, editEssayQuestion, createEssayQuestion, deleteEssayQuestion, getAllEssayQuestions } from './essayQuestions';
-import { getQuestion, createQuestion, editQuestion, deleteQuestion, getAllQuestions } from'./questions';
-import { createCategory, getCategories } from './category';
-import { createTheme, getThemes} from './theme';
-import { createExam, getExams } from './exam';
-import { createPiece, deletePiece, editPiece, getAllPieces, getPiece} from './piece';
-import { createPost, getPosts } from './posts';
-import { createProduct, getAllProducts, getProduct } from './products';
-import { getReport } from './reports';
-import { getCep } from './externals';
+import { 
+    listUsers,
+    updateUser,
+    updateProfile,
+    deleteUser,
+    updateProfilePhoto,
+    resetPassword,
+} from './user';
+import User from './user';
+import { 
+    readEssayQuestion, 
+    updateEssayQuestion, 
+    createEssayQuestion, 
+    deleteEssayQuestion, 
+    listEssayQuestions } from './essayQuestions';
+import { 
+    readQuestion, 
+    createQuestion, 
+    updateQuestion, 
+    deleteQuestion, 
+    listQuestions } from'./questions';
+import { 
+    createCategory, 
+    listCategories } from './category';
+import { 
+    createTheme, 
+    listThemes} from './theme';
+import { 
+    createExam, 
+    listExams } from './exam';
+import { 
+    createPiece,
+    deletePiece,
+    updatePiece,
+    listPieces,
+    readPiece } from './piece';
+import { 
+    createPost,
+    listPosts } from './posts';
+import { 
+    createProduct,
+    listProducts, 
+    readProduct } from './products';
+import { 
+    readReport } from './reports';
+import { 
+    getAddressFromPostalCode } from './externals';
+import { 
+    Card,
+    ChargeBack,
+    Customer,
+    Document,
+    Instore,
+    Order,
+    Payments, 
+    PaymentsMethod, 
+    Pos,
+    Preapproval,
+    Preference,
+    Store } from './mercadoPago';
 
 export {
     addProduct,
@@ -32,39 +88,54 @@ export {
     createQuestion,
     createSimulatedByExam,
     createTheme,
+    readPiece,    
+    readAddress,
+    readEssayQuestion,
+    readCard,
+    readProduct,
+    readQuestion,
+    readReport,
+    updateEssayQuestion,
+    updatePiece,
+    updateProfilePhoto,
+    updateQuestion,
+    updateUser, 
+    updateProfile,
     deleteEssayQuestion,
     deletePiece,
     deleteQuestion,
     deleteUser,
-    editEssayQuestion,
-    editPiece,
-    editProfilePhoto,
-    editQuestion,
-    editUser, 
-    endSimulated,
-    getAllEssayQuestions,
-    getAllPieces,
-    getAllProducts,
-    getAllQuestions,
+    deleteAddress,
+    listEssayQuestions,
+    listPieces,
+    listProducts,
+    listQuestions,
     listAddresses,
-    readAddress,
-    readCard,
-    getCategories,
-    getCep, 
-    getExams,
-    getEssayQuestion,
+    listCategories,
+    listExams,
+    listPosts,
     listProductsCard, 
-    getPiece,
+    listThemes,
+    listUsers, 
+    resetPassword,
+    getAddressFromPostalCode, 
     getPoints,
-    getPosts,
-    getProduct,
-    getQuestion,
-    getReport,
     getSimulated,
-    getThemes,
-    getAllUsers, 
-    removeAddress,
     saveSimulated,
-    updateUser,
-    update
+    endSimulated,
+    User,
+
+    Payments,
+    Card,
+    ChargeBack,
+    Customer,
+    Document,
+    Instore,
+    Order,
+    PaymentsMethod, 
+    Pos,
+    Preapproval,
+    Preference,
+    Store
+    
 };

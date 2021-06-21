@@ -5,7 +5,7 @@ import { makeStyles, useTheme } from '@material-ui/core';
 import { AppBar, Toolbar, IconButton, Drawer } from '@material-ui/core';
 import { ChevronLeft, ChevronRight } from '@material-ui/icons';
 import { MdMenu } from 'react-icons/md';
-import { getAllQuestions, deleteQuestion } from 'apis';
+import { listQuestions, deleteQuestion } from 'apis';
 import TopMenu from 'pages/Menus/TopMenu';
 import SideBarMenu from 'pages/Menus/SidebarMenu';
 import { isAuthenticated } from 'auth';
@@ -173,7 +173,7 @@ export default function SingleQuestion() {
                 setError(data.error);
                 setMessage(data.message);
             } else {
-                getAllQuestions().then(data => {
+                listQuestions().then(data => {
                     if (data.error) {
                         setError(data.error);
                         setMessage(data.message);

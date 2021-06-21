@@ -18,7 +18,7 @@ export const createEssayQuestion = (userId, token, essayQuestion) => {
         });
 };
 
-export const editEssayQuestion = (userId, token, essayQuestionId, essayQuestion) => {
+export const updateEssayQuestion = (userId, token, essayQuestionId, essayQuestion) => {
     console.log(JSON.stringify(essayQuestion));
     return fetch(`${API}/essayQuestion/${essayQuestionId}/edit`, {
         method: 'PUT',
@@ -37,7 +37,7 @@ export const editEssayQuestion = (userId, token, essayQuestionId, essayQuestion)
         });
 };
 
-export const getEssayQuestion = (token, essayQuestionID) => {
+export const readEssayQuestion = (token, essayQuestionID) => {
     return fetch(`${API}/essayQuestion/${essayQuestionID}`, {
         method: 'GET',
         headers: {
@@ -63,7 +63,7 @@ export const deleteEssayQuestion = (token, EssayQuestionId) => {
         .catch(err => console.log(err));
 };
 
-export const getAllEssayQuestions = (token) => {
+export const listEssayQuestions = (token) => {
     return fetch(`${API}/essayquestions`, {
         method: 'GET',
         headers: {
